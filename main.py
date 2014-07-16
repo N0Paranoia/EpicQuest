@@ -3,6 +3,7 @@ from player import *
 from constants import *
 from tilemap import *
 from level import *
+from camera import *
 from pygame.locals import *
 
 
@@ -21,6 +22,7 @@ class Main(object):
 		textControl = font.render("use [ASWD] to move", 1, (255, 255, 255))
 
 		player = Player(0,0)
+		camera = Camera(0,0)
 		
 		running = True
 
@@ -50,6 +52,11 @@ class Main(object):
 			player.update(GRAVITY)
 			player.move()
 			player.render(window)
+
+			# -- Camera
+
+			camera.update(player.x, player.y)
+			camera.render(window)
 			
 			# -- Set FPS
 
