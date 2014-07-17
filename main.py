@@ -43,7 +43,7 @@ class Main(object):
 
 			for row in range(MAPHEIGHT):
 				for column in range (MAPWIDTH):
-					tile = Tile(column*TILESIZE, row*TILESIZE, colors[tilemap[row][column]])
+					tile = Tile(column*TILESIZE - player.x, row*TILESIZE -player.y, colors[tilemap[row][column]])
 					tile.render(window)
 			
 			# -- Handle player events
@@ -55,7 +55,8 @@ class Main(object):
 
 			# -- Camera
 
-			camera.update(player.x, player.y)
+			camera = Camera(player.x, player.y)
+			# camera.update(player.x, player.y)
 			camera.render(window)
 			
 			# -- Set FPS

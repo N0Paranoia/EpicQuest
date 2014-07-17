@@ -4,10 +4,10 @@ from constants import *
 class Camera(object):
 
 	def __init__(self, x, y):
-		self.x = x
-		self.y = y
-		self.width = 2*TILESIZE
-		self.height = 2*TILESIZE
+		self.x = x - (WINDOW_WIDTH/2)
+		self.y = y - (WINDOW_HEIGHT/2)
+		self.width = WINDOW_WIDTH
+		self.height = WINDOW_HEIGHT
 
 	def update (self, x, y):
 		if x <= self.x:

@@ -41,7 +41,7 @@ class Collision(object):
 		for row in range(MAPHEIGHT):
 				for column in range (MAPWIDTH):
 					if tilemap[row][column] > 0:
-						tiles = Tile(column*TILESIZE, row*TILESIZE, None)
+						tiles = Tile(column*TILESIZE -x , row*TILESIZE-y, None)
 						col = Collision()
 						if col.CheckCollision(x, y, w, h, tiles) == True:
 							return True
