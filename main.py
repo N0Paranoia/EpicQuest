@@ -21,7 +21,7 @@ class Main(object):
 			
 		textControl = font.render("use [ASWD] to move", 1, (255, 255, 255))
 
-		player = Player(0,0)
+		player = Player(WINDOW_WIDTH/2 - TILESIZE/2,WINDOW_HEIGHT/2 - TILESIZE/2)
 		camera = Camera(0,0)
 		
 		running = True
@@ -43,20 +43,20 @@ class Main(object):
 
 			for row in range(MAPHEIGHT):
 				for column in range (MAPWIDTH):
-					tile = Tile(column*TILESIZE - player.x, row*TILESIZE -player.y, colors[tilemap[row][column]])
+					tile = Tile(column*TILESIZE - camera.x, row*TILESIZE - camera.y, colors[tilemap[row][column]])
 					tile.render(window)
 			
 			# -- Handle player events
 
 			player.input(event)
-			player.update(GRAVITY)
+			player.update(GRAVITY, camera.x, camera.y)
 			player.move()
-			player.render(window)
+			player.render(window, camera.x, camera.y)
 
 			# -- Camera
 
 			camera = Camera(player.x, player.y)
-			# camera.update(player.x, player.y)
+			camera.update(player.x, player.y)
 			camera.render(window)
 			
 			# -- Set FPS

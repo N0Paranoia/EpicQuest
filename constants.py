@@ -16,7 +16,7 @@ BLUE = (0,0,255)
 
 # -- Tile(map) constants
 TILESIZE = 32
-MAPWIDTH = 24
+MAPWIDTH = 20
 MAPHEIGHT = 15 
 
 SKY = 0
