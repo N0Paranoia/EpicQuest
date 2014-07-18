@@ -35,9 +35,8 @@ class Main(object):
 				if event.type == KEYDOWN:
 					if event.key == K_q:
 						running = False
-			
 
-			window.fill((BLACK))
+			window.fill((YELLOW))
 
 			# -- Draw tilemap
 
