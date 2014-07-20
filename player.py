@@ -52,19 +52,11 @@ class Player(object):
 		self.x += self.velocity_x
 		if self.x < 0 or self.x + self.width > MAPWIDTH*32 or col.WallCollision(self.x, self.y, self.width, self.height) == True:
 			self.x -= self.velocity_x
-		# if self.x < 0:
-		# 	self.x = 0
-		# elif self.x > WINDOW_WIDTH - self.width:
-		# 	self.x = WINDOW_WIDTH - self.width
 
 		# self.velocity_y += gravity
 		self.y += self.velocity_y
 		if self.y < 0 or self.y + self.height > MAPHEIGHT*32 or col.WallCollision(self.x, self.y, self.width, self.height) == True:
 			self.y -= self.velocity_y
-		# if self.y < 0:
-		# 	self.y = 0
-		# elif self.y > WINDOW_HEIGHT - self.height:
-		# 	self.y = WINDOW_HEIGHT - self.height
 		
 	def render(self, window, camX, camY):
 		pygame.draw.rect(window, WHITE, (self.x - camX, self.y - camY, self.width, self.height))

@@ -21,9 +21,10 @@ class Main(object):
 			
 		textControl = font.render("use [ASWD] to move", 1, (255, 255, 255))
 
-		player = Player(WINDOW_WIDTH/2 - TILESIZE/2,WINDOW_HEIGHT/2 - TILESIZE/2)
+		player = Player(WINDOW_WIDTH/2 - TILESIZE/2, WINDOW_HEIGHT/2 - TILESIZE/2)
 		camera = Camera(0,0)
-		
+		centerCam = CenterCamera()
+
 		running = True
 
 		while running:
@@ -54,10 +55,13 @@ class Main(object):
 
 			# -- Camera
 
-			camera = Camera(player.x, player.y)
-			camera.update(player.x, player.y)
+			centerCam.update(player.x, player.y)
+			centerCam.render(window, camera.x, camera.y)
+
+			camera = Camera(centerCam.x, centerCam.y)
+			camera.update(centerCam.x, centerCam.y)
 			camera.render(window)
-			
+
 			# -- Set FPS
 
 			clock.tick(FPS)

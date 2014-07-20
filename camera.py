@@ -21,3 +21,25 @@ class Camera(object):
 
 	def render(self, window):
 		pygame.draw.rect(window, WHITE, (self.x/WINDOW_WIDTH, self.y/WINDOW_HEIGHT, self.width, self.height), 2)
+		
+
+class CenterCamera(object):
+
+	def __init__(self):
+		self.x = 0
+		self.y = 0
+		self.width = 64
+		self.height = 64
+
+	def update (self, x, y):
+		if self.x > x:
+			self.x = x
+		if self.x < x - TILESIZE:
+			self.x = x - TILESIZE
+		if self.y > y:
+			self.y = y
+		if self.y < y - TILESIZE:
+			self.y = y - TILESIZE
+
+	def render(self, window, camX, camY):
+		pygame.draw.rect(window, WHITE, (self.x - camX, self.y - camY, self.width, self.height), 1)
