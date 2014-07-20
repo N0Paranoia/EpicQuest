@@ -49,8 +49,8 @@ class Main(object):
 			# -- Handle player events
 
 			player.input(event)
-			player.update(GRAVITY, camera.x, camera.y)
-			player.move()
+			player.jump()
+			player.move(GRAVITY, camera.x, camera.y)
 			player.render(window, camera.x, camera.y)
 
 			# -- Camera
