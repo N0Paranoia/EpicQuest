@@ -20,8 +20,8 @@ MAGENTA = (255,0,255)
 
 # -- Tile(map) constants
 TILESIZE = 32
-MAPWIDTH = 20
-MAPHEIGHT = 15 
+MAPWIDTH = 22
+MAPHEIGHT = 16 
 
 SKY = 0
 GRASS = 1
