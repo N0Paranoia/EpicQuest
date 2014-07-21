@@ -38,6 +38,7 @@ class Player(object):
 			self.DOWN = True
 		if keys[K_SPACE]:
 			self.JUMP = True
+			self.jump()
 
 	def jump(self):
 		if self.JUMP == True:
@@ -71,10 +72,19 @@ class Player(object):
 		if self.x < 0 or self.x + self.width > MAPWIDTH*32 or col.WallCollision(self.x, self.y, self.width, self.height) == True:
 			self.x -= self.velocity_x
 
-		# self.velocity_y += gravity
+		self.velocity_y += gravity
 		self.y += self.velocity_y
 		if self.y < 0 or self.y + self.height > MAPHEIGHT*32 or col.WallCollision(self.x, self.y, self.width, self.height) == True:
 			self.y -= self.velocity_y
+
+		self.y += self.velocity_j
+		if self.y < 0 or self.y + self.height > MAPHEIGHT*32 or col.WallCollision(self.x, self.y, self.width, self.height) == True:
+			self.y -= self.velocity_j
 		
 	def render(self, window, camX, camY):
 		pygame.draw.rect(window, WHITE, (self.x - camX, self.y - camY, self.width, self.height))
+
+	def update (self, event, window, camX, camY, gravity):
+		self.input(event)
+		self.move(gravity, camX, camY)
+		self.render(window, camX, camY)

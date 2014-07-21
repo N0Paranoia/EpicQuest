@@ -26,7 +26,7 @@ class Main(object):
 		centerCam = CenterCamera()
 
 		running = True
-
+ 
 		while running:
 	
 			for event in pygame.event.get():
@@ -48,19 +48,13 @@ class Main(object):
 			
 			# -- Handle player events
 
-			player.input(event)
-			player.jump()
-			player.move(GRAVITY, camera.x, camera.y)
-			player.render(window, camera.x, camera.y)
+			player.update(event, window, camera.x, camera.y, GRAVITY)
 
 			# -- Camera
 
-			centerCam.update(player.x, player.y)
-			centerCam.render(window, camera.x, camera.y)
-
+			centerCam.update(player.x, player.y, camera.x, camera.y, window)
 			camera = Camera(centerCam.x, centerCam.y)
-			camera.update(centerCam.x, centerCam.y)
-			camera.render(window)
+			camera.update(centerCam.x, centerCam.y, window)
 
 			# -- Set FPS
 

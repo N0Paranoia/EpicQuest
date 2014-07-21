@@ -9,7 +9,7 @@ class Camera(object):
 		self.width = WINDOW_WIDTH
 		self.height = WINDOW_HEIGHT
 
-	def update (self, x, y):
+	def follow (self, x, y):
 		if self.x < 0:
 			self.x = 0
 		if self.y < 0:
@@ -21,7 +21,10 @@ class Camera(object):
 
 	def render(self, window):
 		pygame.draw.rect(window, WHITE, (self.x/WINDOW_WIDTH, self.y/WINDOW_HEIGHT, self.width, self.height), 2)
-		
+
+	def update(self, cCamX, cCamY, window):
+		self.follow(cCamX, cCamY)
+		self.render(window)
 
 class CenterCamera(object):
 
@@ -31,7 +34,7 @@ class CenterCamera(object):
 		self.width = 64
 		self.height = 64
 
-	def update (self, x, y):
+	def follow (self, x, y):
 		if self.x > x:
 			self.x = x
 		if self.x < x - TILESIZE:
@@ -43,3 +46,7 @@ class CenterCamera(object):
 
 	def render(self, window, camX, camY):
 		pygame.draw.rect(window, WHITE, (self.x - camX, self.y - camY, self.width, self.height), 1)
+
+	def update(self, playerX, playerY, camX, camY, window):
+		self.follow(playerX, playerY)
+		self.render(window, camX, camY)
