@@ -36,12 +36,13 @@ class Collision(object):
 		return True
 
 
-	def WallCollision(self, x, y, w, h):
+	def WallCollision(self, x, y, w, h, camX, camY):
 		
 		for row in range(MAPHEIGHT):
 				for column in range (MAPWIDTH):
 					if tilemap[row][column] > 0:
-						tiles = Tile(column*TILESIZE, row*TILESIZE, None)
-						col = Collision()
-						if col.CheckCollision(x, y, w, h, tiles) == True:
-							return True
+						if column * TILESIZE > camX -TILESIZE and column * TILESIZE < camX + WINDOW_WIDTH and row * TILESIZE > camY -TILESIZE and row * TILESIZE < camY + WINDOW_HEIGHT:
+							tiles = Tile(column*TILESIZE, row*TILESIZE, None)
+							col = Collision()
+							if col.CheckCollision(x, y, w, h, tiles) == True:
+								return True

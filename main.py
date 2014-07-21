@@ -6,7 +6,6 @@ from level import *
 from camera import *
 from pygame.locals import *
 
-
 pygame.init()
 
 class Main(object):
@@ -43,8 +42,9 @@ class Main(object):
 
 			for row in range(MAPHEIGHT):
 				for column in range (MAPWIDTH):
-					tile = Tile(column*TILESIZE - camera.x, row*TILESIZE - camera.y, colors[tilemap[row][column]])
-					tile.render(window)
+					if column * TILESIZE > camera.x - TILESIZE and column * TILESIZE < camera.x + WINDOW_WIDTH and row * TILESIZE > camera.y -TILESIZE and row * TILESIZE < camera.y + WINDOW_HEIGHT:
+						tile = Tile(column*TILESIZE - camera.x, row*TILESIZE - camera.y, colors[tilemap[row][column]])
+						tile.render(window)
 			
 			# -- Handle player events
 
@@ -63,8 +63,8 @@ class Main(object):
 			# -- Debug info
 			
 			textFPS = font.render("FPS = " + str(clock.get_fps()), 1, (255, 255, 255))
-			window.blit(textFPS, (0, 0))
- 			window.blit(textControl, (0, 32))
+			window.blit(textFPS, (16, 16))
+ 			window.blit(textControl, (16, 32))
 
  			# -- Update Screen
 
