@@ -38,7 +38,7 @@ class Main(object):
 
 			window.fill((YELLOW))
 
-			# -- Draw tilemap
+			# -- Draw tilemap -- only inside camera rectangele
 
 			for row in range(MAPHEIGHT):
 				for column in range (MAPWIDTH):

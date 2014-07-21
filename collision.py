@@ -35,7 +35,6 @@ class Collision(object):
 		#If none of the sides from A are outside B 
 		return True
 
-
 	def WallCollision(self, x, y, w, h, camX, camY):
 		
 		for row in range(MAPHEIGHT):
