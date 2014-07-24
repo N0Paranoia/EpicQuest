@@ -37,7 +37,8 @@ class Player(object):
 		if keys[K_s]:
 			self.DOWN = True
 		if keys[K_SPACE]:
-			self.JUMP = True
+			if self.is_falling == False:
+				self.JUMP = True
 			
 	def falling(self, gravity, camX, camY):
 		colf = Collision()
@@ -49,10 +50,12 @@ class Player(object):
 
 	def jump(self):
 		print self.jump_count
+		print self.is_falling
 		if self.JUMP:
 			if self.jump_count <= self.jump_height:
 				self.velocity_j = -self.jump_speed
 				self.jump_count += 1
+				self.is_falling = False
 			else:
 				self.velocity_j = 0
 				self.JUMP = False
