@@ -33,7 +33,7 @@ class Main(object):
 					running = False
 
 				if event.type == KEYDOWN:
-					if event.key == K_q:
+					if event.key == K_q: 
 						running = False
 
 			window.fill((YELLOW))

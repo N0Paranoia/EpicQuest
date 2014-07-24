@@ -16,7 +16,7 @@ class Player(object):
 		self.velocity_y = 0
 		self.velocity_j = 4
 		self.jump_speed = 4
-		self.jump_height = 4
+		self.jump_height = 8
 		self.jump_count = 0
 		
 	def input(self, event):
@@ -41,16 +41,24 @@ class Player(object):
 			
 	def falling(self, gravity, camX, camY):
 		colf = Collision()
+		self.is_falling = True
 		self.y += gravity
   		if self.y < 0 or self.y + self.height > MAPHEIGHT*32 or colf.WallCollision(self.x, self.y, self.width, self.height, camX, camY) == True:
 	  		self.y -= gravity
+	  		self.is_falling = False
 
 	def jump(self):
+		print self.jump_count
 		if self.JUMP:
-			self.velocity_j = -self.jump_speed
+			if self.jump_count <= self.jump_height:
+				self.velocity_j = -self.jump_speed
+				self.jump_count += 1
+			else:
+				self.velocity_j = 0
+				self.JUMP = False
 		else:
-			self.velocity_j = 0
-				
+			self.jump_count = 0
+
 	def move(self, gravity, camX, camY):
 		col = Collision()
 
