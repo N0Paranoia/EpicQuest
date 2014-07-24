@@ -96,7 +96,7 @@ class Player(object):
 			self.y -= self.velocity_j
 		
 	def render(self, window, camX, camY):
-		pygame.draw.rect(window, WHITE, (self.x - camX, self.y - camY, self.width, self.height))
+		pygame.draw.rect(window, GRAY, (self.x - camX, self.y - camY, self.width, self.height))
 
 	def update (self, event, window, camX, camY, gravity):
 		self.input(event)

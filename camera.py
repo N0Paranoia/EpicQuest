@@ -45,7 +45,7 @@ class CenterCamera(object):
 			self.y = y - TILESIZE
 
 	def render(self, window, camX, camY):
-		pygame.draw.rect(window, WHITE, (self.x - camX, self.y - camY, self.width, self.height), 1)
+		pygame.draw.rect(window, BLACK, (self.x - camX, self.y - camY, self.width, self.height), 1)
 
 	def update(self, playerX, playerY, camX, camY, window):
 		self.follow(playerX, playerY)

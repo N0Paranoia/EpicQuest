@@ -3,6 +3,10 @@
 WINDOW_WIDTH = 640
 WINDOW_HEIGHT = 480
 
+# -- Player Starting point
+PLAYER_START_X = 32
+PLAYER_START_Y = 32
+
 #  -- Physics
 FPS = 60
 GRAVITY = 4
@@ -16,6 +20,7 @@ BLUE = (0,0,255)
 YELLOW = (255,255,0)
 CYAN = (0,255,255)
 MAGENTA = (255,0,255)
+GRAY = (100,100,100)
 
 
 # -- Tile(map) constants
@@ -24,14 +29,18 @@ MAPWIDTH = 22
 MAPHEIGHT = 16 
 
 SKY = 0
-GRASS = 1
-WATER = 2
-LAVA = 3
+GROUND = 1
+GRASS = 2
+WATER = 3
+LAVA = 4
+LADDER = 5
 
 # -- Linking recources/ colors
 colors = {
-			SKY : BLACK,
+			SKY : WHITE,
+			GROUND : BLACK,
 			GRASS : GREEN,
 			WATER : BLUE,
-			LAVA : RED
+			LAVA : RED,
+			LADDER: CYAN
 		 }

@@ -18,9 +18,9 @@ class Main(object):
 
 		font = pygame.font.SysFont('consolas', 12)
 			
-		textControl = font.render("use [ASWD] to move", 1, (255, 255, 255))
+		textControl = font.render("use [ASWD] to move", 1, (GRAY))
 
-		player = Player(WINDOW_WIDTH/2 - TILESIZE/2, WINDOW_HEIGHT/2 - TILESIZE/2)
+		player = Player(PLAYER_START_X, PLAYER_START_Y)
 		camera = Camera(0,0)
 		centerCam = CenterCamera()
 
@@ -62,7 +62,7 @@ class Main(object):
 
 			# -- Debug info
 			
-			textFPS = font.render("FPS = " + str(clock.get_fps()), 1, (255, 255, 255))
+			textFPS = font.render("FPS = " + str(clock.get_fps()), 1, (GRAY))
 			window.blit(textFPS, (16, 16))
  			window.blit(textControl, (16, 32))
 
