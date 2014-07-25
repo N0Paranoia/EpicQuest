@@ -49,8 +49,6 @@ class Player(object):
 	  		self.is_falling = False
 
 	def jump(self):
-		print self.jump_count
-		print self.is_falling
 		if self.JUMP:
 			if self.jump_count <= self.jump_height:
 				self.velocity_j = -self.jump_speed
@@ -61,6 +59,12 @@ class Player(object):
 				self.JUMP = False
 		else:
 			self.jump_count = 0
+
+	def climbing(self, camX, camY):
+		colL = Collision()
+		if self.JUMP == False:
+			if self.x < 0 or self.x + self.width > MAPWIDTH*32 or colL.TileCollision(self.x, self.y, self.width, self.height, camX, camY, LADDER) == True:
+				print "ladder collission"
 
 	def move(self, gravity, camX, camY):
 		col = Collision()
@@ -94,7 +98,8 @@ class Player(object):
 		self.y += self.velocity_j
 		if self.y < 0 or self.y + self.height > MAPHEIGHT*32 or col.WallCollision(self.x, self.y, self.width, self.height, camX, camY) == True:
 			self.y -= self.velocity_j
-		
+
+			
 	def render(self, window, camX, camY):
 		pygame.draw.rect(window, GRAY, (self.x - camX, self.y - camY, self.width, self.height))
 
@@ -102,5 +107,6 @@ class Player(object):
 		self.input(event)
 		self.falling(gravity, camX, camY)
 		self.jump()
+		self.climbing(camX, camY)
 		self.move(gravity, camX, camY)
 		self.render(window, camX, camY)

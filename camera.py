@@ -32,7 +32,7 @@ class CenterCamera(object):
 		self.x = 0
 		self.y = 0
 		self.width = 64
-		self.height = 64
+		self.height = 96
 
 	def follow (self, x, y):
 		if self.x > x:
@@ -41,8 +41,8 @@ class CenterCamera(object):
 			self.x = x - TILESIZE
 		if self.y > y:
 			self.y = y
-		if self.y < y - TILESIZE:
-			self.y = y - TILESIZE
+		if self.y < y - 2*TILESIZE:
+			self.y = y - 2*TILESIZE
 
 	def render(self, window, camX, camY):
 		pygame.draw.rect(window, BLACK, (self.x - camX, self.y - camY, self.width, self.height), 1)
