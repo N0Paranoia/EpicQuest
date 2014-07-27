@@ -19,6 +19,7 @@ GREEN = (0,255,0)
 BLUE = (0,0,255)
 YELLOW = (255,255,0)
 CYAN = (0,255,255)
+LIGHT_BLUE = (0,200,255)
 MAGENTA = (255,0,255)
 GRAY = (100,100,100)
 
@@ -34,6 +35,7 @@ GRASS = 2
 WATER = 3
 LAVA = 4
 LADDER = 5
+LADDER_TOP = 6
 
 # -- Linking recources/ colors
 colors = {
@@ -42,5 +44,6 @@ colors = {
 			GRASS : GREEN,
 			WATER : BLUE,
 			LAVA : RED,
-			LADDER: CYAN
+			LADDER : CYAN,
+			LADDER_TOP : LIGHT_BLUE
 		 }
