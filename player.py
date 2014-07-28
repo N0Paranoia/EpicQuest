@@ -15,7 +15,7 @@ class Player(object):
 		self.velocity_x = 0
 		self.velocity_y = 0
 		self.velocity_j = 4
-		self.climbing_speed = 8
+		self.climbing_speed = 4
 		self.jump_speed = 4
 		self.jump_height = 8
 		self.jump_count = 0
@@ -66,6 +66,7 @@ class Player(object):
 		colL = Collision()
 		if colL.TileCollision(self.x, self.y, self.width, self.height, camX, camY, LADDER) == True or colL.TileCollision(self.x, self.y, self.width, self.height, 
 			camX, camY, LADDER_TOP) == True:
+			print "Ladder" 
 			if self.UP:
 				self.is_climbing = True
 				self.velocity_y = -self.climbing_speed
@@ -87,12 +88,9 @@ class Player(object):
 			self.velocity_x = self.speed
 		else:
 			self.velocity_x = 0		
-		# if self.UP:
-		# 	self.velocity_y = -self.speed
-		# if self.DOWN:
-		# 	self.velocity_y = self.speed
-		# else:
-		# 	self.velocity_y = 0
+
+		if self.DOWN:
+		 	self.velocity_y = self.speed
 
 		if self.JUMP:
 			self.velocity_j -= self.jump_speed
