@@ -19,6 +19,7 @@ class Player(object):
 		self.jump_speed = 4
 		self.jump_height = 8
 		self.jump_count = 0
+		self.is_climbing = False
 		
 	def input(self, event):
 		keys = pygame.key.get_pressed()
@@ -28,7 +29,6 @@ class Player(object):
 		self.UP = False
 		self.DOWN = False
 		self.JUMP = False
-		# self.CLIMBING =False
 
 		if keys[K_a]:
 			self.LEFT = True
@@ -46,9 +46,9 @@ class Player(object):
 		colf = Collision()
 		self.is_falling = True
 		self.y += gravity
-  		if self.y < 0 or self.y + self.height > MAPHEIGHT*32 or colf.WallCollision(self.x, self.y, self.width, self.height, camX, camY) == True:
-	  		self.y -= gravity
-	  		self.is_falling = False
+		if self.y < 0 or self.y + self.height > MAPHEIGHT*32 or colf.WallCollision(self.x, self.y, self.width, self.height, camX, camY) == True or colf.TileCollision(self.x, self.y, self.width, self.height, camX, camY, LADDER_TOP) == True or self.is_climbing == True:
+			self.y -= gravity
+			self.is_falling = False
 
 	def jump(self):
 		if self.JUMP:
@@ -64,14 +64,19 @@ class Player(object):
 
 	def climbing(self, camX, camY):
 		colL = Collision()
-		if self.UP:
-			if colL.TileCollision(self.x, self.y, self.width, self.height, camX, camY, LADDER) == True:
+		if colL.TileCollision(self.x, self.y, self.width, self.height, camX, camY, LADDER) == True or colL.TileCollision(self.x, self.y, self.width, self.height, 
+			camX, camY, LADDER_TOP) == True:
+			if self.UP:
+				self.is_climbing = True
 				self.velocity_y = -self.climbing_speed
+			elif self.DOWN:
+				self.is_climbing = True
+				self.velocity_y = self.climbing_speed
 			else:
 				self.velocity_y = 0
 		else:
-			self.UP = False
 			self.velocity_y = 0
+			self.is_climbing = False
 
 	def move(self, gravity, camX, camY):
 		col = Collision()
@@ -84,7 +89,7 @@ class Player(object):
 			self.velocity_x = 0		
 		# if self.UP:
 		# 	self.velocity_y = -self.speed
-		# elif self.DOWN:
+		# if self.DOWN:
 		# 	self.velocity_y = self.speed
 		# else:
 		# 	self.velocity_y = 0
