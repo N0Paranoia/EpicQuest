@@ -46,12 +46,13 @@ class Player(object):
 		colf = Collision()
 		self.is_falling = True
 		self.y += gravity
-		if self.y < 0 or self.y + self.height > MAPHEIGHT*32 or colf.WallCollision(self.x, self.y, self.width, self.height, camX, camY) == True or colf.TileCollision(self.x, self.y, self.width, self.height, camX, camY, LADDER_TOP) == True or self.is_climbing == True:
+		if self.y < 0 or self.y + self.height > MAPHEIGHT*32 or colf.WallCollision(self.x, self.y, self.width, self.height, camX, camY) == True or colf.TileCollision(self.x, self.y, self.width, self.height, camX, camY, LADDER_TOP) == True or colf.PlatformCollision(self.x, self.y, self.width, self.height, camX, camY, PLATFORM) == True or self.is_climbing == True:
 			self.y -= gravity
 			self.is_falling = False
 
 	def jump(self):
 		if self.JUMP:
+			self.is_climbing = False
 			if self.jump_count <= self.jump_height:
 				self.velocity_j = -self.jump_speed
 				self.jump_count += 1

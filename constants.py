@@ -36,6 +36,8 @@ WATER = 3
 LAVA = 4
 LADDER = 5
 LADDER_TOP = 6
+PLATFORM = 7
+
 
 # -- Linking recources/ colors
 colors = {
@@ -45,5 +47,6 @@ colors = {
 			WATER : BLUE,
 			LAVA : RED,
 			LADDER : CYAN,
-			LADDER_TOP : LIGHT_BLUE
+			LADDER_TOP : LIGHT_BLUE,
+			PLATFORM : MAGENTA
 		 }
