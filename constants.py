@@ -30,7 +30,7 @@ MAPWIDTH = 22
 MAPHEIGHT = 16 
 
 SKY = 0
-GROUND = 1
+WALL = 1
 GRASS = 2
 WATER = 3
 LAVA = 4
@@ -42,7 +42,7 @@ PLATFORM = 7
 # -- Linking recources/ colors
 colors = {
 			SKY : WHITE,
-			GROUND : BLACK,
+			WALL : BLACK,
 			GRASS : GREEN,
 			WATER : BLUE,
 			LAVA : RED,
