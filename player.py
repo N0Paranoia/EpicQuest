@@ -67,7 +67,6 @@ class Player(object):
 		colL = Collision()
 		if colL.TileCollision(self.x, self.y, self.width, self.height, camX, camY, LADDER) == True or colL.TileCollision(self.x, self.y, self.width, self.height, 
 			camX, camY, LADDER_TOP) == True:
-			print "Ladder" 
 			if self.UP:
 				self.is_climbing = True
 				self.velocity_y = -self.climbing_speed

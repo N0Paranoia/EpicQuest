@@ -36,8 +36,6 @@ class Main(object):
 					if event.key == K_q: 
 						running = False
 
-			window.fill((YELLOW))
-
 			# -- Draw tilemap -- only inside camera rectangele
 
 			for row in range(MAPHEIGHT):
