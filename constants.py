@@ -50,3 +50,5 @@ colors = {
 			LADDER_TOP : LIGHT_BLUE,
 			PLATFORM : MAGENTA
 		 }
+
+		 

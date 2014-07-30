@@ -4,7 +4,10 @@ from constants import *
 from tilemap import *
 from level import *
 from camera import *
+from hud import *
+
 from pygame.locals import *
+
 
 pygame.init()
 
@@ -16,13 +19,10 @@ class Main(object):
 		pygame.display.set_caption("EpicQuest")
 		clock = pygame.time.Clock()
 
-		font = pygame.font.SysFont('consolas', 12)
-			
-		textControl = font.render("use [ASWD] to move", 1, (GRAY))
-
 		player = Player(PLAYER_START_X, PLAYER_START_Y)
 		camera = Camera(0,0)
 		centerCam = CenterCamera()
+		hud = Hud()
 
 		running = True
  
@@ -58,11 +58,9 @@ class Main(object):
 
 			clock.tick(FPS)
 
-			# -- Debug info
-			
-			textFPS = font.render("FPS = " + str(clock.get_fps()), 1, (GRAY))
-			window.blit(textFPS, (16, 16))
- 			window.blit(textControl, (16, 32))
+			# -- Hud
+
+			hud.update(window, FPS, clock)
 
  			# -- Update Screen
 
