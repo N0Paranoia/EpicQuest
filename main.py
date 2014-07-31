@@ -22,8 +22,7 @@ class Main(object):
 		player = Player(PLAYER_START_X, PLAYER_START_Y)
 		camera = Camera(0,0)
 		centerCam = CenterCamera()
-		hud = Hud()
-
+		
 		running = True
  
 		while running:
@@ -60,6 +59,7 @@ class Main(object):
 
 			# -- Hud
 
+			hud = Hud(player.health)
 			hud.update(window, FPS, clock)
 
  			# -- Update Screen

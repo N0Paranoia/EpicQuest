@@ -11,6 +11,7 @@ class Player(object):
 		self.y = y
 		self.width = 32
 		self.height = 32
+		self.health = 100
 		self.speed = 4
 		self.velocity_x = 0
 		self.velocity_y = 0
@@ -20,7 +21,7 @@ class Player(object):
 		self.jump_height = 8
 		self.jump_count = 0
 		self.is_climbing = False
-		
+
 	def input(self, event):
 		keys = pygame.key.get_pressed()
 
