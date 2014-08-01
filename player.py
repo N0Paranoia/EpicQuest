@@ -80,6 +80,12 @@ class Player(object):
 			self.velocity_y = 0
 			self.is_climbing = False
 
+	def gotroughdoor(self, camX, camY):
+		colD = Collision()
+		if self.UP:
+			if colD.TileCollision(self.x, self.y, self.width, self.height, camX, camY, DOOR) == True:
+				print "Touching Door"
+
 	def move(self, gravity, camX, camY):
 		col = Collision()
 
@@ -118,5 +124,6 @@ class Player(object):
 		self.falling(gravity, camX, camY)
 		self.jump()
 		self.climbing(camX, camY)
+		self.gotroughdoor(camX, camY)
 		self.move(gravity, camX, camY)
 		self.render(window, camX, camY)

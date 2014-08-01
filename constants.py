@@ -22,6 +22,7 @@ CYAN = (0,255,255)
 LIGHT_BLUE = (0,200,255)
 MAGENTA = (255,0,255)
 GRAY = (100,100,100)
+LIGHT_GRAY = (200, 200, 200)
 
 
 # -- Tile(map) constants
@@ -37,6 +38,7 @@ LAVA = 4
 LADDER = 5
 LADDER_TOP = 6
 PLATFORM = 7
+DOOR = 8
 
 
 # -- Linking recources/ colors
@@ -48,7 +50,8 @@ colors = {
 			LAVA : RED,
 			LADDER : CYAN,
 			LADDER_TOP : LIGHT_BLUE,
-			PLATFORM : MAGENTA
+			PLATFORM : MAGENTA,
+			DOOR : LIGHT_GRAY
 		 }
 
 		 
