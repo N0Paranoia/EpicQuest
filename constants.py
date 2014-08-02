@@ -6,6 +6,7 @@ WINDOW_HEIGHT = 480
 # -- Player Starting point
 PLAYER_START_X = 32
 PLAYER_START_Y = 32
+PLAYER_SPEED = 4
 
 #  -- Physics
 FPS = 60

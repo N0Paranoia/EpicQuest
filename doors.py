@@ -3,12 +3,30 @@ from pygame.locals import *
 from constants import *
 
 class Doors(object):
-	def __init__(self, x, y):
-		self.x = x
-		self.y = y
+	def __init__(self):
 
-		door1.x = 7*TILESIZE
-		door1.y = 2*TILESIZE
+		self.door1Ax = 7*TILESIZE
+		self.door1Ay = 2*TILESIZE
 
-	def doorConnections(self):
-		pass
+		self.door1Bx = 5*TILESIZE
+		self.door1By = 14*TILESIZE
+
+		self.door2Ax = 14*TILESIZE
+		self.door2Ay = 2*TILESIZE
+
+		self.door2Bx = 16*TILESIZE
+		self.door2By = 14*TILESIZE
+
+	def doorConnections(self, x, y):
+		if x + TILESIZE/2 >= self.door1Ax  and x - TILESIZE/2 <= self.door1Ax and y == self.door1Ay:
+			return (self.door1Bx, self.door1By)
+		elif x + TILESIZE/2 >= self.door1Bx  and x - TILESIZE/2 <= self.door1Ax and y == self.door1By:
+			return (self.door1Ax, self.door1Ay)
+
+		if x + TILESIZE/2 >= self.door2Ax  and x - TILESIZE/2 <= self.door2Ax and y == self.door2Ay:
+			return (self.door2Bx, self.door2By)
+		elif x + TILESIZE/2 >= self.door2Bx  and x - TILESIZE/2 <= self.door2Bx and y == self.door2By:
+			return (self.door2Ax, self.door2Ay)
+
+		else:
+			return x, y

@@ -38,13 +38,13 @@ class Collision(object):
 	def CheckCloudCollision(self, x, y, w, h, tile):
 		leftA = x
 		rightA = x + w
-		topA = y + TILESIZE - TILESIZE/4;
+		topA = y + TILESIZE - GRAVITY
 		bottomA = y + h
 
 		leftB = tile.x
 		rightB = tile.x + TILESIZE
 		topB = tile.y
-		bottomB = tile.y + TILESIZE/4;
+		bottomB = tile.y + GRAVITY
 
 		if bottomA <= topB:
 			return False

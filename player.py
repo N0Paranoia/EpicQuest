@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 from constants import *
 from collision import *
+from doors import *
 from camera import *
 
 class Player(object):
@@ -12,7 +13,7 @@ class Player(object):
 		self.width = 32
 		self.height = 32
 		self.health = 100
-		self.speed = 4
+		self.speed = PLAYER_SPEED
 		self.velocity_x = 0
 		self.velocity_y = 0
 		self.velocity_j = 4
@@ -21,6 +22,7 @@ class Player(object):
 		self.jump_height = 8
 		self.jump_count = 0
 		self.is_climbing = False
+		self.canGoTroughDoor = True
 
 	def input(self, event):
 		keys = pygame.key.get_pressed()
@@ -82,9 +84,11 @@ class Player(object):
 
 	def gotroughdoor(self, camX, camY):
 		colD = Collision()
-		if self.UP:
-			if colD.TileCollision(self.x, self.y, self.width, self.height, camX, camY, DOOR) == True:
-				print "Touching Door"
+		doorD = Doors()
+		if self.canGoTroughDoor == True:
+			if self.UP:
+				if colD.TileCollision(self.x, self.y, self.width, self.height, camX, camY, DOOR) == True:
+					self.x, self.y = doorD.doorConnections(self.x, self.y)
 
 	def move(self, gravity, camX, camY):
 		col = Collision()
