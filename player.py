@@ -85,10 +85,21 @@ class Player(object):
 	def gotroughdoor(self, camX, camY):
 		colD = Collision()
 		doorD = Doors()
-		if self.canGoTroughDoor == True:
-			if self.UP:
+		if self.UP:
+			if self.canGoTroughDoor:
 				if colD.TileCollision(self.x, self.y, self.width, self.height, camX, camY, DOOR) == True:
 					self.x, self.y = doorD.doorConnections(self.x, self.y)
+					self.canGoTroughDoor = False
+					self.UP = False
+		else:		
+			self.canGoTroughDoor = True
+
+	def playerHealth(self, camX, camY):
+		colH = Collision()
+		if colH.TileCollision(self.x, self.y, self.width, self.height, camX, camY, LAVA) == True :
+			self.health -= 5
+		if self.health <= 0:
+			print "Game Over"
 
 	def move(self, gravity, camX, camY):
 		col = Collision()
@@ -130,4 +141,5 @@ class Player(object):
 		self.climbing(camX, camY)
 		self.gotroughdoor(camX, camY)
 		self.move(gravity, camX, camY)
+		self.playerHealth(camX, camY)
 		self.render(window, camX, camY)
