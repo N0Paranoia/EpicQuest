@@ -13,6 +13,7 @@ class Player(object):
 		self.width = 32
 		self.height = 32
 		self.health = 100
+		self.lives = 3
 		self.speed = PLAYER_SPEED
 		self.velocity_x = 0
 		self.velocity_y = 0
@@ -100,6 +101,8 @@ class Player(object):
 			self.health -= 5
 		if self.health <= 0:
 			print "Game Over"
+			self.health = 100
+			self.lives -= 1
 
 	def move(self, gravity, camX, camY):
 		col = Collision()
