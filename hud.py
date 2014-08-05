@@ -17,10 +17,10 @@ class Hud(object):
 		font = pygame.font.SysFont('consolas', 12)
 			
 		textLifes =  font.render(str(self.lives), 1, (GRAY))
-		textControl = font.render("use [ASWD] to move", 1, (GRAY))
+		textControl = font.render("use [ASWD] to move and p to pause", 1, (GRAY))
 		textFPS = font.render("FPS = " + str(clock.get_fps()), 1, (GRAY))
 		window.blit(textFPS, (500, 16))
-		window.blit(textControl, (500, 32))
+		window.blit(textControl, (400, 32))
 		window.blit(textLifes, (8,16))
 
 	def render(self, window):
@@ -29,5 +29,3 @@ class Hud(object):
 	def update(self, window, FPS, clock):
 		self.render(window)
 		self.text(window, FPS, clock)
-
-

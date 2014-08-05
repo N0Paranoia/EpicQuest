@@ -5,6 +5,7 @@ from tilemap import *
 from level import *
 from camera import *
 from hud import *
+from engine import *
 
 from pygame.locals import *
 
@@ -22,9 +23,12 @@ class Main(object):
 		player = Player(PLAYER_START_X, PLAYER_START_Y)
 		camera = Camera(0,0)
 		centerCam = CenterCamera()
+		engine = Engine()
 
+		# -- Define games states
 		running = True
- 
+		pause = False
+		 
 		while running:
 	
 			for event in pygame.event.get():
@@ -34,36 +38,40 @@ class Main(object):
 				if event.type == KEYDOWN:
 					if event.key == K_q: 
 						running = False
+					if event.key == K_p:
+						pause = not pause
 
-			# -- Draw tilemap -- only inside camera rectangele
 
-			for row in range(MAPHEIGHT):
-				for column in range (MAPWIDTH):
-					if column * TILESIZE > camera.x - TILESIZE and column * TILESIZE < camera.x + WINDOW_WIDTH and row * TILESIZE > camera.y -TILESIZE and row * TILESIZE < camera.y + WINDOW_HEIGHT:
-						tile = Tile(column*TILESIZE - camera.x, row*TILESIZE - camera.y, colors[tilemap[row][column]])
-						tile.render(window)
-			
-			# -- Handle player events
+			if pause == False:
+				# -- Draw tilemap -- only inside camera rectangele
 
-			player.update(event, window, camera.x, camera.y, GRAVITY)
+				for row in range(MAPHEIGHT):
+					for column in range (MAPWIDTH):
+						if column * TILESIZE > camera.x - TILESIZE and column * TILESIZE < camera.x + WINDOW_WIDTH and row * TILESIZE > camera.y -TILESIZE and row * TILESIZE < camera.y + WINDOW_HEIGHT:
+							tile = Tile(column*TILESIZE - camera.x, row*TILESIZE - camera.y, colors[tilemap[row][column]])
+							tile.render(window)
+				
+				# -- Handle player events
 
-			# -- Camera
+				player.update(event, window, camera.x, camera.y, GRAVITY)
 
-			centerCam.update(player.x, player.y, camera.x, camera.y, window)
-			camera = Camera(centerCam.x, centerCam.y)
-			camera.update(centerCam.x, centerCam.y, window)
+				# -- Camera
 
-			# -- Set FPS
+				centerCam.update(player.x, player.y, camera.x, camera.y, window)
+				camera = Camera(centerCam.x, centerCam.y)
+				camera.update(centerCam.x, centerCam.y, window)
 
-			clock.tick(FPS)
+				# -- Set FPS
 
-			# -- Hud
+				clock.tick(FPS)
 
-			hud = Hud(player.health, player.lives)
-			hud.update(window, FPS, clock)
+				# -- Hud
 
- 			# -- Update Screen
+				hud = Hud(player.health, player.lives)
+				hud.update(window, FPS, clock)
 
-			pygame.display.flip()
+	 			# -- Update Screen
+
+	 			pygame.display.flip()
 			
 Main()
