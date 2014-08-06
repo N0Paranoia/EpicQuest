@@ -5,7 +5,7 @@ from tilemap import *
 from level import *
 from camera import *
 from hud import *
-from engine import *
+from gamestates import *
 
 from pygame.locals import *
 
@@ -18,31 +18,32 @@ class Main(object):
 		screenSize = (WINDOW_WIDTH, WINDOW_HEIGHT)
 		window = pygame.display.set_mode(screenSize)
 		pygame.display.set_caption("EpicQuest")
+
 		clock = pygame.time.Clock()
 
 		player = Player(PLAYER_START_X, PLAYER_START_Y)
 		camera = Camera(0,0)
 		centerCam = CenterCamera()
-		engine = Engine()
+		gamestate = GameStates()
 
-		# -- Define games states
-		running = True
-		pause = False
-		 
-		while running:
-	
+		while gamestate.running:
+
+			gamestate.changestate(player.lives)
+
 			for event in pygame.event.get():
 				if event.type == QUIT:
-					running = False
+					gamestate.running = False
 
 				if event.type == KEYDOWN:
 					if event.key == K_q: 
-						running = False
+						gamestate.running = False
 					if event.key == K_p:
-						pause = not pause
+						gamestate.pause = not gamestate.pause
+		
+			# -- Running game State
 
-
-			if pause == False:
+			if gamestate.pause == False:
+		
 				# -- Draw tilemap -- only inside camera rectangele
 
 				for row in range(MAPHEIGHT):
@@ -73,5 +74,16 @@ class Main(object):
 	 			# -- Update Screen
 
 	 			pygame.display.flip()
-			
+
+	 		# -- Pause Game State
+
+	 		if gamestate.pause:
+	 			print "Pause"
+
+	 		# -- GameOver Game State
+
+	 		if gamestate.gameOver:
+	 			gamestate.running = False
+
+	
 Main()

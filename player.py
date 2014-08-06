@@ -4,6 +4,7 @@ from constants import *
 from collision import *
 from doors import *
 from camera import *
+from engine import *
 
 class Player(object):
 
@@ -97,12 +98,15 @@ class Player(object):
 
 	def playerHealth(self, camX, camY):
 		colH = Collision()
+		engine = Engine()
 		if colH.TileCollision(self.x, self.y, self.width, self.height, camX, camY, LAVA) == True :
 			self.health -= 5
 		if self.health <= 0:
-			print "Game Over"
 			self.health = 100
 			self.lives -= 1
+		if self.lives <= 0:
+			print "GameOver"
+
 
 	def move(self, gravity, camX, camY):
 		col = Collision()

@@ -19,6 +19,7 @@ class Hud(object):
 		textLifes =  font.render(str(self.lives), 1, (GRAY))
 		textControl = font.render("use [ASWD] to move and p to pause", 1, (GRAY))
 		textFPS = font.render("FPS = " + str(clock.get_fps()), 1, (GRAY))
+		textPause = font.render("PAUSE", 1, (GRAY))
 		window.blit(textFPS, (500, 16))
 		window.blit(textControl, (400, 32))
 		window.blit(textLifes, (8,16))
