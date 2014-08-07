@@ -26,56 +26,58 @@ class Main(object):
 		centerCam = CenterCamera()
 		gamestate = GameStates()
 
-		while gamestate.running:
+		Run = True
+		while Run:
 
 			gamestate.changestate(player.lives)
 
 			for event in pygame.event.get():
 				if event.type == QUIT:
-					gamestate.running = False
+					Run = False
 
 				if event.type == KEYDOWN:
 					if event.key == K_q: 
-						gamestate.running = False
+						Run = False
 					if event.key == K_p:
 						gamestate.pause = not gamestate.pause
-		
-			# -- Running game State
-
-			if gamestate.pause == False:
-		
-				# -- Draw tilemap -- only inside camera rectangele
-
-				for row in range(MAPHEIGHT):
-					for column in range (MAPWIDTH):
-						if column * TILESIZE > camera.x - TILESIZE and column * TILESIZE < camera.x + WINDOW_WIDTH and row * TILESIZE > camera.y -TILESIZE and row * TILESIZE < camera.y + WINDOW_HEIGHT:
-							tile = Tile(column*TILESIZE - camera.x, row*TILESIZE - camera.y, colors[tilemap[row][column]])
-							tile.render(window)
 				
-				# -- Handle player events
+			# -- Running game State
+			if gamestate.running == True:
 
-				player.update(event, window, camera.x, camera.y, GRAVITY)
+				if gamestate.pause == False:
+			
+					# -- Draw tilemap -- only inside camera rectangele
 
-				# -- Camera
+					for row in range(MAPHEIGHT):
+						for column in range (MAPWIDTH):
+							if column * TILESIZE > camera.x - TILESIZE and column * TILESIZE < camera.x + WINDOW_WIDTH and row * TILESIZE > camera.y -TILESIZE and row * TILESIZE < camera.y + WINDOW_HEIGHT:
+								tile = Tile(column*TILESIZE - camera.x, row*TILESIZE - camera.y, colors[tilemap[row][column]])
+								tile.render(window)
+					
+					# -- Handle player events
 
-				centerCam.update(player.x, player.y, camera.x, camera.y, window)
-				camera = Camera(centerCam.x, centerCam.y)
-				camera.update(centerCam.x, centerCam.y, window)
+					player.update(event, window, camera.x, camera.y, GRAVITY)
 
-				# -- Set FPS
+					# -- Camera
 
-				clock.tick(FPS)
+					centerCam.update(player.x, player.y, camera.x, camera.y, window)
+					camera = Camera(centerCam.x, centerCam.y)
+					camera.update(centerCam.x, centerCam.y, window)
 
-				# -- Hud
+					# -- Set FPS
 
-				hud = Hud(player.health, player.lives)
-				hud.update(window, FPS, clock)
+					clock.tick(FPS)
 
-	 			# -- Update Screen
+					# -- Hud
 
-	 			pygame.display.flip()
+					hud = Hud(player.health, player.lives)
+					hud.update(window, FPS, clock)
 
-	 		# -- Pause Game State
+		 			# -- Update Screen
+
+		 			pygame.display.flip()
+
+		 		# -- Pause Game State
 
 	 		if gamestate.pause:
 	 			print "Pause"
@@ -83,7 +85,13 @@ class Main(object):
 	 		# -- GameOver Game State
 
 	 		if gamestate.gameOver:
+	 			font = pygame.font.SysFont('consolas', 12)
+	 			textGameOver= font.render("Game Over", 1, (WHITE))
+
 	 			gamestate.running = False
+	 			pygame.draw.rect(window, BLACK, (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
+	 			window.blit(textGameOver, (WINDOW_WIDTH/2- TILESIZE, WINDOW_HEIGHT/2))
+	 			pygame.display.flip()			
 
 	
 Main()
