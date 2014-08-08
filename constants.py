@@ -8,6 +8,8 @@ PLAYER_START_X = 32
 PLAYER_START_Y = 32
 PLAYER_SPEED = 4
 
+FONT_PATH = './fonts/Grand9K Pixel.ttf'
+
 #  -- Physics
 FPS = 60
 GRAVITY = 4

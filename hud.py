@@ -14,14 +14,14 @@ class Hud(object):
 		self.lives = lives
 
 	def text(self, window, FPS, clock):
-		font = pygame.font.SysFont('consolas', 12)
+		font = pygame.font.Font(FONT_PATH, 10)
 			
 		textLifes =  font.render(str(self.lives), 1, (GRAY))
 		textControl = font.render("use [ASWD] to move and p to pause", 1, (GRAY))
 		textFPS = font.render("FPS = " + str(clock.get_fps()), 1, (GRAY))
 		textPause = font.render("PAUSE", 1, (GRAY))
-		window.blit(textFPS, (500, 16))
-		window.blit(textControl, (400, 32))
+		window.blit(textFPS, (550, 16))
+		window.blit(textControl, (450, 32))
 		window.blit(textLifes, (8,16))
 
 	def render(self, window):
