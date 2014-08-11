@@ -13,6 +13,7 @@ class Player(object):
 		self.width = 32
 		self.height = 32
 		self.health = 100
+		self.stamina = 100
 		self.lives = 3
 		self.speed = PLAYER_SPEED
 		self.velocity_x = 0
@@ -55,17 +56,19 @@ class Player(object):
 			self.is_falling = False
 
 	def jump(self):
-		if self.JUMP:
-			self.is_climbing = False
-			if self.jump_count <= self.jump_height:
-				self.velocity_j = -self.jump_speed
-				self.jump_count += 1
-				self.is_falling = False
+		if self.stamina > 0:
+			if self.JUMP:
+				self.is_climbing = False
+				if self.jump_count <= self.jump_height:
+					self.velocity_j = -self.jump_speed
+					self.jump_count += 1
+					self.is_falling = False
+					self.stamina -= 10
+				else:
+					self.velocity_j = 0
+					self.JUMP = False
 			else:
-				self.velocity_j = 0
-				self.JUMP = False
-		else:
-			self.jump_count = 0
+				self.jump_count = 0
 
 	def climbing(self, camX, camY):
 		colL = Collision()
@@ -104,6 +107,10 @@ class Player(object):
 			self.y = PLAYER_START_Y
 			self.health = 100
 			self.lives -= 1
+
+	def playerStamina(self):
+		if self.stamina <= 100:
+			self.stamina += 1
 
 	def move(self, gravity, camX, camY):
 		col = Collision()
@@ -145,5 +152,6 @@ class Player(object):
 		self.climbing(camX, camY)
 		self.gotroughdoor(camX, camY)
 		self.move(gravity, camX, camY)
+		self.playerStamina()
 		self.playerHealth(camX, camY)
 		self.render(window, camX, camY)

@@ -6,11 +6,14 @@ from pygame.locals import *
 
 class Hud(object):
 
-	def __init__(self, health, lives):
+	def __init__(self, health, stamina, lives):
 		self.lifeX = 16
 		self.lifeY = 16
-		self.width = health
-		self.height = 16
+		self.staminaX = 16
+		self.staminaY = 32
+		self.healthWidth = health
+		self.staminaWidth = stamina
+		self.height = 8
 		self.lives = lives
 
 	def text(self, window, FPS, clock, state):
@@ -22,14 +25,14 @@ class Hud(object):
 			window.blit(textIntro, (WINDOW_WIDTH/2- TILESIZE, WINDOW_HEIGHT/4))
 
 
-		if state == MAIN_MENU:
+		elif state == MAIN_MENU:
 			textMainMenu = font14.render("Main Menu", 1, (BLACK))
 	 		textMainMenu2 = font.render("Press [Enter] to Start", 1, (BLACK))
 
 	 		window.blit(textMainMenu, (WINDOW_WIDTH/2- TILESIZE, WINDOW_HEIGHT/4))
 	 		window.blit(textMainMenu2, (WINDOW_WIDTH/2- 52, WINDOW_HEIGHT/4 + TILESIZE))
 		
-		if state == RUNNING:	
+		elif state == RUNNING:	
 			textLifes =  font.render(str(self.lives), 1, (GRAY))
 			textControl = font.render("use [ASWD] to move and p to pause", 1, (GRAY))
 			textFPS = font.render("FPS = " + str(clock.get_fps()), 1, (GRAY))
@@ -38,12 +41,12 @@ class Hud(object):
 			window.blit(textControl, (450, 32))
 			window.blit(textLifes, (8,16))
 
-		if state == PAUSE:
+		elif state == PAUSE:
 			textPause = font14.render("PAUSE", 1, (GRAY))
 
 			window.blit(textPause, (WINDOW_WIDTH/2- TILESIZE, WINDOW_HEIGHT/2))
 
-		if state == GAME_OVER:
+		elif state == GAME_OVER:
 			textGameOver= font14.render("Game Over", 1, (WHITE))
 	 		textGameOver2 = font.render("Press [Return] to start over or [q] to quit", 1, (WHITE))
 
@@ -53,7 +56,9 @@ class Hud(object):
 
 	def render(self, window, state):
 		if state == RUNNING or state == PAUSE:
-			pygame.draw.rect(window, RED, (self.lifeX, self.lifeX , self.width, self.height))
+			# -- Draw Life and stamina Bar
+			pygame.draw.rect(window, RED, (self.lifeX, self.lifeY , self.healthWidth, self.height))
+			pygame.draw.rect(window, GREEN, (self.staminaX, self.staminaY , self.staminaWidth, self.height))
 
 	def update(self, window, FPS, clock, state):
 		self.render(window, state)

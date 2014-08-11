@@ -31,8 +31,6 @@ class Main(object):
 
 			gamestate.changestate(player.lives)
 
-			print "Intro =", gamestate.intro, "| Main Menu =", gamestate.mainMenu, "| Running =", gamestate.running, "| Game Over =", gamestate.gameOver
-
 			for event in pygame.event.get():
 				if event.type == QUIT:
 					Run = False
@@ -55,7 +53,7 @@ class Main(object):
 			# -- Intro game state
 			if gamestate.intro:
 				for x in range(0, WINDOW_WIDTH):
-					hud = Hud(0, None)
+					hud = Hud(0, None, None)
 					pygame.draw.rect(window, YELLOW, (0, 0, x, WINDOW_HEIGHT))
 
 					hud.update(window, FPS, clock, INTRO)
@@ -72,7 +70,7 @@ class Main(object):
 				gamestate.intro = False
 				gamestate.gameOver = False
 
-				hud = Hud(0, None)
+				hud = Hud(0, None, None)
 	 			pygame.draw.rect(window, WHITE, (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
 	 			hud.update(window, FPS, clock, MAIN_MENU)
 
@@ -112,7 +110,7 @@ class Main(object):
 
 					# -- Hud
 
-					hud = Hud(player.health, player.lives)
+					hud = Hud(player.health, player.stamina, player.lives)
 					hud.update(window, FPS, clock, RUNNING)
 
 		 			# -- Update Screen
@@ -130,7 +128,7 @@ class Main(object):
 
 	 		# -- GameOver Game State
 	 		if gamestate.gameOver:
-	 			hud = Hud(0, None)
+	 			hud = Hud(0, None, None)
 
 	 			gamestate.running = False
 	 			pygame.draw.rect(window, BLACK, (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
