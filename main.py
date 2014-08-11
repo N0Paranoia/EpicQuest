@@ -47,27 +47,22 @@ class Main(object):
 						if gamestate.mainMenu:
 							gamestate.running = True
 							gamestate.mainMenu = False
-							gamestate.gameOver = False
 						
 
-			if gamestate.mainMenu:
-					
-	 			font = pygame.font.Font(FONT_PATH, 16)
-	 			font2 = pygame.font.Font(FONT_PATH, 10)
-	 			textMainMenu = font.render("Main Menu", 1, (BLACK))
-	 			textMainMenu2 = font2.render("Press [Enter] to Start", 1, (BLACK))
-
+			if gamestate.mainMenu:					
+				hud = Hud(0, None)
 	 			pygame.draw.rect(window, WHITE, (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
-	 			window.blit(textMainMenu, (WINDOW_WIDTH/2- TILESIZE, WINDOW_HEIGHT/4))
-	 			window.blit(textMainMenu2, (WINDOW_WIDTH/2- 52, WINDOW_HEIGHT/4 + TILESIZE))
+	 			hud.update(window, FPS, clock, MAIN_MENU)
+
+	 			# -- Update Screen
+
 	 			pygame.display.flip()
 
 				
 			# -- Running game State
 			if gamestate.running == True:
 				# gamestate.mainMenu = False
-				
-
+			
 				if gamestate.pause == False:
 			
 					# -- Draw tilemap -- only inside camera rectangele
@@ -95,7 +90,7 @@ class Main(object):
 					# -- Hud
 
 					hud = Hud(player.health, player.lives)
-					hud.update(window, FPS, clock)
+					hud.update(window, FPS, clock, RUNNING)
 
 		 			# -- Update Screen
 
@@ -104,23 +99,24 @@ class Main(object):
 		 	# -- Pause Game State
 
 	 		if gamestate.pause:
-	 			font = pygame.font.Font(FONT_PATH, 16)
-	 			textPause = font.render("Pause", 1, (GRAY))
-	 			window.blit(textPause, (WINDOW_WIDTH/2- TILESIZE, WINDOW_HEIGHT/2))
+	 			hud = Hud(player.health, player.lives)
+				hud.update(window, FPS, clock, PAUSE)
+
+				# -- Update Screen
+
 	 			pygame.display.flip()
 
 	 		# -- GameOver Game State
 
 	 		if gamestate.gameOver:
-	 			font = pygame.font.Font(FONT_PATH, 16)
-	 			font2 = pygame.font.Font(FONT_PATH, 10)
-	 			textGameOver= font.render("Game Over", 1, (WHITE))
-	 			textGameOver2 = font2.render("Press [q] to quit", 1, (WHITE))
+	 			hud = Hud(0, None)
 
 	 			gamestate.running = False
 	 			pygame.draw.rect(window, BLACK, (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
-	 			window.blit(textGameOver, (WINDOW_WIDTH/2- TILESIZE, WINDOW_HEIGHT/2))
-	 			window.blit(textGameOver2, (WINDOW_WIDTH/2- TILESIZE, WINDOW_HEIGHT/2 + TILESIZE))
+	 			hud.update(window, FPS, clock, GAME_OVER)
+
+	 			# -- Update Screen
+
 	 			pygame.display.flip()
 
 Main()

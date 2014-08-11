@@ -8,6 +8,13 @@ PLAYER_START_X = 32
 PLAYER_START_Y = 32
 PLAYER_SPEED = 4
 
+# -- Define gamestates
+INTRO = 0
+MAIN_MENU = 1
+RUNNING = 2
+PAUSE = 8
+GAME_OVER = 9
+
 FONT_PATH = './fonts/Grand9K Pixel.ttf'
 
 #  -- Physics

@@ -13,20 +13,43 @@ class Hud(object):
 		self.height = 16
 		self.lives = lives
 
-	def text(self, window, FPS, clock):
+	def text(self, window, FPS, clock, state):
 		font = pygame.font.Font(FONT_PATH, 10)
-			
-		textLifes =  font.render(str(self.lives), 1, (GRAY))
-		textControl = font.render("use [ASWD] to move and p to pause", 1, (GRAY))
-		textFPS = font.render("FPS = " + str(clock.get_fps()), 1, (GRAY))
-		textPause = font.render("PAUSE", 1, (GRAY))
-		window.blit(textFPS, (550, 16))
-		window.blit(textControl, (450, 32))
-		window.blit(textLifes, (8,16))
+		font14 = pygame.font.Font(FONT_PATH, 14)
 
-	def render(self, window):
-		pygame.draw.rect(window, RED, (self.lifeX, self.lifeX , self.width, self.height))
+		if state == MAIN_MENU:
+			textMainMenu = font14.render("Main Menu", 1, (BLACK))
+	 		textMainMenu2 = font.render("Press [Enter] to Start", 1, (BLACK))
 
-	def update(self, window, FPS, clock):
-		self.render(window)
-		self.text(window, FPS, clock)
+	 		window.blit(textMainMenu, (WINDOW_WIDTH/2- TILESIZE, WINDOW_HEIGHT/4))
+	 		window.blit(textMainMenu2, (WINDOW_WIDTH/2- 52, WINDOW_HEIGHT/4 + TILESIZE))
+		
+		if state == RUNNING:	
+			textLifes =  font.render(str(self.lives), 1, (GRAY))
+			textControl = font.render("use [ASWD] to move and p to pause", 1, (GRAY))
+			textFPS = font.render("FPS = " + str(clock.get_fps()), 1, (GRAY))
+		
+			window.blit(textFPS, (550, 16))
+			window.blit(textControl, (450, 32))
+			window.blit(textLifes, (8,16))
+
+		if state == PAUSE:
+			textPause = font14.render("PAUSE", 1, (GRAY))
+
+			window.blit(textPause, (WINDOW_WIDTH/2- TILESIZE, WINDOW_HEIGHT/2))
+
+		if state == GAME_OVER:
+			textGameOver= font14.render("Game Over", 1, (WHITE))
+	 		textGameOver2 = font.render("Press [q] to quit", 1, (WHITE))
+
+	 		window.blit(textGameOver, (WINDOW_WIDTH/2- TILESIZE, WINDOW_HEIGHT/2))
+	 		window.blit(textGameOver2, (WINDOW_WIDTH/2- TILESIZE, WINDOW_HEIGHT/2 + TILESIZE))
+
+
+	def render(self, window, state):
+		if state == RUNNING or state == PAUSE:
+			pygame.draw.rect(window, RED, (self.lifeX, self.lifeX , self.width, self.height))
+
+	def update(self, window, FPS, clock, state):
+		self.render(window, state)
+		self.text(window, FPS, clock, state)
