@@ -24,7 +24,7 @@ class Player(object):
 		self.jump_count = 0
 		self.is_climbing = False
 		self.canGoTroughDoor = True
-
+		
 	def input(self, event):
 		keys = pygame.key.get_pressed()
 
@@ -100,6 +100,8 @@ class Player(object):
 		if colH.TileCollision(self.x, self.y, self.width, self.height, camX, camY, LAVA) == True :
 			self.health -= 5
 		if self.health <= 0:
+			self.x = PLAYER_START_X
+			self.y = PLAYER_START_Y
 			self.health = 100
 			self.lives -= 1
 

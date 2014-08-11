@@ -17,6 +17,11 @@ class Hud(object):
 		font = pygame.font.Font(FONT_PATH, 10)
 		font14 = pygame.font.Font(FONT_PATH, 14)
 
+		if state == INTRO:
+			textIntro = textIntro = font14.render("Intro", 1, (BLACK))
+			window.blit(textIntro, (WINDOW_WIDTH/2- TILESIZE, WINDOW_HEIGHT/4))
+
+
 		if state == MAIN_MENU:
 			textMainMenu = font14.render("Main Menu", 1, (BLACK))
 	 		textMainMenu2 = font.render("Press [Enter] to Start", 1, (BLACK))
@@ -40,10 +45,10 @@ class Hud(object):
 
 		if state == GAME_OVER:
 			textGameOver= font14.render("Game Over", 1, (WHITE))
-	 		textGameOver2 = font.render("Press [q] to quit", 1, (WHITE))
+	 		textGameOver2 = font.render("Press [Return] to start over or [q] to quit", 1, (WHITE))
 
 	 		window.blit(textGameOver, (WINDOW_WIDTH/2- TILESIZE, WINDOW_HEIGHT/2))
-	 		window.blit(textGameOver2, (WINDOW_WIDTH/2- TILESIZE, WINDOW_HEIGHT/2 + TILESIZE))
+	 		window.blit(textGameOver2, (WINDOW_WIDTH/2- TILESIZE*3, WINDOW_HEIGHT/2 + TILESIZE))
 
 
 	def render(self, window, state):

@@ -29,9 +29,9 @@ class Main(object):
 		Run = True
 		while Run:
 
-			print gamestate.gameOver
-
 			gamestate.changestate(player.lives)
+
+			print "Intro =", gamestate.intro, "| Main Menu =", gamestate.mainMenu, "| Running =", gamestate.running, "| Game Over =", gamestate.gameOver
 
 			for event in pygame.event.get():
 				if event.type == QUIT:
@@ -46,10 +46,32 @@ class Main(object):
 					if event.key == K_RETURN:
 						if gamestate.mainMenu:
 							gamestate.running = True
-							gamestate.mainMenu = False
-						
+						elif gamestate.gameOver:
+							# -- Reset Player values
+							player = Player(PLAYER_START_X, PLAYER_START_Y)
+							gamestate.mainMenu = True
 
-			if gamestate.mainMenu:					
+			
+			# -- Intro game state
+			if gamestate.intro:
+				for x in range(0, WINDOW_WIDTH):
+					hud = Hud(0, None)
+					pygame.draw.rect(window, YELLOW, (0, 0, x, WINDOW_HEIGHT))
+
+					hud.update(window, FPS, clock, INTRO)
+					
+					# -- Update Screen
+
+					pygame.display.flip()
+
+					if x == WINDOW_WIDTH -1:
+						gamestate.mainMenu = True
+
+			# -- Main menu game State
+			if gamestate.mainMenu:
+				gamestate.intro = False
+				gamestate.gameOver = False
+
 				hud = Hud(0, None)
 	 			pygame.draw.rect(window, WHITE, (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
 	 			hud.update(window, FPS, clock, MAIN_MENU)
@@ -61,8 +83,9 @@ class Main(object):
 				
 			# -- Running game State
 			if gamestate.running == True:
-				# gamestate.mainMenu = False
-			
+
+				gamestate.mainMenu = False
+							
 				if gamestate.pause == False:
 			
 					# -- Draw tilemap -- only inside camera rectangele
@@ -97,7 +120,6 @@ class Main(object):
 		 			pygame.display.flip()
 
 		 	# -- Pause Game State
-
 	 		if gamestate.pause:
 	 			hud = Hud(player.health, player.lives)
 				hud.update(window, FPS, clock, PAUSE)
@@ -107,7 +129,6 @@ class Main(object):
 	 			pygame.display.flip()
 
 	 		# -- GameOver Game State
-
 	 		if gamestate.gameOver:
 	 			hud = Hud(0, None)
 

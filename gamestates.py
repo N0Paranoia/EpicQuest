@@ -3,8 +3,8 @@ import pygame
 class GameStates(object):
 
 	def __init__(self):
-		self.intro = False
-		self.mainMenu = True
+		self.intro = True
+		self.mainMenu = False
 		self.running = False
 		self.pause = False
 		self.gameOver = False
@@ -13,5 +13,6 @@ class GameStates(object):
 		# -- GameOVer when user dies
 		if lives <= 0:
 			self.gameOver = True
+
 
 		
