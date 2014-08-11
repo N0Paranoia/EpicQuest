@@ -119,7 +119,7 @@ class Main(object):
 
 		 	# -- Pause Game State
 	 		if gamestate.pause:
-	 			hud = Hud(player.health, player.lives)
+	 			hud = Hud(player.health, player.stamina, player.lives)
 				hud.update(window, FPS, clock, PAUSE)
 
 				# -- Update Screen
