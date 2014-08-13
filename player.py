@@ -148,9 +148,11 @@ class Player(object):
 	def update (self, event, window, camX, camY, gravity):
 		self.input(event)
 		self.falling(gravity, camX, camY)
+
 		self.jump()
 		self.climbing(camX, camY)
 		self.gotroughdoor(camX, camY)
+		
 		self.move(gravity, camX, camY)
 		self.playerStamina()
 		self.playerHealth(camX, camY)
