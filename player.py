@@ -20,7 +20,7 @@ class Player(object):
 		self.velocity_y = 0
 		self.velocity_j = 4
 		self.climbing_speed = 4
-		self.jump_speed = 4
+		self.jump_speed = 0
 		self.jump_height = 8
 		self.jump_count = 0
 		self.is_climbing = False
@@ -56,19 +56,21 @@ class Player(object):
 			self.is_falling = False
 
 	def jump(self):
-		if self.stamina > 0:
-			if self.JUMP:
-				self.is_climbing = False
-				if self.jump_count <= self.jump_height:
-					self.velocity_j = -self.jump_speed
-					self.jump_count += 1
-					self.is_falling = False
+		if self.JUMP:
+			self.jump_speed = 4
+			self.is_climbing = False
+			if self.jump_count <= self.jump_height:
+				self.velocity_j = -self.jump_speed
+				self.jump_count += 1
+				self.is_falling = False
+				if self.stamina >= 0:
 					self.stamina -= 10
-				else:
-					self.velocity_j = 0
-					self.JUMP = False
 			else:
-				self.jump_count = 0
+				self.velocity_j = 0
+				self.JUMP = False
+		else:
+			self.jump_count = 0
+			self.jump_speed = 0
 
 	def climbing(self, camX, camY):
 		colL = Collision()
