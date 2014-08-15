@@ -161,6 +161,7 @@ class Player(object):
 		self.input(event)
 		self.falling(gravity, camX, camY)
 
+		self.jump()
 		self.climbing(camX, camY)
 		self.gotroughdoor(camX, camY)
 		
