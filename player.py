@@ -23,6 +23,8 @@ class Player(object):
 		self.jump_speed = 0
 		self.jump_height = 8
 		self.jump_count = 0
+		self.canJump = True
+		self.is_jumping = False;
 		self.is_climbing = False
 		self.canGoTroughDoor = True
 		
@@ -56,21 +58,23 @@ class Player(object):
 			self.is_falling = False
 
 	def jump(self):
-		if self.JUMP:
-			self.jump_speed = 4
-			self.is_climbing = False
-			if self.jump_count <= self.jump_height:
-				self.velocity_j = -self.jump_speed
-				self.jump_count += 1
-				self.is_falling = False
-				if self.stamina >= 0:
-					self.stamina -= 10
+		if self.canJump:
+			if self.JUMP:
+				self.is_jumping = True
+				self.jump_speed = 4
+				self.is_climbing = False
+				if self.jump_count <= self.jump_height:
+					self.velocity_j = -self.jump_speed
+					self.jump_count += 1
+					self.is_falling = False
+					if self.stamina >= 11:
+						self.stamina -= 10
+				else:
+					self.jump_speed = 0
 			else:
-				self.velocity_j = 0
-				self.JUMP = False
-		else:
-			self.jump_count = 0
-			self.jump_speed = 0
+				self.jump_count = 0
+				self.jump_speed = 0
+				self.is_jumping = False
 
 	def climbing(self, camX, camY):
 		colL = Collision()
@@ -113,6 +117,12 @@ class Player(object):
 	def playerStamina(self):
 		if self.stamina <= 100:
 			self.stamina += 1
+		
+		if self.stamina <= 50:
+			if self.is_jumping == False:
+				self.canJump = False
+		else:
+			self.canJump = True
 
 	def move(self, gravity, camX, camY):
 		col = Collision()
@@ -151,7 +161,6 @@ class Player(object):
 		self.input(event)
 		self.falling(gravity, camX, camY)
 
-		self.jump()
 		self.climbing(camX, camY)
 		self.gotroughdoor(camX, camY)
 		
