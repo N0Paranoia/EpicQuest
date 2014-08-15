@@ -20,6 +20,10 @@ class Player(object):
 		self.velocity_y = 0
 		self.velocity_j = 4
 		self.climbing_speed = 4
+		self.is_attacking = False
+		self.canAttack = True
+		self.is_blocking = False
+		self.canBlock = True
 		self.jump_speed = 0
 		self.jump_height = 8
 		self.jump_count = 0
@@ -36,6 +40,8 @@ class Player(object):
 		self.UP = False
 		self.DOWN = False
 		self.JUMP = False
+		self.ATTACK = False
+		self.BLOCK = False
 
 		if keys[K_a]:
 			self.LEFT = True
@@ -45,6 +51,10 @@ class Player(object):
 			self.UP = True
 		if keys[K_s]:
 			self.DOWN = True
+		if keys[K_l]:
+			self.ATTACK = True
+		if keys[K_k]:
+			self.BLOCK = True
 		if keys[K_SPACE]:
 			if self.is_falling == False:
 				self.JUMP = True
@@ -57,6 +67,22 @@ class Player(object):
 			self.y -= gravity
 			self.is_falling = False
 
+	def attack(self):
+		if self.canAttack:
+			if self.ATTACK:
+				self.is_attacking = True
+				self.stamina -= 5
+			else:
+				self.is_attacking = False;
+
+	def block(self):
+		if self.canBlock:
+			if self.BLOCK:
+				self.is_blocking = True
+				self.stamina -= 5
+			else:
+				self.is_blocking = False
+
 	def jump(self):
 		if self.canJump:
 			if self.JUMP:
@@ -67,8 +93,7 @@ class Player(object):
 					self.velocity_j = -self.jump_speed
 					self.jump_count += 1
 					self.is_falling = False
-					if self.stamina >= 11:
-						self.stamina -= 10
+					self.stamina -= 10
 				else:
 					self.jump_speed = 0
 			else:
@@ -117,12 +142,24 @@ class Player(object):
 	def playerStamina(self):
 		if self.stamina <= 100:
 			self.stamina += 1
-		
+		# -- Stamina Threshold for Jumping
 		if self.stamina <= 50:
 			if self.is_jumping == False:
 				self.canJump = False
 		else:
 			self.canJump = True
+		# -- Stamina Threshold for Attcking
+		if self.stamina <= 5:
+			if self.is_attacking == False:
+				self.canAttack = False
+		else:
+			self.canAttack = True
+		# -- Stamina Threshold for Blocking	
+		if self.stamina <= 5:
+			if self.is_blocking == False:
+				self.canBlock = False
+		else:
+			self.canBlock = True	
 
 	def move(self, gravity, camX, camY):
 		col = Collision()
@@ -160,7 +197,9 @@ class Player(object):
 	def update (self, event, window, camX, camY, gravity):
 		self.input(event)
 		self.falling(gravity, camX, camY)
-
+		print self.is_attacking
+		self.attack()
+		self.block()
 		self.jump()
 		self.climbing(camX, camY)
 		self.gotroughdoor(camX, camY)

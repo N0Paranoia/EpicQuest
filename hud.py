@@ -34,11 +34,12 @@ class Hud(object):
 		
 		elif state == RUNNING:	
 			textLifes =  font.render(str(self.lives), 1, (GRAY))
-			textControl = font.render("use [ASWD] to move and p to pause", 1, (GRAY))
+			textControl = font.render("use [ASWD] to move, [K] to block, [L] to attack and [P] to pause", 1, (GRAY))
 			textFPS = font.render("FPS = " + str(clock.get_fps()), 1, (GRAY))
 		
+			
+			window.blit(textControl, (300, 2))
 			window.blit(textFPS, (550, 16))
-			window.blit(textControl, (450, 32))
 			window.blit(textLifes, (8,16))
 
 		elif state == PAUSE:
