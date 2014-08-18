@@ -10,8 +10,8 @@ class Player(object):
 	def __init__(self, x, y):
 		self.x = x
 		self.y = y
-		self.width = 32
-		self.height = 32
+		self.width = PLAYER_WIDTH
+		self.height = PLAYER_HEIGHT
 		self.health = 100
 		self.stamina = 100
 		self.lives = 3
@@ -63,7 +63,7 @@ class Player(object):
 		colf = Collision()
 		self.is_falling = True
 		self.y += gravity
-		if self.y < 0 or self.y + self.height > MAPHEIGHT*32 or colf.TileCollision(self.x, self.y, self.width, self.height, camX, camY, WALL) == True or colf.TileCollision(self.x, self.y, self.width, self.height, camX, camY, LADDER_TOP) == True or colf.CloudCollision(self.x, self.y, self.width, self.height, camX, camY, PLATFORM) == True or self.is_climbing == True:
+		if self.y < 0 or self.y + self.height > MAPHEIGHT*TILESIZE or colf.TileCollision(self.x, self.y, self.width, self.height, camX, camY, WALL) == True or colf.TileCollision(self.x, self.y, self.width, self.height, camX, camY, LADDER_TOP) == True or colf.CloudCollision(self.x, self.y, self.width, self.height, camX, camY, PLATFORM) == True or self.is_climbing == True:
 			self.y -= gravity
 			self.is_falling = False
 
@@ -150,14 +150,14 @@ class Player(object):
 			self.canJump = True
 		# -- Stamina Threshold for Attcking
 		if self.stamina <= 5:
-			if self.is_attacking == False:
-				self.canAttack = False
+			# if self.is_attacking == False:
+			self.canAttack = False
 		else:
 			self.canAttack = True
 		# -- Stamina Threshold for Blocking	
 		if self.stamina <= 5:
-			if self.is_blocking == False:
-				self.canBlock = False
+			# if self.is_blocking == False:
+			self.canBlock = False
 		else:
 			self.canBlock = True	
 
@@ -180,15 +180,15 @@ class Player(object):
 			self.velocity_j = 0
 
 		self.x += self.velocity_x
-		if self.x < 0 or self.x + self.width > MAPWIDTH*32 or col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, WALL) == True:
+		if self.x < 0 or self.x + self.width > MAPWIDTH*TILESIZE or col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, WALL) == True:
 			self.x -= self.velocity_x
 
 		self.y += self.velocity_y
-		if self.y < 0 or self.y + self.height > MAPHEIGHT*32 or col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, WALL) == True:
+		if self.y < 0 or self.y + self.height > MAPHEIGHT*TILESIZE or col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, WALL) == True:
 			self.y -= self.velocity_y
 
 		self.y += self.velocity_j
-		if self.y < 0 or self.y + self.height > MAPHEIGHT*32 or col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, WALL) == True:
+		if self.y < 0 or self.y + self.height > MAPHEIGHT*TILESIZE or col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, WALL) == True:
 			self.y -= self.velocity_j
 			
 	def render(self, window, camX, camY):

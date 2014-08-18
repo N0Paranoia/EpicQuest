@@ -14,10 +14,10 @@ class Camera(object):
 			self.x = 0
 		if self.y < 0:
 			self.y = 0
-		if self.x + self.width > MAPWIDTH*32:
-			self.x = MAPWIDTH*32 - self.width
-		if self.y + self.height > MAPHEIGHT*32:
-			self.y = MAPHEIGHT*32 - self.height
+		if self.x + self.width > MAPWIDTH*TILESIZE:
+			self.x = MAPWIDTH*TILESIZE - self.width
+		if self.y + self.height > MAPHEIGHT*TILESIZE:
+			self.y = MAPHEIGHT*TILESIZE - self.height
 
 	def render(self, window):
 		pygame.draw.rect(window, WHITE, (self.x/WINDOW_WIDTH, self.y/WINDOW_HEIGHT, self.width, self.height), 2)
@@ -37,12 +37,13 @@ class CenterCamera(object):
 	def follow (self, x, y):
 		if self.x > x:
 			self.x = x
-		if self.x < x - TILESIZE:
-			self.x = x - TILESIZE
+		if self.x + self.width < x + PLAYER_WIDTH:
+			self.x = x + PLAYER_WIDTH - self.width
+
 		if self.y > y:
 			self.y = y
-		if self.y < y - 2*TILESIZE:
-			self.y = y - 2*TILESIZE
+		if self.y + self.height < y + PLAYER_HEIGHT:
+			self.y = y + PLAYER_HEIGHT - self.height
 
 	def render(self, window, camX, camY):
 		pygame.draw.rect(window, BLACK, (self.x - camX, self.y - camY, self.width, self.height), 1)
