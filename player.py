@@ -5,6 +5,8 @@ from collision import *
 from doors import *
 from camera import *
 
+
+
 class Player(object):
 
 	def __init__(self, x, y):
@@ -31,6 +33,13 @@ class Player(object):
 		self.is_jumping = False;
 		self.is_climbing = False
 		self.canGoTroughDoor = True
+
+		self.spriteSheet = pygame.image.load(SPRITE_PATH)
+		
+		self.rect = pygame.Rect((0,0),(32,32))
+		self.sprite = pygame.Surface(self.rect.size).convert()
+		self.sprite.blit(self.spriteSheet,(0,0),self.rect)
+
 		
 	def input(self, event):
 		keys = pygame.key.get_pressed()
@@ -192,12 +201,14 @@ class Player(object):
 			self.y -= self.velocity_j
 			
 	def render(self, window, camX, camY):
-		pygame.draw.rect(window, GRAY, (self.x - camX, self.y - camY, self.width, self.height))
+		# pygame.draw.rect(window, GRAY, (self.x - camX, self.y - camY, self.width, self.height))
+		window.blit(self.sprite, (self.x - camX, self.y - camY), self.rect)
+		# window.blit(self.spriteSheet,(self.x - camX, self.y - camY))
 
 	def update (self, event, window, camX, camY, gravity):
 		self.input(event)
 		self.falling(gravity, camX, camY)
-		print self.is_attacking
+		
 		self.attack()
 		self.block()
 		self.jump()

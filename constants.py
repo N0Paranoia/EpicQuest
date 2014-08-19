@@ -18,6 +18,7 @@ PAUSE = 8
 GAME_OVER = 9
 
 FONT_PATH = './fonts/Grand9K Pixel.ttf'
+SPRITE_PATH = './art/spriteSheet.png'
 
 #  -- Physics
 FPS = 60
