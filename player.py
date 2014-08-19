@@ -34,11 +34,12 @@ class Player(object):
 		self.is_climbing = False
 		self.canGoTroughDoor = True
 
+		self.test = 0
 		self.spriteSheet = pygame.image.load(SPRITE_PATH)
 		
-		self.rect = pygame.Rect((0,0),(32,32))
-		self.sprite = pygame.Surface(self.rect.size).convert()
-		self.sprite.blit(self.spriteSheet,(0,0),self.rect)
+		# self.rect = pygame.Rect((8,0),(40,32))
+		# self.sprite = pygame.Surface(self.rect.size).convert()
+		# self.sprite.blit(self.spriteSheet,(0,0),self.rect)
 
 		
 	def input(self, event):
@@ -200,6 +201,21 @@ class Player(object):
 		if self.y < 0 or self.y + self.height > MAPHEIGHT*TILESIZE or col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, WALL) == True:
 			self.y -= self.velocity_j
 			
+	def animate(self):
+		
+		if self.RIGHT:
+			self.test += 16
+			if self.test > 48:
+				self.test = 0
+		elif self.LEFT:
+			self.test += 16
+			if self.test > 48:
+				self.test = 0
+				
+		self.rect = pygame.Rect((self.test,0),(self.test+32,32))
+		self.sprite = pygame.Surface(self.rect.size).convert()
+		self.sprite.blit(self.spriteSheet,(0,0),self.rect)
+
 	def render(self, window, camX, camY):
 		# pygame.draw.rect(window, GRAY, (self.x - camX, self.y - camY, self.width, self.height))
 		window.blit(self.sprite, (self.x - camX, self.y - camY), self.rect)
@@ -218,4 +234,5 @@ class Player(object):
 		self.move(gravity, camX, camY)
 		self.playerStamina()
 		self.playerHealth(camX, camY)
+		self.animate()
 		self.render(window, camX, camY)
