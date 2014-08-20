@@ -34,13 +34,13 @@ class Player(object):
 		self.is_climbing = False
 		self.canGoTroughDoor = True
 
-		self.test = 0
+		self.frameCounter = 0
+		self.frameSpeed = 6
+		self.frameSwitch = 60
+
+		self.frame = 0
 		self.spriteSheet = pygame.image.load(SPRITE_PATH)
 		
-		# self.rect = pygame.Rect((8,0),(40,32))
-		# self.sprite = pygame.Surface(self.rect.size).convert()
-		# self.sprite.blit(self.spriteSheet,(0,0),self.rect)
-
 		
 	def input(self, event):
 		keys = pygame.key.get_pressed()
@@ -202,17 +202,23 @@ class Player(object):
 			self.y -= self.velocity_j
 			
 	def animate(self):
-		
-		if self.RIGHT:
-			self.test += 16
-			if self.test > 48:
-				self.test = 0
-		elif self.LEFT:
-			self.test += 16
-			if self.test > 48:
-				self.test = 0
+
+		self.frameCounter += self.frameSpeed
+		if self.frameCounter > self.frameSwitch:			
+			if self.RIGHT:
+				self.frame += 8
+				if self.frame > 48:
+					self.frame = 0
+				self.frameCounter = 0
+			elif self.LEFT:
+				self.frame += 8
+				if self.frame > 48:
+					self.frame = 0
+				self.frameCounter = 0
+			else:
+				self.frame = 0
 				
-		self.rect = pygame.Rect((self.test,0),(self.test+32,32))
+		self.rect = pygame.Rect((self.frame,0),(self.frame+PLAYER_WIDTH,32))
 		self.sprite = pygame.Surface(self.rect.size).convert()
 		self.sprite.blit(self.spriteSheet,(0,0),self.rect)
 
