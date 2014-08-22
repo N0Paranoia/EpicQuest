@@ -101,7 +101,7 @@ class Main(object):
 
 					# -- Handle Ai events
 					mobs = Mobs(576,64)
-					mobs.update(window)
+					mobs.update(window, camera.x, camera.y)
 
 
 					# -- Camera
