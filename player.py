@@ -223,9 +223,7 @@ class Player(object):
 		self.sprite.blit(self.spriteSheet,(0,0),self.rect)
 
 	def render(self, window, camX, camY):
-		# pygame.draw.rect(window, GRAY, (self.x - camX, self.y - camY, self.width, self.height))
 		window.blit(self.sprite, (self.x - camX, self.y - camY), self.rect)
-		# window.blit(self.spriteSheet,(self.x - camX, self.y - camY))
 
 	def update (self, event, window, camX, camY, gravity):
 		self.input(event)

@@ -65,4 +65,8 @@ colors = {
 			LADDER_TOP : LIGHT_BLUE,
 			PLATFORM : MAGENTA,
 			DOOR : LIGHT_GRAY
-		 }	
+		 }
+
+# -- Mob types
+
+MOB_SIMPLE = 0

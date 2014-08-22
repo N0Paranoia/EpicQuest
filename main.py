@@ -1,5 +1,6 @@
 import pygame
 from player import *
+from mobs import *
 from constants import *
 from tilemap import *
 from level import *
@@ -54,7 +55,7 @@ class Main(object):
 				for x in range(0, WINDOW_WIDTH):
 					hud = Hud(0, None, None)
 					pygame.draw.rect(window, YELLOW, (0, 0, x, WINDOW_HEIGHT))
-
+ 
 					hud.update(window, FPS, clock, INTRO)
 					
 					# -- Update Screen
@@ -96,6 +97,12 @@ class Main(object):
 					# -- Handle player events
 
 					player.update(event, window, camera.x, camera.y, GRAVITY)
+
+
+					# -- Handle Ai events
+					mobs = Mobs(576,64)
+					mobs.update(window)
+
 
 					# -- Camera
 
