@@ -22,6 +22,7 @@ class Main(object):
 		clock = pygame.time.Clock()
 
 		player = Player(PLAYER_START_X, PLAYER_START_Y)
+		mobs = Mobs(576, 64)
 		camera = Camera(0,0)
 		centerCam = CenterCamera()
 		gamestate = GameStates()
@@ -100,7 +101,7 @@ class Main(object):
 
 
 					# -- Handle Ai events
-					mobs = Mobs(576,64)
+					
 					mobs.update(window, camera.x, camera.y)
 
 
