@@ -29,20 +29,20 @@ class Ai(object):
 		elif self.RIGHT:
 			self.velocity_x = speed
 		
-
-
 		x += self.velocity_x
 		
 		if x < 0 or x > MAPWIDTH*32 - TILESIZE or Collision().TileCollision(x, y, width, height, camX, camY, WALL) == True:
-		 	x -= self.velocity_x
-			if self.LEFT:
+			x -= self.velocity_x
+		 	if self.LEFT:
 				self.LEFT = False
 				self.RIGHT = True
-				# print "Left = ", self.LEFT,"|","Right = ", self.RIGHT
-			if self.RIGHT:
+			
+			elif self.RIGHT:
 				self.RIGHT = False
 				self.LEFT = True
-
+			else:
+				elf.LEFT = False
+				self.RIGHT = True
 		
 		print "Left = ", self.LEFT,"|","Right = ", self.RIGHT
 		return x
