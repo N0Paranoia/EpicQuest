@@ -3,6 +3,7 @@ from pygame.locals import *
 from constants import *
 from ai import *
 
+
 class Mobs(object):
 
 	def __init__(self, x, y):

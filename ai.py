@@ -11,6 +11,7 @@ class Ai(object):
 		self.speed = 4
 		self.LEFT = True
 		self.RIGHT = False
+		self.BACK = False
 
 	def falling(self, gravity, x, y, width, height, camX, camY):
 		self.is_falling = True
@@ -33,19 +34,21 @@ class Ai(object):
 		
 		if x < 0 or x > MAPWIDTH*32 - TILESIZE or Collision().TileCollision(x, y, width, height, camX, camY, WALL) == True:
 			x -= self.velocity_x
-		 	if self.LEFT:
-				self.LEFT = False
-				self.RIGHT = True
+			self.BACK = True
 			
+		 	if self.LEFT:
+		 		self.LEFT = not self.LEFT
+				self.RIGHT = not self.RIGHT
 			elif self.RIGHT:
-				self.RIGHT = False
-				self.LEFT = True
+				self.RIGHT = not self.RIGHT
+				self.LEFT = not self.LEFT
 			else:
-				elf.LEFT = False
-				self.RIGHT = True
+				self.LEFT = not self.LEFT
+				self.RIGHT = not self.RIGHT
 		
-		print "Left = ", self.LEFT,"|","Right = ", self.RIGHT
+		# print "Left = ", self.LEFT,"|","Right = ", self.RIGHT, "|", "Back = ", self.BACK
 		return x
+		
 
 		y += self.velocity_y
 		if y < 0 or y > MAPHEIGHT*32 - TILESIZE or Collision().TileCollision(x, y, width, height, camX, camY, WALL) == True:
