@@ -18,6 +18,8 @@ class Mobs(object):
 		move = Ai().move(self.x, self.y, self.width, self.height, camX, camY, self.speed1)
 		self.y = fall
 		self.x = move
+		if move == True:
+			"YEs"
 
 	def render(self, window, camX, camY):
 		pygame.draw.rect(window, YELLOW, (self.x - camX, self.y - camY, self.width, self.height))

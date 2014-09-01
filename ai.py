@@ -34,7 +34,6 @@ class Ai(object):
 		
 		if x < 0 or x > MAPWIDTH*32 - TILESIZE or Collision().TileCollision(x, y, width, height, camX, camY, WALL) == True:
 			x -= self.velocity_x
-			self.BACK = True
 			
 		 	if self.LEFT:
 		 		self.LEFT = not self.LEFT
