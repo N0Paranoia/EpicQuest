@@ -45,10 +45,8 @@ class Ai(object):
 				self.LEFT = not self.LEFT
 				self.RIGHT = not self.RIGHT
 		
-		# print "Left = ", self.LEFT,"|","Right = ", self.RIGHT, "|", "Back = ", self.BACK
 		return x
 		
-
 		y += self.velocity_y
 		if y < 0 or y > MAPHEIGHT*32 - TILESIZE or Collision().TileCollision(x, y, width, height, camX, camY, WALL) == True:
 			y -= self.velocity_y
