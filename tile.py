@@ -12,7 +12,6 @@ class Tile(object):
 		self.width = TILESIZE
 		self.height = TILESIZE
 		self.color = color
-		self.tileSheet = pygame.image.load(TILE_PATH)
 
-	def render(self, window, x):
-		pygame.draw.rect(window, tile, (tile.x, tile.y, tile.width, tile.height))
+	def render(self, window):
+		pygame.draw.rect(window, self.color, (self.x, self.y, self.width, self.height))

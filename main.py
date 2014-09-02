@@ -2,7 +2,7 @@ import pygame
 from player import *
 from mobs import *
 from constants import *
-from tilemap import *
+from tile import *
 from level import *
 from camera import *
 from hud import *

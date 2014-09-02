@@ -1,7 +1,8 @@
 import pygame
 from constants import *
-from tilemap import *
+
 from level import *
+from tile import *
 from pygame.locals import *
 
 
