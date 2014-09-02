@@ -13,8 +13,7 @@ class Mobs(object):
 		self.width = 32
 		self.height = 32
 		self.speed1 = 2
-		self.test = False
-
+		
 	def movement(self, camX, camY):
 		fall = ai.falling(GRAVITY, self.x, self.y, self.width, self.height, camX, camY)
 		move = ai.move(self.x, self.y, self.width, self.height, camX, camY, self.speed1)

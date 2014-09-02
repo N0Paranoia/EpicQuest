@@ -19,6 +19,7 @@ GAME_OVER = 9
 
 FONT_PATH = './fonts/Grand9K Pixel.ttf'
 SPRITE_PATH = './art/spriteSheet.png'
+TILE_PATH = './art/tileSheet.png'
 
 #  -- Physics
 FPS = 60
