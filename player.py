@@ -41,7 +41,6 @@ class Player(object):
 		self.frame = 0
 		self.spriteSheet = pygame.image.load(SPRITE_PATH)
 		
-		
 	def input(self, event):
 		keys = pygame.key.get_pressed()
 
@@ -218,7 +217,7 @@ class Player(object):
 			else:
 				self.frame = 0
 				
-		self.rect = pygame.Rect((self.frame,0),(self.frame+PLAYER_WIDTH,32))
+		self.rect = pygame.Rect((self.frame,0),(self.frame+PLAYER_WIDTH,PLAYER_WIDTH))
 		self.sprite = pygame.Surface(self.rect.size).convert()
 		self.sprite.blit(self.spriteSheet,(0,0),self.rect)
 

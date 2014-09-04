@@ -1,3 +1,4 @@
+import pygame
 
 # -- Window Settings
 WINDOW_WIDTH = 640
@@ -38,6 +39,8 @@ MAGENTA = (255,0,255)
 GRAY = (100,100,100)
 LIGHT_GRAY = (200, 200, 200)
 
+# -- tiles
+RED_TILES = (0,32)
 
 # -- Tile(map) constants
 TILESIZE = 32
@@ -55,6 +58,8 @@ PLATFORM = 7
 DOOR = 8
 
 
+
+
 # -- Linking recources/ colors
 colors = {
 			SKY : WHITE,
@@ -67,6 +72,19 @@ colors = {
 			PLATFORM : MAGENTA,
 			DOOR : LIGHT_GRAY
 		 }
+
+# -- Linking telesheet and numbers
+textures =	{
+				SKY : WHITE,
+				WALL : BLACK,
+				GRASS : GREEN,
+				WATER : BLUE,
+				LAVA : pygame.image.load("./art/tileSheet.png"),
+				LADDER : CYAN,
+				LADDER_TOP : LIGHT_BLUE,
+				PLATFORM : MAGENTA,
+				DOOR : LIGHT_GRAY
+			}
 
 # -- Mob types
 

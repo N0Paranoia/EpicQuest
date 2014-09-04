@@ -65,7 +65,7 @@ class Collision(object):
 				for column in range (MAPWIDTH):
 					if tilemap[row][column] == tile:
 						if column * TILESIZE > camX - 2*TILESIZE and column * TILESIZE < camX + WINDOW_WIDTH + TILESIZE and row * TILESIZE > camY - 2*TILESIZE and row * TILESIZE < camY + WINDOW_HEIGHT + TILESIZE:
-							tiles = Tile(column*TILESIZE, row*TILESIZE, None)
+							tiles = Tile(column*TILESIZE, row*TILESIZE, None, None)
 							col = Collision()
 							if col.CheckCollision(x, y, w, h, tiles) == True:
 								return True
@@ -77,7 +77,7 @@ class Collision(object):
 				for column in range (MAPWIDTH):
 					if tilemap[row][column] == tile:
 						if column * TILESIZE > camX - 2*TILESIZE and column * TILESIZE < camX + WINDOW_WIDTH + TILESIZE and row * TILESIZE > camY - 2*TILESIZE and row * TILESIZE < camY + WINDOW_HEIGHT + TILESIZE:
-							tiles = Tile(column*TILESIZE, row*TILESIZE, None)
+							tiles = Tile(column*TILESIZE, row*TILESIZE, None, None)
 							col = Collision()
 							if col.CheckCloudCollision(x, y, w, h, tiles) == True:
 								return True

@@ -93,7 +93,7 @@ class Main(object):
 					for row in range(MAPHEIGHT):
 						for column in range (MAPWIDTH):
 							if column * TILESIZE > camera.x - TILESIZE and column * TILESIZE < camera.x + WINDOW_WIDTH and row * TILESIZE > camera.y -TILESIZE and row * TILESIZE < camera.y + WINDOW_HEIGHT:
-								tile = Tile(column*TILESIZE - camera.x, row*TILESIZE - camera.y, colors[tilemap[row][column]])
+								tile = Tile(column*TILESIZE - camera.x, row*TILESIZE - camera.y, colors[tilemap[row][column]], textures[tilemap[row][column]])
 								tile.render(window)
 					
 					# -- Handle player events
