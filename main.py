@@ -7,7 +7,6 @@ from level import *
 from camera import *
 from hud import *
 from gamestates import *
-
 from pygame.locals import *
 
 
