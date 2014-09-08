@@ -27,6 +27,13 @@ class Main(object):
 		centerCam = CenterCamera()
 		gamestate = GameStates()
 
+		myimage = pygame.image.load(TILE_PATH)
+		
+		imagerect = pygame.Rect((0,0),(32,32))
+		sprite = pygame.Surface(imagerect.size)#.convert()
+		sprite.blit(myimage,(0,0),(LIGHT_BLUE_TILE))
+			
+
 		Run = True
 		while Run:
 
@@ -93,7 +100,10 @@ class Main(object):
 						for column in range (MAPWIDTH):
 							if column * TILESIZE > camera.x - TILESIZE and column * TILESIZE < camera.x + WINDOW_WIDTH and row * TILESIZE > camera.y -TILESIZE and row * TILESIZE < camera.y + WINDOW_HEIGHT:
 								tile = Tile(column*TILESIZE - camera.x, row*TILESIZE - camera.y, colors[tilemap[row][column]], textures[tilemap[row][column]])
-								tile.render(window)
+								# tile.render(window)
+								sprite.blit(myimage,(0,0),(BLUE_TILE))
+								window.blit(sprite, (32, 32), imagerect)
+
 					
 					# -- Handle player events
 
@@ -121,6 +131,9 @@ class Main(object):
 					hud.update(window, FPS, clock, RUNNING)
 
 		 			# -- Update Screen
+		 			# window.blit(myimage, imagerect)
+
+		 			# window.blit(sprite, (32, 32), imagerect)
 
 		 			pygame.display.flip()
 
