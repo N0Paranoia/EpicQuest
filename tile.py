@@ -5,7 +5,7 @@ from level import *
 
 
 class Tile(object):
-	
+
 	def __init__(self, x, y, color, textures):
 		self.x = x
 		self.y = y

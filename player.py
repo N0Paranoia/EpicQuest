@@ -40,7 +40,7 @@ class Player(object):
 
 		self.frame = 0
 		self.spriteSheet = pygame.image.load(SPRITE_PATH)
-		
+
 	def input(self, event):
 		keys = pygame.key.get_pressed()
 
@@ -67,7 +67,7 @@ class Player(object):
 		if keys[K_SPACE]:
 			if self.is_falling == False:
 				self.JUMP = True
-			
+
 	def falling(self, gravity, camX, camY):
 		colf = Collision()
 		self.is_falling = True
@@ -112,7 +112,7 @@ class Player(object):
 
 	def climbing(self, camX, camY):
 		colL = Collision()
-		if colL.TileCollision(self.x, self.y, self.width, self.height, camX, camY, LADDER) == True or colL.TileCollision(self.x, self.y, self.width, self.height, 
+		if colL.TileCollision(self.x, self.y, self.width, self.height, camX, camY, LADDER) == True or colL.TileCollision(self.x, self.y, self.width, self.height,
 			camX, camY, LADDER_TOP) == True:
 			if self.UP:
 				self.is_climbing = True
@@ -135,7 +135,7 @@ class Player(object):
 					self.x, self.y = doorD.doorConnections(self.x, self.y)
 					self.canGoTroughDoor = False
 					self.UP = False
-		else:		
+		else:
 			self.canGoTroughDoor = True
 
 	def playerHealth(self, camX, camY):
@@ -163,12 +163,12 @@ class Player(object):
 			self.canAttack = False
 		else:
 			self.canAttack = True
-		# -- Stamina Threshold for Blocking	
+		# -- Stamina Threshold for Blocking
 		if self.stamina <= 5:
 			# if self.is_blocking == False:
 			self.canBlock = False
 		else:
-			self.canBlock = True	
+			self.canBlock = True
 
 	def move(self, gravity, camX, camY):
 		col = Collision()
@@ -178,7 +178,7 @@ class Player(object):
 		elif self.RIGHT:
 			self.velocity_x = self.speed
 		else:
-			self.velocity_x = 0		
+			self.velocity_x = 0
 
 		if self.DOWN:
 		 	self.velocity_y = self.speed
@@ -199,11 +199,11 @@ class Player(object):
 		self.y += self.velocity_j
 		if self.y < 0 or self.y + self.height > MAPHEIGHT*TILESIZE or col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, WALL) == True:
 			self.y -= self.velocity_j
-			
+
 	def animate(self):
 
 		self.frameCounter += self.frameSpeed
-		if self.frameCounter > self.frameSwitch:			
+		if self.frameCounter > self.frameSwitch:
 			if self.RIGHT:
 				self.frame += 8
 				if self.frame > 48:
@@ -216,7 +216,7 @@ class Player(object):
 				self.frameCounter = 0
 			else:
 				self.frame = 0
-				
+
 		self.rect = pygame.Rect((self.frame,0),(self.frame+PLAYER_WIDTH,PLAYER_WIDTH))
 		self.sprite = pygame.Surface(self.rect.size).convert()
 		self.sprite.blit(self.spriteSheet,(0,0),self.rect)
@@ -227,13 +227,13 @@ class Player(object):
 	def update (self, event, window, camX, camY, gravity):
 		self.input(event)
 		self.falling(gravity, camX, camY)
-		
+
 		self.attack()
 		self.block()
 		self.jump()
 		self.climbing(camX, camY)
 		self.gotroughdoor(camX, camY)
-		
+
 		self.move(gravity, camX, camY)
 		self.playerStamina()
 		self.playerHealth(camX, camY)
