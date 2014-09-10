@@ -13,7 +13,7 @@ class Collision(object):
 		self.y = 0
 		self.width = 0
 		self.height = 0
-		
+
 	def CheckCollision(self, x, y, w, h, tile):
 		leftA = x
 		rightA = x + w
@@ -33,7 +33,7 @@ class Collision(object):
 			return False
 		if leftA >= rightB:
 			return False
-		#If none of the sides from A are outside B 
+		#If none of the sides from A are outside B
 		return True
 
 	def CheckCloudCollision(self, x, y, w, h, tile):
@@ -55,29 +55,29 @@ class Collision(object):
 			return False
 		if leftA >= rightB:
 			return False
-		#If none of the sides from A are outside B 
+		#If none of the sides from A are outside B
 		return True
 
 	# -- Tile specific collision check
 	def TileCollision(self, x, y, w, h, camX, camY, tile):
-		
+
 		for row in range(MAPHEIGHT):
 				for column in range (MAPWIDTH):
 					if tilemap[row][column] == tile:
 						if column * TILESIZE > camX - 2*TILESIZE and column * TILESIZE < camX + WINDOW_WIDTH + TILESIZE and row * TILESIZE > camY - 2*TILESIZE and row * TILESIZE < camY + WINDOW_HEIGHT + TILESIZE:
-							tiles = Tile(column*TILESIZE, row*TILESIZE, None, None)
+							tiles = Tile(column*TILESIZE, row*TILESIZE, None)
 							col = Collision()
 							if col.CheckCollision(x, y, w, h, tiles) == True:
 								return True
 
 		# -- Tile specific collision check
 	def CloudCollision(self, x, y, w, h, camX, camY, tile):
-		
+
 		for row in range(MAPHEIGHT):
 				for column in range (MAPWIDTH):
 					if tilemap[row][column] == tile:
 						if column * TILESIZE > camX - 2*TILESIZE and column * TILESIZE < camX + WINDOW_WIDTH + TILESIZE and row * TILESIZE > camY - 2*TILESIZE and row * TILESIZE < camY + WINDOW_HEIGHT + TILESIZE:
-							tiles = Tile(column*TILESIZE, row*TILESIZE, None, None)
+							tiles = Tile(column*TILESIZE, row*TILESIZE, None)
 							col = Collision()
 							if col.CheckCloudCollision(x, y, w, h, tiles) == True:
 								return True

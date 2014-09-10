@@ -19,22 +19,22 @@ class Ai(object):
 		if y < 0 or y + height > MAPHEIGHT*TILESIZE or Collision().TileCollision(x, y, width, height, camX, camY, WALL) == True or Collision().TileCollision(x, y, width, height, camX, camY, LADDER_TOP) == True or Collision().CloudCollision(x, y, width, height, camX, camY, PLATFORM) == True:
 			y -= gravity
 			self.is_falling = False
-		
+
 		return y
 
 	def move(self, x, y, width, height, camX, camY, speed):
-		
+
 		if self.LEFT:
 			self.velocity_x = -speed
 
 		elif self.RIGHT:
 			self.velocity_x = speed
-		
+
 		x += self.velocity_x
-		
+
 		if x < 0 or x > MAPWIDTH*32 - TILESIZE or Collision().TileCollision(x, y, width, height, camX, camY, WALL) == True:
 			x -= self.velocity_x
-			
+
 		 	if self.LEFT:
 		 		self.LEFT = not self.LEFT
 				self.RIGHT = not self.RIGHT
@@ -44,11 +44,11 @@ class Ai(object):
 			else:
 				self.LEFT = not self.LEFT
 				self.RIGHT = not self.RIGHT
-		
+
 		return x
-		
+
 		y += self.velocity_y
 		if y < 0 or y > MAPHEIGHT*32 - TILESIZE or Collision().TileCollision(x, y, width, height, camX, camY, WALL) == True:
 			y -= self.velocity_y
-		
+
 	 	return y

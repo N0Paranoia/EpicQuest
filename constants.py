@@ -22,6 +22,8 @@ FONT_PATH = './fonts/Grand9K Pixel.ttf'
 SPRITE_PATH = './art/spriteSheet.png'
 TILE_PATH = './art/tileSheet.png'
 
+TILE_SHEET = pygame.image.load(TILE_PATH)
+
 #  -- Physics
 FPS = 60
 GRAVITY = 4
@@ -43,7 +45,7 @@ LIGHT_GRAY = (200, 200, 200)
 
 TILESIZE = 32
 MAPWIDTH = 22
-MAPHEIGHT = 16 
+MAPHEIGHT = 16
 
 # -- tiles
 WHITE_TILE = (0, 0, TILESIZE, TILESIZE)
