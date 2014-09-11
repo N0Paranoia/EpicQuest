@@ -50,7 +50,6 @@ class Main(object):
 							player = Player(PLAYER_START_X, PLAYER_START_Y)
 							gamestate.mainMenu = True
 
-
 			# -- Intro game state
 			if gamestate.intro:
 				for x in range(0, WINDOW_WIDTH):
@@ -91,7 +90,7 @@ class Main(object):
 
 					for row in range(MAPHEIGHT):
 						for column in range (MAPWIDTH):
-							if column * TILESIZE > camera.x - TILESIZE and column * TILESIZE < camera.x + WINDOW_WIDTH and row * TILESIZE > camera.y -TILESIZE and row * TILESIZE < camera.y + WINDOW_HEIGHT:
+							if column * TILESIZE > camera.x - TILESIZE and column * TILESIZE < camera.x + WINDOW_WIDTH and row * TILESIZE > camera.y - TILESIZE and row * TILESIZE < camera.y + WINDOW_HEIGHT:
 								tile = Tile(column*TILESIZE - camera.x, row*TILESIZE - camera.y, textures[tilemap[row][column]])
 								tile.render(window)
 
@@ -103,7 +102,6 @@ class Main(object):
 					# -- Handle Ai events
 
 					mobs.update(window, camera.x, camera.y)
-
 
 					# -- Camera
 
@@ -121,9 +119,6 @@ class Main(object):
 					hud.update(window, FPS, clock, RUNNING)
 
 		 			# -- Update Screen
-		 			# window.blit(myimage, imagerect)
-
-		 			# window.blit(sprite, (32, 32), imagerect)
 
 		 			pygame.display.flip()
 
