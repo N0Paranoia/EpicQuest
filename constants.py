@@ -87,17 +87,6 @@ colors = {
 		 }
 
 # -- Linking telesheet and numbers
-textures_test =	{
-				SKY : pygame.image.load(TILE_PATH),
-				WALL : pygame.image.load(TILE_PATH),
-				GRASS : pygame.image.load(TILE_PATH),
-				WATER : pygame.image.load(TILE_PATH),
-				LAVA : pygame.image.load(TILE_PATH),
-				LADDER : pygame.image.load(TILE_PATH),
-				LADDER_TOP : pygame.image.load(TILE_PATH),
-				PLATFORM : pygame.image.load(TILE_PATH),
-				DOOR : pygame.image.load(TILE_PATH)
-			}
 
 textures =	{
 				SKY : WHITE_TILE,
