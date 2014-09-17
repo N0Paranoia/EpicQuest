@@ -2,6 +2,7 @@ import pygame
 from player import *
 from mobs import *
 from constants import *
+from world import *
 from tile import *
 from level import *
 from camera import *
@@ -26,6 +27,7 @@ class Main(object):
 		camera = Camera(0,0)
 		centerCam = CenterCamera()
 		gamestate = GameStates()
+		world = World()
 
 		Run = True
 		while Run:
@@ -86,18 +88,13 @@ class Main(object):
 
 				if gamestate.pause == False:
 
-					# -- Draw tilemap -- only inside camera rectangele
+					# -- Initialize world
 
-					for row in range(MAPHEIGHT):
-						for column in range (MAPWIDTH):
-							if column * TILESIZE > camera.x - TILESIZE and column * TILESIZE < camera.x + WINDOW_WIDTH and row * TILESIZE > camera.y - TILESIZE and row * TILESIZE < camera.y + WINDOW_HEIGHT:
-								tile = Tile(column*TILESIZE - camera.x, row*TILESIZE - camera.y, textures[tilemap[row][column]])
-								tile.render(window)
+					world.update(window, camera.y, camera.y)
 
 					# -- Handle player events
 
 					player.update(event, window, camera.x, camera.y, GRAVITY)
-
 
 					# -- Handle Ai events
 
