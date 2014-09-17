@@ -90,7 +90,7 @@ class Main(object):
 
 					# -- Initialize world
 
-					world.update(window, camera.y, camera.y)
+					world.update(window, camera.x, camera.y)
 
 					# -- Handle player events
 
