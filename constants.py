@@ -70,9 +70,6 @@ LADDER_TOP = 6
 PLATFORM = 7
 DOOR = 8
 
-
-TILERECT = pygame.Rect((0,0),(TILESIZE,TILESIZE))
-
 # -- Linking recources/ colors
 colors = {
 			SKY : WHITE,

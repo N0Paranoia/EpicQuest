@@ -3,7 +3,7 @@ from player import *
 from mobs import *
 from constants import *
 from world import *
-from tile import *
+# from tile import *
 from level import *
 from camera import *
 from hud import *
