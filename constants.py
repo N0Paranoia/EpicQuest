@@ -25,7 +25,7 @@ TILE_PATH = './art/tileSheet.png'
 TILE_SHEET = pygame.image.load(TILE_PATH)
 
 #  -- Physics
-FPS = 60
+FPS = 120
 GRAVITY = 4
 
 # -- Colors

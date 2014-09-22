@@ -21,9 +21,8 @@ class World(object):
     self.y = y
     self.textures = textures
 
-    self.TileSurface.blit(TILE_SHEET,(0,0),(textures))
-
   def renderTiles(self, window):
+    self.TileSurface.blit(TILE_SHEET,(0,0),(self.textures))
     window.blit(self.TileSurface, (self.x, self.y), self.TILERECT)
 
   def update(self, window, camX, camY):
