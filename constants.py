@@ -22,8 +22,6 @@ FONT_PATH = './fonts/Grand9K Pixel.ttf'
 SPRITE_PATH = './art/spriteSheet.png'
 TILE_PATH = './art/tileSheet.png'
 
-TILE_SHEET = pygame.image.load(TILE_PATH)
-
 #  -- Physics -- """
 FPS = 120
 GRAVITY = 4
@@ -84,7 +82,6 @@ colors = {
 		 }
 
 """ -- Linking telesheet and numbers -- """
-
 textures =	{
 				SKY : WHITE_TILE,
 				WALL : BLACK_TILE,

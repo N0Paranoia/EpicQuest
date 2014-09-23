@@ -6,10 +6,13 @@ from level import *
 class World(object):
 
   def __init__(self):
-    self.TILERECT = pygame.Rect((0,0),(TILESIZE,TILESIZE))
-    self.TileSurface = pygame.Surface(self.TILERECT.size).convert()
+    """ -- Load Tilesheet -- """
+    self.tileSheet = pygame.image.load(TILE_PATH)
+    """ -- Create Surface to draw tiles on -- """
+    self.TileSurface = pygame.Surface((MAPWIDTH*TILESIZE,MAPHEIGHT*TILESIZE)).convert()
 
   def generateTileMap(self, window, camX, camY):
+    self.TileSurface.blit(self.tileSheet,(0,0))
     for row in range (MAPHEIGHT):
       for column in range (MAPWIDTH):
         if column * TILESIZE > camX - TILESIZE and column * TILESIZE < camX + WINDOW_WIDTH and row * TILESIZE > camY - TILESIZE and row * TILESIZE < camY + WINDOW_HEIGHT:
@@ -22,11 +25,11 @@ class World(object):
     self.textures = textures
 
   def renderTiles(self, window):
-    # self.TileSurface.blit(TILE_SHEET,(0,0),(self.textures))
-    window.blit(self.TileSurface, (self.x, self.y), self.TILERECT)
+    """ -- Blit textures on the surface -- """
+    window.blit(self.TileSurface, (self.x, self.y),(self.textures))
 
   def update(self, window, camX, camY):
-    self.test =  self.generateTileMap(window, camX, camY)
+    self.generateTileMap(window, camX, camY)
 
 """ -- Tile Possion for the collision class -- """
 class Tile(object):

@@ -109,12 +109,12 @@ class Main(object):
 
 					clock.tick(FPS)
 
-					""" - Hud - """
+					""" -- Hud -- """
 
 					hud = Hud(player.health, player.stamina, player.lives)
 					hud.update(window, FPS, clock, RUNNING)
 
-		 			""" - Update screen - """
+		 			""" -- Update screen -- """
 
 		 			pygame.display.flip()
 
@@ -135,7 +135,7 @@ class Main(object):
 	 			pygame.draw.rect(window, BLACK, (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
 	 			hud.update(window, FPS, clock, GAME_OVER)
 
-	 			""" -- Update Screen --- """
+	 			""" -- Update Screen -- """
 
 	 			pygame.display.flip()
 
