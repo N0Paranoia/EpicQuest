@@ -31,7 +31,7 @@ class World(object):
   def update(self, window, camX, camY):
     self.generateTileMap(window, camX, camY)
 
-""" -- Tile Possion for the collision class -- """
+""" -- Tile Position for the collision class -- """
 class Tile(object):
 
     def __init__(self, x, y):
