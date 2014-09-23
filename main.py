@@ -47,11 +47,11 @@ class Main(object):
 						if gamestate.mainMenu:
 							gamestate.running = True
 						elif gamestate.gameOver:
-							# -- Reset Player values
+							""" -- Reset Player values -- """
 							player = Player(PLAYER_START_X, PLAYER_START_Y)
 							gamestate.mainMenu = True
 
-			# -- Intro game state
+			""" -- Intro game state -- """
 			if gamestate.intro:
 				for x in range(0, WINDOW_WIDTH):
 					hud = Hud(0, None, None)
@@ -59,14 +59,14 @@ class Main(object):
 
 					hud.update(window, FPS, clock, INTRO)
 
-					# -- Update Screen
+					""" -- Update Screen -- """
 
 					pygame.display.flip()
 
 					if x == WINDOW_WIDTH -1:
 						gamestate.mainMenu = True
 
-			# -- Main menu game State
+			""" -- Main menu game State -- """
 			if gamestate.mainMenu:
 				gamestate.intro = False
 				gamestate.gameOver = False
@@ -75,59 +75,59 @@ class Main(object):
 	 			pygame.draw.rect(window, WHITE, (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
 	 			hud.update(window, FPS, clock, MAIN_MENU)
 
-	 			# -- Update Screen
+	 			""" -- Update Screen -- """
 
 	 			pygame.display.flip()
 
-
-			# -- Running game State
+			""" -- Running game State -- """
 			if gamestate.running == True:
 
 				gamestate.mainMenu = False
 
 				if gamestate.pause == False:
 
-					# -- Initialize world
+					""" -- Initialize world -- """
 
 					world.update(window, camera.x, camera.y)
 
-					# -- Handle player events
+					""" -- Handle player events -- """
 
 					player.update(event, window, camera.x, camera.y, GRAVITY)
 
-					# -- Handle Ai events
+					""" -- Handle Ai events -- """
 
 					mobs.update(window, camera.x, camera.y)
 
-					# -- Camera
+					""" -- Camera -- """
 
 					centerCam.update(player.x, player.y, camera.x, camera.y, window)
 					camera = Camera(centerCam.x, centerCam.y)
 					camera.update(centerCam.x, centerCam.y, window)
 
-					# -- Set FPS
+
+					""" -- Set FPS -- """
 
 					clock.tick(FPS)
 
-					# -- Hud
+					""" - Hud - """
 
 					hud = Hud(player.health, player.stamina, player.lives)
 					hud.update(window, FPS, clock, RUNNING)
 
-		 			# -- Update Screen
+		 			""" - Update screen - """
 
 		 			pygame.display.flip()
 
-		 	# -- Pause Game State
+		 	""" -- Pause Game State -- """
 	 		if gamestate.pause:
 	 			hud = Hud(player.health, player.stamina, player.lives)
 				hud.update(window, FPS, clock, PAUSE)
 
-				# -- Update Screen
+				""" -- Update Screen -- """
 
 	 			pygame.display.flip()
 
-	 		# -- GameOver Game State
+	 		""" -- GameOver Game State -- """
 	 		if gamestate.gameOver:
 	 			hud = Hud(0, None, None)
 
@@ -135,7 +135,7 @@ class Main(object):
 	 			pygame.draw.rect(window, BLACK, (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
 	 			hud.update(window, FPS, clock, GAME_OVER)
 
-	 			# -- Update Screen
+	 			""" -- Update Screen --- """
 
 	 			pygame.display.flip()
 

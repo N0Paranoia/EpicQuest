@@ -1,17 +1,17 @@
 import pygame
 
-# -- Window Settings
+""" -- Window Settings -- """
 WINDOW_WIDTH = 640
 WINDOW_HEIGHT = 480
 
-# -- Player Starting point
+""" -- Player Starting point -- """
 PLAYER_START_X = 32
 PLAYER_START_Y = 32
 PLAYER_SPEED = 4
 PLAYER_HEIGHT = 32
 PLAYER_WIDTH = 32
 
-# -- Define gamestates
+""" -- Define gamestates -- """
 INTRO = 0
 MAIN_MENU = 1
 RUNNING = 2
@@ -24,11 +24,11 @@ TILE_PATH = './art/tileSheet.png'
 
 TILE_SHEET = pygame.image.load(TILE_PATH)
 
-#  -- Physics
+#  -- Physics -- """
 FPS = 120
 GRAVITY = 4
 
-# -- Colors
+""" -- Colors -- """
 BLACK = (0,0,0)
 WHITE = (255,255,255)
 RED = (255,0,0)
@@ -41,13 +41,13 @@ MAGENTA = (255,0,255)
 GRAY = (100,100,100)
 LIGHT_GRAY = (200, 200, 200)
 
-# -- Tile(map) constants
+""" -- Tile(map) constants -- """
 
 TILESIZE = 32
 MAPWIDTH = 22
 MAPHEIGHT = 16
 
-# -- tiles
+""" -- tiles -- """
 WHITE_TILE = (0, 0, TILESIZE, TILESIZE)
 BLACK_TILE = (32, 0, TILESIZE, TILESIZE)
 GRAY_TILE = (64, 0, TILESIZE, TILESIZE)
@@ -70,7 +70,7 @@ LADDER_TOP = 6
 PLATFORM = 7
 DOOR = 8
 
-# -- Linking recources/ colors
+""" -- Linking recources/ colors -- """
 colors = {
 			SKY : WHITE,
 			WALL : BLACK,
@@ -83,7 +83,7 @@ colors = {
 			DOOR : LIGHT_GRAY
 		 }
 
-# -- Linking telesheet and numbers
+""" -- Linking telesheet and numbers -- """
 
 textures =	{
 				SKY : WHITE_TILE,
@@ -97,6 +97,6 @@ textures =	{
 				DOOR : LIGHT_GRAY_TILE
 			}
 
-# -- Mob types
+""" -- Mob types -- """
 
 MOB_SIMPLE = 0

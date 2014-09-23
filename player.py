@@ -152,21 +152,19 @@ class Player(object):
 	def playerStamina(self):
 		if self.stamina <= 100:
 			self.stamina += 1
-		# -- Stamina Threshold for Jumping
+		""" -- Stamina Threshold for Jumping -- """
 		if self.stamina <= 50:
 			if self.is_jumping == False:
 				self.canJump = False
 		else:
 			self.canJump = True
-		# -- Stamina Threshold for Attcking
+		""" -- Stamina Threshold for Attcking -- """
 		if self.stamina <= 5:
-			# if self.is_attacking == False:
 			self.canAttack = False
 		else:
 			self.canAttack = True
-		# -- Stamina Threshold for Blocking
+		""" -- Stamina Threshold for Blocking -- """
 		if self.stamina <= 5:
-			# if self.is_blocking == False:
 			self.canBlock = False
 		else:
 			self.canBlock = True

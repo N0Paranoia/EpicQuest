@@ -31,12 +31,12 @@ class Hud(object):
 
 	 		window.blit(textMainMenu, (WINDOW_WIDTH/2- TILESIZE, WINDOW_HEIGHT/4))
 	 		window.blit(textMainMenu2, (WINDOW_WIDTH/2- 52, WINDOW_HEIGHT/4 + TILESIZE))
-		
-		elif state == RUNNING:	
+
+		elif state == RUNNING:
 			textLifes =  font.render(str(self.lives), 1, (GRAY))
 			textControl = font.render("use [ASWD] to move, [K] to block, [L] to attack and [P] to pause", 1, (GRAY))
 			textFPS = font.render("FPS = " + str(clock.get_fps()), 1, (GRAY))
-		
+
 			window.blit(textControl, (300, 2))
 			window.blit(textFPS, (550, 16))
 			window.blit(textLifes, (8,16))
@@ -56,7 +56,7 @@ class Hud(object):
 
 	def render(self, window, state):
 		if state == RUNNING or state == PAUSE:
-			# -- Draw Life and stamina Bar
+			""" -- Draw Life and stamina Bar -- """
 			pygame.draw.rect(window, RED, (self.lifeX, self.lifeY , self.healthWidth, self.height))
 			pygame.draw.rect(window, GREEN, (self.staminaX, self.staminaY , self.staminaWidth, self.height))
 

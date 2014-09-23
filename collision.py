@@ -33,7 +33,7 @@ class Collision(object):
 			return False
 		if leftA >= rightB:
 			return False
-		#If none of the sides from A are outside B
+		""" -- If none of the sides from A are outside B """
 		return True
 
 	def CheckCloudCollision(self, x, y, w, h, tile):
@@ -55,10 +55,10 @@ class Collision(object):
 			return False
 		if leftA >= rightB:
 			return False
-		#If none of the sides from A are outside B
+		""" -- If none of the sides from A are outside B -- """
 		return True
 
-	# -- Tile specific collision check
+	""" -- Tile specific collision check -- """
 	def TileCollision(self, x, y, w, h, camX, camY, tile):
 
 		for row in range(MAPHEIGHT):
@@ -70,7 +70,7 @@ class Collision(object):
 							if col.CheckCollision(x, y, w, h, tiles) == True:
 								return True
 
-		# -- Tile specific collision check
+	""" -- Tile specific collision check -- """
 	def CloudCollision(self, x, y, w, h, camX, camY, tile):
 
 		for row in range(MAPHEIGHT):

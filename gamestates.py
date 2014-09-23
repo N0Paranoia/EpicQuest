@@ -10,6 +10,6 @@ class GameStates(object):
 		self.gameOver = False
 
 	def changestate(self, lives):
-		# -- GameOVer when user dies
+		""" -- GameOVer when user dies -- """
 		if lives <= 0:
-			self.gameOver = True		
+			self.gameOver = True
