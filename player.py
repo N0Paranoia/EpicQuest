@@ -172,6 +172,20 @@ class Player(object):
 		else:
 			self.canBlock = True
 
+	""" -- Sloped tiles check -- y1 = y + (x1 - x) -- """
+	def slopes(self, camX, camY):
+		col = Collision()
+		self.slopeX = self.x + self.width/2
+		self.slopeW = 1
+		if col.TileCollision(self.slopeX, self.y, self.slopeW, self.height, camX, camY, SLOPE_LEFT):
+		 	self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (self.slopeX - ((self.slopeX/TILESIZE)*TILESIZE)) - PLAYER_SPEED		 	
+			self.is_falling = False
+		
+		if col.TileCollision(self.slopeX, self.y, self.slopeW, self.height, camX, camY, SLOPE_RIGHT):
+			self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.slopeX - ((self.slopeX/TILESIZE)*TILESIZE)))			
+			self.is_falling = False
+
+
 	def move(self, gravity, camX, camY):
 		col = Collision()
 
@@ -203,22 +217,6 @@ class Player(object):
 		self.y += self.velocity_j
 		if self.y < 0 or self.y + self.height > MAPHEIGHT*TILESIZE or col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, WALL) == True:
 			self.y -= self.velocity_j
-
-	""" -- Sloped tiles check -- y1 = y + (x1 - x) -- """
-	def slopes(self, camX, camY):
-		col = Collision()
-		self.slopeX = self.x + self.width/2
-		self.slopeW = 1
-
-		if col.TileCollision(self.slopeX, self.y, self.slopeW, self.height, camX, camY, SLOPE_LEFT):
-		 	self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (self.slopeX - ((self.slopeX/TILESIZE)*TILESIZE)) - PLAYER_SPEED
-			self.is_falling = False
-			print "Left = ", self.slopeX
-
-		if col.TileCollision(self.slopeX, self.y, self.slopeW, self.height, camX, camY, SLOPE_RIGHT):
-			self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.slopeX - ((self.slopeX/TILESIZE)*TILESIZE)))
-			self.is_falling = False
-			print "Right = ", self.slopeX
 
 	def animate(self):
 
@@ -253,9 +251,9 @@ class Player(object):
 		self.jump()
 		self.climbing(camX, camY)
 		self.gotroughdoor(camX, camY)
+		self.slopes(camX, camY)
 
 		self.move(gravity, camX, camY)
-		self.slopes(camX, camY)
 		self.playerStamina()
 		self.playerHealth(camX, camY)
 		self.animate()
