@@ -40,6 +40,9 @@ class Player(object):
 		self.frameSwitch = 60
 
 		self.frame = 0
+		self.frameStart = 0
+		self.frameAnimation = PLAYER_WIDTH/2
+		self.frameEnd = 48
 		self.spriteSheet = pygame.image.load(SPRITE_PATH)
 
 	def input(self, event):
@@ -189,7 +192,9 @@ class Player(object):
 
 		self.x += self.velocity_x
 		if self.x < 0 or self.x + self.width > MAPWIDTH*TILESIZE or col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, WALL) == True:
-			self.x -= self.velocity_x
+			""" -- Ignore side collision when on a slope -- """
+			if not col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, SLOPE_RIGHT) and not col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, SLOPE_LEFT):
+		 		self.x -= self.velocity_x
 
 		self.y += self.velocity_y
 		if self.y < 0 or self.y + self.height > MAPHEIGHT*TILESIZE or col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, WALL) == True:
@@ -199,29 +204,45 @@ class Player(object):
 		if self.y < 0 or self.y + self.height > MAPHEIGHT*TILESIZE or col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, WALL) == True:
 			self.y -= self.velocity_j
 
+	""" -- Sloped tiles check -- y1 = y + (x1 - x) -- """
+	def slopes(self, camX, camY):
+		col = Collision()
+		self.slopeX = self.x + self.width/2
+		self.slopeW = 1
+
+		if col.TileCollision(self.slopeX, self.y, self.slopeW, self.height, camX, camY, SLOPE_LEFT):
+		 	self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (self.slopeX - ((self.slopeX/TILESIZE)*TILESIZE)) - PLAYER_SPEED
+			self.is_falling = False
+			print "Left = ", self.slopeX
+
+		if col.TileCollision(self.slopeX, self.y, self.slopeW, self.height, camX, camY, SLOPE_RIGHT):
+			self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.slopeX - ((self.slopeX/TILESIZE)*TILESIZE)))
+			self.is_falling = False
+			print "Right = ", self.slopeX
+
 	def animate(self):
 
 		self.frameCounter += self.frameSpeed
 		if self.frameCounter > self.frameSwitch:
 			if self.RIGHT:
-				self.frame += 8
-				if self.frame > 48:
-					self.frame = 0
+				self.frame += self.frameAnimation
+				if self.frame > self.frameEnd:
+					self.frame = self.frameStart
 				self.frameCounter = 0
 			elif self.LEFT:
-				self.frame += 8
-				if self.frame > 48:
-					self.frame = 0
+				self.frame += self.frameAnimation
+				if self.frame > self.frameEnd:
+					self.frame = self.frameStart
 				self.frameCounter = 0
 			else:
-				self.frame = 0
+				self.frame = self.frameStart
 
 		self.rect = pygame.Rect((self.frame,0),(self.frame+PLAYER_WIDTH,PLAYER_WIDTH))
-		self.sprite = pygame.Surface(self.rect.size).convert()
-		self.sprite.blit(self.spriteSheet,(0,0),self.rect)
+		self.spriteSurface = pygame.Surface(self.rect.size).convert()
+		self.spriteSurface.blit(self.spriteSheet,(0,0),self.rect)
 
 	def render(self, window, camX, camY):
-		window.blit(self.sprite, (self.x - camX, self.y - camY), self.rect)
+		window.blit(self.spriteSurface, (self.x - camX, self.y - camY), self.rect)
 
 	def update (self, event, window, camX, camY, gravity):
 		self.input(event)
@@ -234,6 +255,7 @@ class Player(object):
 		self.gotroughdoor(camX, camY)
 
 		self.move(gravity, camX, camY)
+		self.slopes(camX, camY)
 		self.playerStamina()
 		self.playerHealth(camX, camY)
 		self.animate()

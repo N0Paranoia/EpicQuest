@@ -40,12 +40,11 @@ GRAY = (100,100,100)
 LIGHT_GRAY = (200, 200, 200)
 
 """ -- Tile(map) constants -- """
-
 TILESIZE = 32
 MAPWIDTH = 22
 MAPHEIGHT = 16
 
-""" -- tiles -- """
+""" -- tile Sheet -- """
 WHITE_TILE = (0, 0, TILESIZE, TILESIZE)
 BLACK_TILE = (32, 0, TILESIZE, TILESIZE)
 GRAY_TILE = (64, 0, TILESIZE, TILESIZE)
@@ -57,6 +56,8 @@ YELLOW_TILE = (0, 64, TILESIZE, TILESIZE)
 MAGENTA_TILE = (32, 64, TILESIZE, TILESIZE)
 CYAN_TILE = (64, 64, TILESIZE, TILESIZE)
 LIGHT_BLUE_TILE = (96, 64, TILESIZE, TILESIZE)
+SLOPE_TILE_RIGHT = (0, 96, TILESIZE, TILESIZE)
+SLOPE_TILE_LEFT = (32, 96, TILESIZE, TILESIZE)
 
 SKY = 0
 WALL = 1
@@ -67,8 +68,10 @@ LADDER = 5
 LADDER_TOP = 6
 PLATFORM = 7
 DOOR = 8
+SLOPE_RIGHT = 9
+SLOPE_LEFT = 10
 
-""" -- Linking recources/ colors -- """
+""" -- Linking recources/ colors -- (can be deleted) -- """
 colors = {
 			SKY : WHITE,
 			WALL : BLACK,
@@ -91,7 +94,9 @@ textures =	{
 				LADDER : CYAN_TILE,
 				LADDER_TOP : LIGHT_BLUE_TILE,
 				PLATFORM : MAGENTA_TILE,
-				DOOR : LIGHT_GRAY_TILE
+				DOOR : LIGHT_GRAY_TILE,
+				SLOPE_RIGHT : SLOPE_TILE_RIGHT,
+				SLOPE_LEFT : SLOPE_TILE_LEFT
 			}
 
 """ -- Mob types -- """

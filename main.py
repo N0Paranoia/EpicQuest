@@ -60,7 +60,6 @@ class Main(object):
 					hud.update(window, FPS, clock, INTRO)
 
 					""" -- Update Screen -- """
-
 					pygame.display.flip()
 
 					if x == WINDOW_WIDTH -1:
@@ -76,7 +75,6 @@ class Main(object):
 	 			hud.update(window, FPS, clock, MAIN_MENU)
 
 	 			""" -- Update Screen -- """
-
 	 			pygame.display.flip()
 
 			""" -- Running game State -- """
@@ -87,35 +85,28 @@ class Main(object):
 				if gamestate.pause == False:
 
 					""" -- Initialize world -- """
-
 					world.update(window, camera.x, camera.y)
 
 					""" -- Handle player events -- """
-
 					player.update(event, window, camera.x, camera.y, GRAVITY)
 
 					""" -- Handle Ai events -- """
-
 					mobs.update(window, camera.x, camera.y)
 
 					""" -- Camera -- """
-
 					centerCam.update(player.x, player.y, camera.x, camera.y, window)
 					camera = Camera(centerCam.x, centerCam.y)
 					camera.update(centerCam.x, centerCam.y, window)
 
 
 					""" -- Set FPS -- """
-
 					clock.tick(FPS)
 
 					""" -- Hud -- """
-
 					hud = Hud(player.health, player.stamina, player.lives)
 					hud.update(window, FPS, clock, RUNNING)
 
 		 			""" -- Update screen -- """
-
 		 			pygame.display.flip()
 
 		 	""" -- Pause Game State -- """
@@ -136,7 +127,6 @@ class Main(object):
 	 			hud.update(window, FPS, clock, GAME_OVER)
 
 	 			""" -- Update Screen -- """
-
 	 			pygame.display.flip()
 
 Main()
