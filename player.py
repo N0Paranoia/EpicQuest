@@ -107,6 +107,7 @@ class Player(object):
 					self.jump_count += 1
 					self.is_falling = False
 					self.stamina -= 10
+					print self.velocity_j
 				else:
 					self.jump_speed = 0
 			else:
@@ -178,11 +179,11 @@ class Player(object):
 		self.slopeX = self.x + self.width/2
 		self.slopeW = 1
 		if col.TileCollision(self.slopeX, self.y, self.slopeW, self.height, camX, camY, SLOPE_LEFT):
-		 	self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (self.slopeX - ((self.slopeX/TILESIZE)*TILESIZE)) - PLAYER_SPEED		 	
+		 	self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (self.slopeX - ((self.slopeX/TILESIZE)*TILESIZE)) - PLAYER_SPEED
 			self.is_falling = False
-		
+
 		if col.TileCollision(self.slopeX, self.y, self.slopeW, self.height, camX, camY, SLOPE_RIGHT):
-			self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.slopeX - ((self.slopeX/TILESIZE)*TILESIZE)))			
+			self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.slopeX - ((self.slopeX/TILESIZE)*TILESIZE)))
 			self.is_falling = False
 
 
@@ -245,15 +246,13 @@ class Player(object):
 	def update (self, event, window, camX, camY, gravity):
 		self.input(event)
 		self.falling(gravity, camX, camY)
-
 		self.attack()
 		self.block()
 		self.jump()
 		self.climbing(camX, camY)
 		self.gotroughdoor(camX, camY)
-		self.slopes(camX, camY)
-
 		self.move(gravity, camX, camY)
+		self.slopes(camX, camY)
 		self.playerStamina()
 		self.playerHealth(camX, camY)
 		self.animate()

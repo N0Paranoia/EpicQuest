@@ -106,12 +106,12 @@ class Main(object):
 					hud = Hud(player.health, player.stamina, player.lives)
 					hud.update(window, FPS, clock, RUNNING)
 
-		 			""" -- Update screen -- """
-		 			pygame.display.flip()
+					""" -- Update screen -- """
+					pygame.display.flip()
 
-		 	""" -- Pause Game State -- """
-	 		if gamestate.pause:
-	 			hud = Hud(player.health, player.stamina, player.lives)
+			""" -- Pause Game State -- """
+			if gamestate.pause:
+				hud = Hud(player.health, player.stamina, player.lives)
 				hud.update(window, FPS, clock, PAUSE)
 
 				""" -- Update Screen -- """
