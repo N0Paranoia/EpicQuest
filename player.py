@@ -107,7 +107,6 @@ class Player(object):
 					self.jump_count += 1
 					self.is_falling = False
 					self.stamina -= 10
-					print self.velocity_j
 				else:
 					self.jump_speed = 0
 			else:
@@ -257,3 +256,4 @@ class Player(object):
 		self.playerHealth(camX, camY)
 		self.animate()
 		self.render(window, camX, camY)
+		print "Test"
