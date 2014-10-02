@@ -80,6 +80,20 @@ class Player(object):
 			self.y -= gravity
 			self.is_falling = False
 
+		""" -- Gravity function for sloped tiles "y1 = y + (x1 - x)"" -- """
+		self.slopeX = self.x + self.width/2
+		self.slopeW = 1
+		if colf.TileCollision(self.slopeX, self.y, self.slopeW, self.height, camX, camY, SLOPE_LEFT) == True:
+		 	if self.y == (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (self.slopeX - ((self.slopeX/TILESIZE)*TILESIZE)) - PLAYER_SPEED:
+		 		self.y -= gravity
+				self.is_falling = False
+
+		if colf.TileCollision(self.slopeX, self.y, self.slopeW, self.height, camX, camY, SLOPE_RIGHT) == True:
+			if self.y == (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.slopeX - ((self.slopeX/TILESIZE)*TILESIZE))):
+		 		self.y -= gravity
+				self.is_falling = False
+
+
 	def attack(self):
 		if self.canAttack:
 			if self.ATTACK:
@@ -179,12 +193,10 @@ class Player(object):
 		self.slopeW = 1
 		if col.TileCollision(self.slopeX, self.y, self.slopeW, self.height, camX, camY, SLOPE_LEFT):
 		 	self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (self.slopeX - ((self.slopeX/TILESIZE)*TILESIZE)) - PLAYER_SPEED
-			self.is_falling = False
-
+			
 		if col.TileCollision(self.slopeX, self.y, self.slopeW, self.height, camX, camY, SLOPE_RIGHT):
 			self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.slopeX - ((self.slopeX/TILESIZE)*TILESIZE)))
-			self.is_falling = False
-
+			
 
 	def move(self, gravity, camX, camY):
 		col = Collision()
@@ -213,6 +225,16 @@ class Player(object):
 		self.y += self.velocity_y
 		if self.y < 0 or self.y + self.height > MAPHEIGHT*TILESIZE or col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, WALL) == True:
 			self.y -= self.velocity_y
+		""" -- Move (collision) function for sloped tiles "y1 = y + (x1 - x)"" -- """
+		self.slopeX = self.x + self.width/2
+		self.slopeW = 1
+		if col.TileCollision(self.slopeX, self.y, self.slopeW, self.height, camX, camY, SLOPE_LEFT) == True:
+		 	if self.y == (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (self.slopeX - ((self.slopeX/TILESIZE)*TILESIZE)) - PLAYER_SPEED:
+		 		self.y -= self.velocity_y
+
+ 		elif col.TileCollision(self.slopeX, self.y, self.slopeW, self.height, camX, camY, SLOPE_RIGHT) == True:
+			if self.y == (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.slopeX - ((self.slopeX/TILESIZE)*TILESIZE))):
+		 		self.y -= self.velocity_y
 
 		self.y += self.velocity_j
 		if self.y < 0 or self.y + self.height > MAPHEIGHT*TILESIZE or col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, WALL) == True:
@@ -256,4 +278,3 @@ class Player(object):
 		self.playerHealth(camX, camY)
 		self.animate()
 		self.render(window, camX, camY)
-		print "Test"

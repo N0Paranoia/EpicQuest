@@ -98,7 +98,6 @@ class Main(object):
 					camera = Camera(centerCam.x, centerCam.y)
 					camera.update(centerCam.x, centerCam.y, window)
 
-
 					""" -- Set FPS -- """
 					clock.tick(FPS)
 
