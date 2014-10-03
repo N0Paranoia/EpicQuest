@@ -80,7 +80,7 @@ class Player(object):
 			self.y -= gravity
 			self.is_falling = False
 
-		""" -- Gravity function for sloped tiles "y1 = y + (x1 - x)"" -- """
+		""" -- Gravity function for sloped tiles "y1 = y + (x1 - x)" -- """
 		self.slopeX = self.x + self.width/2
 		self.slopeW = 1
 		if colf.TileCollision(self.slopeX, self.y, self.slopeW, self.height, camX, camY, SLOPE_LEFT) == True:
@@ -200,6 +200,8 @@ class Player(object):
 
 	def move(self, gravity, camX, camY):
 		col = Collision()
+		self.slopeX = self.x + self.width/2
+		self.slopeW = 1
 
 		if self.LEFT:
 			self.velocity_x = -self.speed
@@ -220,14 +222,20 @@ class Player(object):
 		if self.x < 0 or self.x + self.width > MAPWIDTH*TILESIZE or col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, WALL) == True:
 			""" -- Ignore side collision when on a slope -- """
 			if not col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, SLOPE_RIGHT) and not col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, SLOPE_LEFT):
-		 		self.x -= self.velocity_x
+				self.x -= self.velocity_x
 
-		self.y += self.velocity_y
+		""" -- X Move (collision) function for sloped tiles "y1 = y + (x1 - x)"" -- """
+		if col.TileCollision(self.slopeX, self.y, self.slopeW, self.height, camX, camY, SLOPE_LEFT):
+		 	if self.y is not (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (self.slopeX - ((self.slopeX/TILESIZE)*TILESIZE)) - PLAYER_SPEED:
+		 		self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (self.slopeX - ((self.slopeX/TILESIZE)*TILESIZE)) - PLAYER_SPEED
+
+		elif col.TileCollision(self.slopeX, self.y, self.slopeW, self.height, camX, camY, SLOPE_RIGHT):
+			if self.y is not (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.slopeX - ((self.slopeX/TILESIZE)*TILESIZE))):
+				self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.slopeX - ((self.slopeX/TILESIZE)*TILESIZE)))
+		
 		if self.y < 0 or self.y + self.height > MAPHEIGHT*TILESIZE or col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, WALL) == True:
 			self.y -= self.velocity_y
-		""" -- Move (collision) function for sloped tiles "y1 = y + (x1 - x)"" -- """
-		self.slopeX = self.x + self.width/2
-		self.slopeW = 1
+		""" -- Y Move (collision) function for sloped tiles "y1 = y + (x1 - x)"" -- """
 		if col.TileCollision(self.slopeX, self.y, self.slopeW, self.height, camX, camY, SLOPE_LEFT) == True:
 		 	if self.y == (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (self.slopeX - ((self.slopeX/TILESIZE)*TILESIZE)) - PLAYER_SPEED:
 		 		self.y -= self.velocity_y
@@ -273,7 +281,6 @@ class Player(object):
 		self.climbing(camX, camY)
 		self.gotroughdoor(camX, camY)
 		self.move(gravity, camX, camY)
-		self.slopes(camX, camY)
 		self.playerStamina()
 		self.playerHealth(camX, camY)
 		self.animate()
