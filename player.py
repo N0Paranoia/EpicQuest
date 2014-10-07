@@ -226,12 +226,12 @@ class Player(object):
 
 		""" -- X Move (collision) function for sloped tiles "y1 = y + (x1 - x)"" -- """
 		if col.TileCollision(self.slopeX, self.y, self.slopeW, self.height, camX, camY, SLOPE_LEFT):
-		 	if self.y is not (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (self.slopeX - ((self.slopeX/TILESIZE)*TILESIZE)) - PLAYER_SPEED:
-		 		self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (self.slopeX - ((self.slopeX/TILESIZE)*TILESIZE)) - PLAYER_SPEED
+			if self.velocity_x > 0:
+		 		self.y -= (2*PLAYER_SPEED)
 
 		elif col.TileCollision(self.slopeX, self.y, self.slopeW, self.height, camX, camY, SLOPE_RIGHT):
-			if self.y is not (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.slopeX - ((self.slopeX/TILESIZE)*TILESIZE))):
-				self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.slopeX - ((self.slopeX/TILESIZE)*TILESIZE)))
+			if self.velocity_x < 0:
+		 		self.y -= (2*PLAYER_SPEED)
 		
 		self.y += self.velocity_y
 		if self.y < 0 or self.y + self.height > MAPHEIGHT*TILESIZE or col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, WALL) == True:
