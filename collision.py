@@ -63,7 +63,7 @@ class Collision(object):
 
 		for row in range(MAPHEIGHT):
 				for column in range (MAPWIDTH):
-					if tilemap[row][column] == tile:
+					if levelOne[row][column] == tile:
 						if column * TILESIZE > camX - 2*TILESIZE and column * TILESIZE < camX + WINDOW_WIDTH + TILESIZE and row * TILESIZE > camY - 2*TILESIZE and row * TILESIZE < camY + WINDOW_HEIGHT + TILESIZE:
 							tiles = Tile(column*TILESIZE, row*TILESIZE)
 							col = Collision()
@@ -75,7 +75,7 @@ class Collision(object):
 
 		for row in range(MAPHEIGHT):
 				for column in range (MAPWIDTH):
-					if tilemap[row][column] == tile:
+					if levelOne[row][column] == tile:
 						if column * TILESIZE > camX - 2*TILESIZE and column * TILESIZE < camX + WINDOW_WIDTH + TILESIZE and row * TILESIZE > camY - 2*TILESIZE and row * TILESIZE < camY + WINDOW_HEIGHT + TILESIZE:
 							tiles = Tile(column*TILESIZE, row*TILESIZE)
 							col = Collision()

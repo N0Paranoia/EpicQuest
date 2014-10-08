@@ -1,7 +1,7 @@
 import pygame
 
 """ -- Window Settings -- """
-WINDOW_WIDTH = 640
+WINDOW_WIDTH = 854
 WINDOW_HEIGHT = 480
 
 """ -- Player Starting point -- """
@@ -17,6 +17,10 @@ MAIN_MENU = 1
 RUNNING = 2
 PAUSE = 8
 GAME_OVER = 9
+
+""" -- Define levels -- """
+FIRST_LEVEL = 1
+
 
 FONT_PATH = './fonts/Grand9K Pixel.ttf'
 SPRITE_PATH = './art/spriteSheet.png'
@@ -41,8 +45,8 @@ LIGHT_GRAY = (200, 200, 200)
 
 """ -- Tile(map) constants -- """
 TILESIZE = 32
-MAPWIDTH = 22
-MAPHEIGHT = 16
+MAPWIDTH = 30
+MAPHEIGHT = 30
 
 """ -- tile Sheet -- """
 WHITE_TILE = (0, 0, TILESIZE, TILESIZE)
@@ -59,17 +63,18 @@ LIGHT_BLUE_TILE = (96, 64, TILESIZE, TILESIZE)
 SLOPE_TILE_RIGHT = (0, 96, TILESIZE, TILESIZE)
 SLOPE_TILE_LEFT = (32, 96, TILESIZE, TILESIZE)
 
-SKY = 0
-WALL = 1
-GRASS = 2
-WATER = 3
-LAVA = 4
-LADDER = 5
-LADDER_TOP = 6
-PLATFORM = 7
-DOOR = 8
-SLOPE_RIGHT = 9
-SLOPE_LEFT = 10
+SKY = 1
+WALL = 2
+WOOD = 3
+DOOR = 4
+LAVA = 5
+GRASS = 6
+WATER = 7
+PLATFORM = 10
+LADDER = 11
+LADDER_TOP = 12
+SLOPE_RIGHT = 13
+SLOPE_LEFT = 14
 
 """ -- Linking recources/ colors -- (can be deleted) -- """
 colors = {
@@ -95,6 +100,7 @@ textures =	{
 				LADDER_TOP : LIGHT_BLUE_TILE,
 				PLATFORM : MAGENTA_TILE,
 				DOOR : LIGHT_GRAY_TILE,
+				WOOD : GRAY_TILE,
 				SLOPE_RIGHT : SLOPE_TILE_RIGHT,
 				SLOPE_LEFT : SLOPE_TILE_LEFT
 			}

@@ -90,7 +90,7 @@ class Main(object):
 					""" -- Handle player events -- """
 					player.update(event, window, camera.x, camera.y, GRAVITY)
 
-					""" -- Handle Ai events -- """
+					""" -- Handle AI events -- """
 					mobs.update(window, camera.x, camera.y)
 
 					""" -- Camera -- """
@@ -101,12 +101,16 @@ class Main(object):
 					""" -- Set FPS -- """
 					clock.tick(FPS)
 
-					""" -- Hud -- """
+					""" -- HUD -- """
 					hud = Hud(player.health, player.stamina, player.lives)
 					hud.update(window, FPS, clock, RUNNING)
 
 					""" -- Update screen -- """
 					pygame.display.flip()
+
+					""" -- Debug info -- """
+					print FIRST_LEVEL
+
 
 			""" -- Pause Game State -- """
 			if gamestate.pause:

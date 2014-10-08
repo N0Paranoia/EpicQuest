@@ -1,4 +1,5 @@
 import pygame
+from level import *
 
 class GameStates(object):
 
@@ -13,3 +14,6 @@ class GameStates(object):
 		""" -- GameOVer when user dies -- """
 		if lives <= 0:
 			self.gameOver = True
+
+	def changelevel(self, currentLevel, addLevel):
+ 		return currentLevel+addLevel
