@@ -27,7 +27,7 @@ class Main(object):
 		centerCam = CenterCamera()
 		gamestate = GameStates()
 		world = World()
-
+		
 		Run = True
 		while Run:
 
@@ -109,7 +109,6 @@ class Main(object):
 					pygame.display.flip()
 
 					""" -- Debug info -- """
-					print FIRST_LEVEL
 
 
 			""" -- Pause Game State -- """

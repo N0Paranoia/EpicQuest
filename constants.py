@@ -19,7 +19,7 @@ PAUSE = 8
 GAME_OVER = 9
 
 """ -- Define levels -- """
-FIRST_LEVEL = 1
+# FIRST_LEVEL = 1
 
 
 FONT_PATH = './fonts/Grand9K Pixel.ttf'
