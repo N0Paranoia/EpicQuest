@@ -32,18 +32,24 @@ class Ai(object):
 
 		x += self.velocity_x
 
-		if x < 0 or x > MAPWIDTH*32 - TILESIZE or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, WALL) == True:
-			x -= self.velocity_x
+		if x < 0 or x > MAPWIDTH*32 - TILESIZE or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, WALL) == True or Collision().TileCollision(x, y+TILESIZE, width, height, x+TILESIZE, y+TILESIZE, LAVA) == True:
+			if not Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_LEFT) or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_RIGHT):
+				x -= self.velocity_x
 
-		 	if self.LEFT:
-		 		self.LEFT = not self.LEFT
-				self.RIGHT = not self.RIGHT
-			elif self.RIGHT:
-				self.RIGHT = not self.RIGHT
-				self.LEFT = not self.LEFT
-			else:
-				self.LEFT = not self.LEFT
-				self.RIGHT = not self.RIGHT
+			 	if self.LEFT:
+			 		self.LEFT = not self.LEFT
+					self.RIGHT = not self.RIGHT
+				elif self.RIGHT:
+					self.RIGHT = not self.RIGHT
+					self.LEFT = not self.LEFT
+				else:
+					self.LEFT = not self.LEFT
+					self.RIGHT = not self.RIGHT
+
+		if self.RIGHT and Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_LEFT) == True:
+ 			print "Test slope Left"
+ 		if self.LEFT and Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_RIGHT) == True:
+ 			print "Test slope Right"
 
 		return x
 

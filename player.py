@@ -186,18 +186,6 @@ class Player(object):
 		else:
 			self.canBlock = True
 
-	""" -- Sloped tiles check -- y1 = y + (x1 - x) -- """
-	def slopes(self, camX, camY):
-		col = Collision()
-		self.slopeX = self.x + self.width/2
-		self.slopeW = 1
-		if col.TileCollision(self.slopeX, self.y, self.slopeW, self.height, camX, camY, SLOPE_LEFT):
-		 	self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (self.slopeX - ((self.slopeX/TILESIZE)*TILESIZE)) - PLAYER_SPEED
-			
-		if col.TileCollision(self.slopeX, self.y, self.slopeW, self.height, camX, camY, SLOPE_RIGHT):
-			self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.slopeX - ((self.slopeX/TILESIZE)*TILESIZE)))
-			
-
 	def move(self, gravity, camX, camY):
 		col = Collision()
 		self.slopeX = self.x + self.width/2

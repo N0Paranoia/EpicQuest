@@ -110,7 +110,6 @@ class Main(object):
 
 					""" -- Debug info -- """
 
-
 			""" -- Pause Game State -- """
 			if gamestate.pause:
 				hud = Hud(player.health, player.stamina, player.lives)
