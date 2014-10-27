@@ -39,7 +39,8 @@ class Player(object):
 		self.frameSpeed = 6
 		self.frameSwitch = 60
 
-		self.frame = 0
+		self.frameHor = 0
+		self.frameVert = 0
 		self.frameStart = 0
 		self.frameAnimation = PLAYER_WIDTH/2
 		self.frameEnd = 48
@@ -243,20 +244,27 @@ class Player(object):
 
 		self.frameCounter += self.frameSpeed
 		if self.frameCounter > self.frameSwitch:
-			if self.RIGHT:
-				self.frame += self.frameAnimation
-				if self.frame > self.frameEnd:
-					self.frame = self.frameStart
+			if self.ATTACK:
+				self.frameHor = 0
+				self.frameVert = 16
+			elif self.BLOCK:
+				self.frameHor = 16
+				self.frameVert = 16
+			elif self.RIGHT:
+				self.frameHor += self.frameAnimation
+				if self.frameHor > self.frameEnd:
+					self.frameHor = self.frameStart
 				self.frameCounter = 0
 			elif self.LEFT:
-				self.frame += self.frameAnimation
-				if self.frame > self.frameEnd:
-					self.frame = self.frameStart
+				self.frameHor += self.frameAnimation
+				if self.frameHor > self.frameEnd:
+					self.frameHor = self.frameStart
 				self.frameCounter = 0
 			else:
-				self.frame = self.frameStart
+				self.frameHor = self.frameStart
+				self.frameVert = self.frameStart
 
-		self.rect = pygame.Rect((self.frame,0),(self.frame+PLAYER_WIDTH,PLAYER_WIDTH))
+		self.rect = pygame.Rect((self.frameHor,self.frameVert),(self.frameHor+PLAYER_WIDTH,self.frameVert+PLAYER_WIDTH))
 		self.spriteSurface = pygame.Surface(self.rect.size).convert()
 		self.spriteSurface.blit(self.spriteSheet,(0,0),self.rect)
 
