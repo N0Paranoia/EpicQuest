@@ -41,9 +41,12 @@ class Player(object):
 
 		self.frameHor = 0
 		self.frameVert = 0
-		self.frameStart = 0
+		self.frameIdelX = 0
+		self.frameIdelY = 0
+		self.frameStartX = 16
+		self.frameStartY = 0
 		self.frameAnimation = PLAYER_WIDTH/2
-		self.frameEnd = 48
+		self.frameEnd = 64
 		self.spriteSheet = pygame.image.load(SPRITE_PATH)
 
 	def input(self, event):
@@ -253,18 +256,19 @@ class Player(object):
 			elif self.RIGHT:
 				self.frameHor += self.frameAnimation
 				if self.frameHor > self.frameEnd:
-					self.frameHor = self.frameStart
+					self.frameHor = self.frameStartX
 				self.frameCounter = 0
 			elif self.LEFT:
 				self.frameHor += self.frameAnimation
 				if self.frameHor > self.frameEnd:
-					self.frameHor = self.frameStart
+					self.frameHor = self.frameStartX
 				self.frameCounter = 0
 			else:
-				self.frameHor = self.frameStart
-				self.frameVert = self.frameStart
+				self.frameHor = self.frameIdelX
+				self.frameVert = self.frameIdelY
 
 		self.rect = pygame.Rect((self.frameHor,self.frameVert),(self.frameHor+PLAYER_WIDTH,self.frameVert+PLAYER_WIDTH))
+		
 		self.spriteSurface = pygame.Surface(self.rect.size).convert()
 		self.spriteSurface.blit(self.spriteSheet,(0,0),self.rect)
 

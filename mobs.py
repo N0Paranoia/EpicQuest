@@ -23,6 +23,8 @@ class Mobs(object):
 
 	def render(self, window, camX, camY):
 		pygame.draw.rect(window, YELLOW, (self.x - camX, self.y - camY, self.width, self.height))
+		pygame.draw.rect(window, GREEN, ((self.x-2*TILESIZE) - camX, self.y - camY, self.width, self.height))
+
 
 	def update(self, window, camX, camY):
 		self.movement(camX, camY)

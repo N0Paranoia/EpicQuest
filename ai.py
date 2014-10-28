@@ -47,9 +47,9 @@ class Ai(object):
 					self.RIGHT = not self.RIGHT
 
 		if self.RIGHT and Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_LEFT) == True:
- 			print "Test slope Left"
+ 			pass
  		if self.LEFT and Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_RIGHT) == True:
- 			print "Test slope Right"
+ 			pass
 
 		return x
 
