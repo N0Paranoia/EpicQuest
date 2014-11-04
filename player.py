@@ -219,12 +219,12 @@ class Player(object):
 		""" -- X Move (collision) function for sloped tiles "y1 = y + (x1 - x)"" -- """
 		if col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, SLOPE_LEFT):
 		 	if self.y is not (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (self.x - ((self.x/TILESIZE)*TILESIZE)):
-		 		self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (self.x - ((self.x/TILESIZE)*TILESIZE))
+		 		self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (self.x - ((self.x/TILESIZE)*TILESIZE))-PLAYER_SPEED
 
 		if col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, SLOPE_RIGHT):
 			if self.y is not (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.x - ((self.x/TILESIZE)*TILESIZE))):
-		 		self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.x - ((self.x/TILESIZE)*TILESIZE)))
-		
+		 		self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.x - ((self.x/TILESIZE)*TILESIZE)))-PLAYER_SPEED
+
 		self.y += self.velocity_y
 		if self.y < 0 or self.y + self.height > MAPHEIGHT*TILESIZE or col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, WALL) == True:
 			self.y -= self.velocity_y
@@ -266,7 +266,7 @@ class Player(object):
 				self.frameVert = self.frameIdelY
 
 		self.rect = pygame.Rect((self.frameHor,self.frameVert),(self.frameHor+PLAYER_WIDTH,self.frameVert+PLAYER_WIDTH))
-		
+
 		self.spriteSurface = pygame.Surface(self.rect.size).convert()
 		self.spriteSurface.blit(self.spriteSheet,(0,0),self.rect)
 
