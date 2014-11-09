@@ -212,15 +212,15 @@ class Player(object):
 
 		self.x += self.velocity_x
 		if self.x < 0 or self.x + self.width > MAPWIDTH*TILESIZE or col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, WALL) == True:
-			""" -- Ignore side collision when on a slope -- """
-			if not col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, SLOPE_RIGHT) and not col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, SLOPE_LEFT):
-				self.x -= self.velocity_x
+			# """ -- Ignore side collision when on a slope -- """
+			# if not col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, SLOPE_RIGHT) and not col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, SLOPE_LEFT):
+			self.x -= self.velocity_x
 
 		""" -- X Move (collision) function for sloped tiles "y1 = y + (x1 - x)"" -- """
 		if col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, SLOPE_LEFT):
-			if self.y is not (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (self.x - ((self.x/TILESIZE)*TILESIZE)):
-				self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (self.x - ((self.x/TILESIZE)*TILESIZE))-PLAYER_SPEED
-
+			if self.y is not (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - ((self.x-1+TILESIZE) - (((self.x-1+TILESIZE)/TILESIZE)*TILESIZE)):
+				self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - ((self.x + TILESIZE) - (((self.x-1+TILESIZE)/TILESIZE)*TILESIZE))
+				
 		if col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, SLOPE_RIGHT):
 			if self.y is not (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.x - ((self.x/TILESIZE)*TILESIZE))):
 				self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.x - ((self.x/TILESIZE)*TILESIZE)))
