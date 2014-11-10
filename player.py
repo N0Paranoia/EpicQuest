@@ -85,10 +85,8 @@ class Player(object):
 			self.is_falling = False
 
 		""" -- Gravity function for sloped tiles "y1 = y + (x1 - x)" -- """
-		self.slopeX = self.x + self.width/2
-		self.slopeW = 1
 		if colf.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, SLOPE_LEFT):
-		 	if self.y == (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (self.x - ((self.x/TILESIZE)*TILESIZE)):
+		 	if self.y ==  (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - ((self.x-1+TILESIZE) - (((self.x-1+TILESIZE)/TILESIZE)*TILESIZE)):
 		 		self.y -= gravity
 				self.is_falling = False
 
@@ -218,8 +216,9 @@ class Player(object):
 
 		""" -- X Move (collision) function for sloped tiles "y1 = y + (x1 - x)"" -- """
 		if col.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, SLOPE_LEFT):
-			if self.y is not (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - ((self.x-1+TILESIZE) - (((self.x-1+TILESIZE)/TILESIZE)*TILESIZE)):
-				self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - ((self.x + TILESIZE) - (((self.x-1+TILESIZE)/TILESIZE)*TILESIZE)) - self.velocity_x
+			if not self.JUMP:
+				if self.y is not (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - ((self.x-1+TILESIZE) - (((self.x-1+TILESIZE)/TILESIZE)*TILESIZE)):
+					self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - ((self.x + TILESIZE) - (((self.x-1+TILESIZE)/TILESIZE)*TILESIZE)) - self.velocity_x
 					
 		if col.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, SLOPE_RIGHT):
 			if self.y is not (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.x - ((self.x/TILESIZE)*TILESIZE))):
@@ -231,7 +230,7 @@ class Player(object):
 
 		""" -- Y Move (collision) function for sloped tiles "y1 = y + (x1 - x)"" -- """
 		if col.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, SLOPE_LEFT):
-		 	if self.y == (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (self.x - ((self.x/TILESIZE)*TILESIZE)):
+		 	if self.y == (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - ((self.x-1+TILESIZE) - (((self.x-1+TILESIZE)/TILESIZE)*TILESIZE)):
 		 		self.y -= self.velocity_y
 
  		if col.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, SLOPE_RIGHT):

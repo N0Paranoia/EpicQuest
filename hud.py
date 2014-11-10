@@ -58,9 +58,11 @@ class Hud(object):
 		if state == RUNNING or state == PAUSE:
 			""" -- Draw Life and stamina Bar -- """
 			pygame.draw.rect(window, BLACK, (self.lifeX-2, self.lifeY-2, 100+4, self.height+4))
-			pygame.draw.rect(window, RED, (self.lifeX, self.lifeY, self.healthWidth, self.height))
+			if self.healthWidth > 0:
+				pygame.draw.rect(window, RED, (self.lifeX, self.lifeY, self.healthWidth, self.height))
 			pygame.draw.rect(window, BLACK, (self.staminaX-2, self.staminaY-2, 100+4, self.height+4))
-			pygame.draw.rect(window, GREEN, (self.staminaX, self.staminaY, self.staminaWidth, self.height))
+			if self.staminaWidth > 0:
+				pygame.draw.rect(window, GREEN, (self.staminaX, self.staminaY, self.staminaWidth, self.height))
 
 	def update(self, window, FPS, clock, state):
 		self.render(window, state)
