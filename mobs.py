@@ -14,9 +14,9 @@ class Mobs(object):
 		self.height = 32
 		self.speed1 = 2
 		
-	def movement(self, camX, camY):
-		fall = ai.falling(GRAVITY, self.x, self.y, self.width, self.height, camX, camY)
-		move = ai.move(self.x, self.y, self.width, self.height, camX, camY, self.speed1)
+	def movement(self):
+		fall = ai.falling(GRAVITY, self.x, self.y, self.width, self.height)
+		move = ai.move(self.x, self.y, self.width, self.height, self.speed1)
 		self.y = fall
 		self.x = move
 
@@ -27,5 +27,5 @@ class Mobs(object):
 
 
 	def update(self, window, camX, camY):
-		self.movement(camX, camY)
+		self.movement()
 		self.render(window, camX, camY)

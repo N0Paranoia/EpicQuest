@@ -27,7 +27,7 @@ SPRITE_PATH = './art/spriteSheet.png'
 TILE_PATH = './art/tileSheet.png'
 
 #  -- Physics -- """
-FPS = 60
+FPS = 120
 GRAVITY = 4
 
 """ -- Colors -- """

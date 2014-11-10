@@ -13,16 +13,16 @@ class Ai(object):
 		self.RIGHT = False
 		self.BACK = False
 
-	def falling(self, gravity, x, y, width, height, camX, camY):
+	def falling(self, gravity, x, y, width, height):
 		self.is_falling = True
 		y += gravity
-		if y < 0 or y + height > MAPHEIGHT*TILESIZE or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, WALL) == True or Collision().TileCollision(x, y, width, height, camX, camY, LADDER_TOP) == True or Collision().CloudCollision(x, y, width, height, camX, camY, PLATFORM) == True:
+		if y < 0 or y + height > MAPHEIGHT*TILESIZE or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, WALL) == True or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, LADDER_TOP) == True or Collision().CloudCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, PLATFORM) == True:
 			y -= gravity
 			self.is_falling = False
 
 		return y
 
-	def move(self, x, y, width, height, camX, camY, speed):
+	def move(self, x, y, width, height, speed):
 
 		if self.LEFT:
 			self.velocity_x = -speed
@@ -32,24 +32,18 @@ class Ai(object):
 
 		x += self.velocity_x
 
-		if x < 0 or x > MAPWIDTH*32 - TILESIZE or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, WALL) == True or Collision().TileCollision(x, y+TILESIZE, width, height, x+TILESIZE, y+TILESIZE, LAVA) == True:
-			if not Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_LEFT) or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_RIGHT):
-				x -= self.velocity_x
+		if x < 0 or x > MAPWIDTH*32 - TILESIZE or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, WALL) or Collision().TileCollision(x, y+TILESIZE, width, height, x+TILESIZE, y+TILESIZE, LAVA) or Collision().TileCollision(x, y+TILESIZE, width, height, x+TILESIZE, y+TILESIZE, SKY) or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_LEFT) or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_RIGHT) or Collision().TileCollision(x, y+TILESIZE, width, height, x+TILESIZE, y+TILESIZE, SLOPE_LEFT) or Collision().TileCollision(x, y+TILESIZE, width, height, x+TILESIZE, y+TILESIZE, SLOPE_RIGHT):
+			x -= self.velocity_x
 
-			 	if self.LEFT:
-			 		self.LEFT = not self.LEFT
-					self.RIGHT = not self.RIGHT
-				elif self.RIGHT:
-					self.RIGHT = not self.RIGHT
-					self.LEFT = not self.LEFT
-				else:
-					self.LEFT = not self.LEFT
-					self.RIGHT = not self.RIGHT
-
-		if self.RIGHT and Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_LEFT) == True:
- 			pass
- 		if self.LEFT and Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_RIGHT) == True:
- 			pass
+		 	if self.LEFT:
+		 		self.LEFT = not self.LEFT
+				self.RIGHT = not self.RIGHT
+			elif self.RIGHT:
+				self.RIGHT = not self.RIGHT
+				self.LEFT = not self.LEFT
+			else:
+				self.LEFT = not self.LEFT
+				self.RIGHT = not self.RIGHT
 
 		return x
 

@@ -76,23 +76,23 @@ class Player(object):
 			if self.is_falling == False:
 				self.JUMP = True
 
-	def falling(self, gravity, camX, camY):
+	def falling(self, gravity):
 		colf = Collision()
 		self.is_falling = True
 		self.y += gravity
-		if self.y < 0 or self.y + self.height > MAPHEIGHT*TILESIZE or colf.TileCollision(self.x, self.y, self.width, self.height, camX, camY, WALL) == True or colf.TileCollision(self.x, self.y, self.width, self.height, camX, camY, LADDER_TOP) == True or colf.CloudCollision(self.x, self.y, self.width, self.height, camX, camY, PLATFORM) == True or self.is_climbing == True:
+		if self.y < 0 or self.y + self.height > MAPHEIGHT*TILESIZE or colf.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, WALL) == True or colf.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, LADDER_TOP) == True or colf.CloudCollision(self.x, self.y, self.width, self.height, self.x, self.y, PLATFORM) == True or self.is_climbing == True:
 			self.y -= gravity
 			self.is_falling = False
 
 		""" -- Gravity function for sloped tiles "y1 = y + (x1 - x)" -- """
 		self.slopeX = self.x + self.width/2
 		self.slopeW = 1
-		if colf.TileCollision(self.x, self.y, self.width, self.height, camX, camY, SLOPE_LEFT) == True:
+		if colf.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, SLOPE_LEFT):
 		 	if self.y == (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (self.x - ((self.x/TILESIZE)*TILESIZE)):
 		 		self.y -= gravity
 				self.is_falling = False
 
-		if colf.TileCollision(self.x, self.y, self.width, self.height, camX, camY, SLOPE_RIGHT) == True:
+		if colf.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, SLOPE_RIGHT):
 			if self.y == (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.x - ((self.x/TILESIZE)*TILESIZE))):
 		 		self.y -= gravity
 				self.is_falling = False
@@ -132,10 +132,10 @@ class Player(object):
 				self.jump_speed = 0
 				self.is_jumping = False
 
-	def climbing(self, camX, camY):
+	def climbing(self):
 		colL = Collision()
-		if colL.TileCollision(self.x, self.y, self.width, self.height, camX, camY, LADDER) == True or colL.TileCollision(self.x, self.y, self.width, self.height,
-			camX, camY, LADDER_TOP) == True:
+		if colL.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, LADDER) == True or colL.TileCollision(self.x, self.y, self.width, self.height,
+			self.x, self.y, LADDER_TOP) == True:
 			if self.UP:
 				self.is_climbing = True
 				self.velocity_y = -self.climbing_speed
@@ -148,21 +148,21 @@ class Player(object):
 			self.velocity_y = 0
 			self.is_climbing = False
 
-	def gotroughdoor(self, camX, camY):
+	def gotroughdoor(self):
 		colD = Collision()
 		doorD = Doors()
 		if self.UP:
 			if self.canGoTroughDoor:
-				if colD.TileCollision(self.x, self.y, self.width, self.height, camX, camY, DOOR) == True:
+				if colD.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, DOOR) == True:
 					self.x, self.y = doorD.doorConnections(self.x, self.y)
 					self.canGoTroughDoor = False
 					self.UP = False
 		else:
 			self.canGoTroughDoor = True
 
-	def playerHealth(self, camX, camY):
+	def playerHealth(self):
 		colH = Collision()
-		if colH.TileCollision(self.x, self.y, self.width, self.height, camX, camY, LAVA) == True :
+		if colH.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, LAVA) == True :
 			self.health -= 5
 		if self.health <= 0:
 			self.x = PLAYER_START_X
@@ -190,7 +190,7 @@ class Player(object):
 		else:
 			self.canBlock = True
 
-	def move(self, gravity, camX, camY):
+	def move(self, gravity):
 		col = Collision()
 		self.slopeX = self.x + self.width/2
 		self.slopeW = 1
@@ -211,35 +211,35 @@ class Player(object):
 			self.velocity_j = 0
 
 		self.x += self.velocity_x
-		if self.x < 0 or self.x + self.width > MAPWIDTH*TILESIZE or col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, WALL) == True:
+		if self.x < 0 or self.x + self.width > MAPWIDTH*TILESIZE or col.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, WALL) == True:
 			# """ -- Ignore side collision when on a slope -- """
 			# if not col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, SLOPE_RIGHT) and not col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, SLOPE_LEFT):
 			self.x -= self.velocity_x
 
 		""" -- X Move (collision) function for sloped tiles "y1 = y + (x1 - x)"" -- """
-		if col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, SLOPE_LEFT):
+		if col.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, SLOPE_LEFT):
 			if self.y is not (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - ((self.x-1+TILESIZE) - (((self.x-1+TILESIZE)/TILESIZE)*TILESIZE)):
-				self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - ((self.x + TILESIZE) - (((self.x-1+TILESIZE)/TILESIZE)*TILESIZE))
-				
-		if col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, SLOPE_RIGHT):
+				self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - ((self.x + TILESIZE) - (((self.x-1+TILESIZE)/TILESIZE)*TILESIZE)) - self.velocity_x
+					
+		if col.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, SLOPE_RIGHT):
 			if self.y is not (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.x - ((self.x/TILESIZE)*TILESIZE))):
-				self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.x - ((self.x/TILESIZE)*TILESIZE)))
+				self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.x - ((self.x/TILESIZE)*TILESIZE))) + self.velocity_x
 
 		self.y += self.velocity_y
-		if self.y < 0 or self.y + self.height > MAPHEIGHT*TILESIZE or col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, WALL) == True:
+		if self.y < 0 or self.y + self.height > MAPHEIGHT*TILESIZE or col.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, WALL) == True:
 			self.y -= self.velocity_y
 
 		""" -- Y Move (collision) function for sloped tiles "y1 = y + (x1 - x)"" -- """
-		if col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, SLOPE_LEFT) == True:
-		 	if self.y == (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (self.x - ((self.x/TILESIZE)*TILESIZE)) - PLAYER_SPEED:
+		if col.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, SLOPE_LEFT):
+		 	if self.y == (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (self.x - ((self.x/TILESIZE)*TILESIZE)):
 		 		self.y -= self.velocity_y
 
- 		elif col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, SLOPE_RIGHT) == True:
+ 		if col.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, SLOPE_RIGHT):
 			if self.y == (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.x - ((self.x/TILESIZE)*TILESIZE))):
 		 		self.y -= self.velocity_y
 
 		self.y += self.velocity_j
-		if self.y < 0 or self.y + self.height > MAPHEIGHT*TILESIZE or col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, WALL) == True:
+		if self.y < 0 or self.y + self.height > MAPHEIGHT*TILESIZE or col.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, WALL) == True:
 			self.y -= self.velocity_j
 
 	def animate(self):
@@ -276,14 +276,14 @@ class Player(object):
 
 	def update (self, event, window, camX, camY, gravity):
 		self.input(event)
-		self.falling(gravity, camX, camY)
+		self.falling(gravity)
 		self.attack()
 		self.block()
 		self.jump()
-		self.climbing(camX, camY)
-		self.gotroughdoor(camX, camY)
-		self.move(gravity, camX, camY)
+		self.climbing()
+		self.gotroughdoor()
+		self.move(gravity)
 		self.playerStamina()
-		self.playerHealth(camX, camY)
+		self.playerHealth()
 		self.animate()
 		self.render(window, camX, camY)
