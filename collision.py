@@ -1,6 +1,5 @@
 import pygame
 from constants import *
-
 from level import *
 from world import *
 from pygame.locals import *

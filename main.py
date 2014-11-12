@@ -19,6 +19,7 @@ class Main(object):
 		window = pygame.display.set_mode(screenSize)
 		pygame.display.set_caption("EpicQuest")
 
+
 		clock = pygame.time.Clock()
 
 		player = Player(PLAYER_START_X, PLAYER_START_Y)
