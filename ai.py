@@ -22,7 +22,7 @@ class Ai(object):
 
 		return y
 
-	def move(self, x, y, width, height, speed):
+	def move(self, x, y, width, height, speed, numberOfMobs):
 
 		if self.LEFT:
 			self.velocity_x = -speed
@@ -35,15 +35,8 @@ class Ai(object):
 		if x < 0 or x > MAPWIDTH*32 - TILESIZE or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, WALL) or Collision().TileCollision(x, y+TILESIZE, width, height, x+TILESIZE, y+TILESIZE, LAVA) or Collision().TileCollision(x, y+TILESIZE, width, height, x+TILESIZE, y+TILESIZE, SKY) or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_LEFT) or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_RIGHT) or Collision().TileCollision(x, y+TILESIZE, width, height, x+TILESIZE, y+TILESIZE, SLOPE_LEFT) or Collision().TileCollision(x, y+TILESIZE, width, height, x+TILESIZE, y+TILESIZE, SLOPE_RIGHT):
 			x -= self.velocity_x
 
-		 	if self.LEFT:
-		 		self.LEFT = not self.LEFT
-				self.RIGHT = not self.RIGHT
-			elif self.RIGHT:
-				self.RIGHT = not self.RIGHT
-				self.LEFT = not self.LEFT
-			else:
-				self.LEFT = not self.LEFT
-				self.RIGHT = not self.RIGHT
+			self.LEFT = not self.LEFT
+			self.RIGHT = not self.RIGHT
 
 		return x
 

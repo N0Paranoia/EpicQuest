@@ -27,8 +27,8 @@ class Mobs(object):
 		fall1 = ai.falling(GRAVITY, self.x1, self.y1, self.width, self.height)
 		fall2 = ai.falling(GRAVITY, self.x2, self.y2, self.width, self.height)
 		# move = ai.move(self.x, self.y, self.width, self.height, self.speed1)
-		move1 = ai.move(self.x1, self.y1, self.width, self.height, self.speed1)
-		move2 = ai.move(self.x2, self.y2, self.width, self.height, self.speed2)
+		move1 = ai.move(self.x1, self.y1, self.width, self.height, self.speed1, self.mobNumber)
+		move2 = ai.move(self.x2, self.y2, self.width, self.height, self.speed2, self.mobNumber)
 		# self.y = fall
 		# self.x = move
 		self.y1 = fall1
