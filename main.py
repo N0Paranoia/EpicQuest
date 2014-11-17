@@ -1,7 +1,7 @@
 import pygame
+from constants import *
 from player import *
 from mobs import *
-from constants import *
 from world import *
 from level import *
 from camera import *
@@ -28,7 +28,7 @@ class Main(object):
 		centerCam = CenterCamera()
 		gamestate = GameStates()
 		world = World()
-		
+
 		Run = True
 		while Run:
 
