@@ -28,12 +28,10 @@ class Mobs(object):
 			move = ai.move(self.xX[i], self.yY[i], self.width, self.height, self.speed1, i)
 			self.xX[i] = move
 			self.yY[i] = fall
-			
+
 	def render(self, window, camX, camY):
 		for i in range (self.mobNumber):
 			pygame.draw.rect(window, RED, (self.xX[i] - camX, self.yY[i] - camY, self.width, self.height))
-
-
 
 	def update(self, window, camX, camY):
 		self.movement()
