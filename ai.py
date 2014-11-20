@@ -10,6 +10,8 @@ class Ai(object):
 		self.velocity_y = 0
 		self.LEFT = False
 		self.RIGHT = True
+		self.LEFT1 = [False, False]
+		self.RIGHT1 = [True, True]
 
 	def falling(self, gravity, x, y, width, height):
 		self.is_falling = True
@@ -22,19 +24,19 @@ class Ai(object):
 
 	def move(self, x, y, width, height, speed, numberOfMobs):
 
-		if self.LEFT:
+		if self.LEFT1[numberOfMobs]:
 			self.velocity_x = -speed
 
-		elif self.RIGHT:
+		elif self.RIGHT1[numberOfMobs]:
 			self.velocity_x = speed
 
 		x += self.velocity_x
 
 		if x < 0 or x > MAPWIDTH*32 - TILESIZE or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, WALL) or Collision().TileCollision(x, y+TILESIZE, width, height, x+TILESIZE, y+TILESIZE, LAVA) or Collision().TileCollision(x, y+TILESIZE, width, height, x+TILESIZE, y+TILESIZE, SKY) or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_LEFT) or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_RIGHT) or Collision().TileCollision(x, y+TILESIZE, width, height, x+TILESIZE, y+TILESIZE, SLOPE_LEFT) or Collision().TileCollision(x, y+TILESIZE, width, height, x+TILESIZE, y+TILESIZE, SLOPE_RIGHT):
 			x -= self.velocity_x
-			
-			# self.LEFT = not self.LEFT
-			# self.RIGHT = not self.RIGHT
+
+			self.LEFT1[numberOfMobs] = not self.LEFT1[numberOfMobs]
+			self.RIGHT1[numberOfMobs] = not self.RIGHT1[numberOfMobs]
 
 		return x
 
