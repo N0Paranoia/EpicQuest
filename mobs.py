@@ -7,32 +7,25 @@ ai = Ai()
 
 class Mobs(object):
 
-	def __init__(self, x, y):
-		self.x = x
-		self.y = y
-		self.xX = [576,32]
-		self.yY = [32,32]
-		self.x1 = 576
-		self.x2 = 32
-		self.y1 = 32
-		self.y2 = 32
+	def __init__(self):
+		self.x = [9*TILESIZE,21*TILESIZE]
+		self.y = [3*TILESIZE,3*TILESIZE]
 		self.width = 32
 		self.height = 32
 		self.speed1 = 2
 		self.speed2 = 2
 		self.mobNumber = 2
 
-	def movement(self):
-		for i in range (self.mobNumber):
-			fall = ai.falling(GRAVITY, self.xX[i], self.yY[i], self.width, self.height)
-			move = ai.move(self.xX[i], self.yY[i], self.width, self.height, self.speed1, i)
-			self.xX[i] = move
-			self.yY[i] = fall
+	def movement(self, i):
+		fall = ai.falling(GRAVITY, self.x[i], self.y[i], self.width, self.height)
+		move = ai.move(self.x[i], self.y[i], self.width, self.height, self.speed1, i)
+		self.x[i] = move
+		self.y[i] = fall
 
-	def render(self, window, camX, camY):
-		for i in range (self.mobNumber):
-			pygame.draw.rect(window, RED, (self.xX[i] - camX, self.yY[i] - camY, self.width, self.height))
+	def render(self, window, camX, camY, i):
+		pygame.draw.rect(window, RED, (self.x[i] - camX, self.y[i] - camY, self.width, self.height))
 
 	def update(self, window, camX, camY):
-		self.movement()
-		self.render(window, camX, camY)
+		for i in range (self.mobNumber):
+			self.movement(i)
+			self.render(window, camX, camY, i)

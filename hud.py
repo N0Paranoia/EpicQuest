@@ -7,10 +7,10 @@ from pygame.locals import *
 class Hud(object):
 
 	def __init__(self, health, stamina, lives):
-		self.lifeX = 16
-		self.lifeY = 16
-		self.staminaX = 16
-		self.staminaY = 32
+		self.lifeX = 32
+		self.lifeY = 12
+		self.staminaX = 32
+		self.staminaY = 26
 		self.healthWidth = health
 		self.staminaWidth = stamina
 		self.height = 8
@@ -33,13 +33,13 @@ class Hud(object):
 	 		window.blit(textMainMenu2, (WINDOW_WIDTH/2- 52, WINDOW_HEIGHT/4 + TILESIZE))
 
 		elif state == RUNNING:
-			textLifes =  font.render(str(self.lives), 1, (GRAY))
-			textControl = font.render("use [ASWD] to move, [K] to block, [L] to attack and [P] to pause", 1, (GRAY))
-			textFPS = font.render("FPS = " + str(clock.get_fps()), 1, (GRAY))
+			textLifes =  font.render(str(self.lives), 1, (WHITE))
+			textControl = font.render("use [ASWD] to move, [K] to block, [L] to attack and [P] to pause", 1, (WHITE))
+			textFPS = font.render("FPS = " + str(clock.get_fps()), 1, (WHITE))
 
-			window.blit(textControl, (300, 2))
-			window.blit(textFPS, (550, 16))
-			window.blit(textLifes, (8,16))
+			window.blit(textControl, (WINDOW_WIDTH - (11*TILESIZE), 2))
+			window.blit(textFPS, (WINDOW_WIDTH - (4*TILESIZE), 16))
+			window.blit(textLifes, (16,16))
 
 		elif state == PAUSE:
 			textPause = font14.render("PAUSE", 1, (GRAY))
@@ -56,6 +56,7 @@ class Hud(object):
 
 	def render(self, window, state):
 		if state == RUNNING or state == PAUSE:
+			pygame.draw.rect(window, BLACK, (0, 0, WINDOW_WIDTH, 48))
 			""" -- Draw Life and stamina Bar -- """
 			pygame.draw.rect(window, BLACK, (self.lifeX-2, self.lifeY-2, 100+4, self.height+4))
 			if self.healthWidth > 0:
@@ -63,6 +64,7 @@ class Hud(object):
 			pygame.draw.rect(window, BLACK, (self.staminaX-2, self.staminaY-2, 100+4, self.height+4))
 			if self.staminaWidth > 0:
 				pygame.draw.rect(window, GREEN, (self.staminaX, self.staminaY, self.staminaWidth, self.height))
+
 
 	def update(self, window, FPS, clock, state):
 		self.render(window, state)

@@ -23,7 +23,7 @@ class Main(object):
 		clock = pygame.time.Clock()
 
 		player = Player(PLAYER_START_X, PLAYER_START_Y)
-		mobs = Mobs(576, 32)
+		mobs = Mobs()
 		camera = Camera(0,0)
 		centerCam = CenterCamera()
 		gamestate = GameStates()
