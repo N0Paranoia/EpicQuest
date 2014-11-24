@@ -72,11 +72,11 @@ class Main(object):
 				gamestate.gameOver = False
 
 				hud = Hud(0, None, None)
-	 			pygame.draw.rect(window, WHITE, (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
-	 			hud.update(window, FPS, clock, MAIN_MENU)
+				pygame.draw.rect(window, WHITE, (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
+				hud.update(window, FPS, clock, MAIN_MENU)
 
-	 			""" -- Update Screen -- """
-	 			pygame.display.flip()
+				""" -- Update Screen -- """
+				pygame.display.flip()
 
 			""" -- Running game State -- """
 			if gamestate.running == True:
@@ -118,17 +118,17 @@ class Main(object):
 
 				""" -- Update Screen -- """
 
-	 			pygame.display.flip()
+				pygame.display.flip()
 
-	 		""" -- GameOver Game State -- """
-	 		if gamestate.gameOver:
-	 			hud = Hud(0, None, None)
+			""" -- GameOver Game State -- """
+			if gamestate.gameOver:
+				hud = Hud(0, None, None)
 
-	 			gamestate.running = False
-	 			pygame.draw.rect(window, BLACK, (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
-	 			hud.update(window, FPS, clock, GAME_OVER)
+				gamestate.running = False
+				pygame.draw.rect(window, BLACK, (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
+				hud.update(window, FPS, clock, GAME_OVER)
 
-	 			""" -- Update Screen -- """
-	 			pygame.display.flip()
+				""" -- Update Screen -- """
+				pygame.display.flip()
 
 Main()

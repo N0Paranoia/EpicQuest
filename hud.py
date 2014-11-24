@@ -27,10 +27,10 @@ class Hud(object):
 
 		elif state == MAIN_MENU:
 			textMainMenu = font14.render("Main Menu", 1, (BLACK))
-	 		textMainMenu2 = font.render("Press [Enter] to Start", 1, (BLACK))
+			textMainMenu2 = font.render("Press [Enter] to Start", 1, (BLACK))
 
-	 		window.blit(textMainMenu, (WINDOW_WIDTH/2- TILESIZE, WINDOW_HEIGHT/4))
-	 		window.blit(textMainMenu2, (WINDOW_WIDTH/2- 52, WINDOW_HEIGHT/4 + TILESIZE))
+			window.blit(textMainMenu, (WINDOW_WIDTH/2- TILESIZE, WINDOW_HEIGHT/4))
+			window.blit(textMainMenu2, (WINDOW_WIDTH/2- 52, WINDOW_HEIGHT/4 + TILESIZE))
 
 		elif state == RUNNING:
 			textLifes =  font.render(str(self.lives), 1, (WHITE))
@@ -48,10 +48,10 @@ class Hud(object):
 
 		elif state == GAME_OVER:
 			textGameOver= font14.render("Game Over", 1, (WHITE))
-	 		textGameOver2 = font.render("Press [Return] to start over or [q] to quit", 1, (WHITE))
+			textGameOver2 = font.render("Press [Return] to start over or [q] to quit", 1, (WHITE))
 
-	 		window.blit(textGameOver, (WINDOW_WIDTH/2- TILESIZE, WINDOW_HEIGHT/2))
-	 		window.blit(textGameOver2, (WINDOW_WIDTH/2- TILESIZE*3, WINDOW_HEIGHT/2 + TILESIZE))
+			window.blit(textGameOver, (WINDOW_WIDTH/2- TILESIZE, WINDOW_HEIGHT/2))
+			window.blit(textGameOver2, (WINDOW_WIDTH/2- TILESIZE*3, WINDOW_HEIGHT/2 + TILESIZE))
 
 
 	def render(self, window, state):

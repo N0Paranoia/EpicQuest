@@ -16,4 +16,4 @@ class GameStates(object):
 			self.gameOver = True
 
 	def changelevel(self, currentLevel, addLevel):
- 		return currentLevel+addLevel
+		return currentLevel+addLevel

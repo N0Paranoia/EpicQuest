@@ -16,16 +16,17 @@ class Mobs(object):
 		self.speed2 = 2
 		self.mobNumber = 2
 
-	def movement(self, i):
-		fall = ai.falling(GRAVITY, self.x[i], self.y[i], self.width, self.height)
-		move = ai.move(self.x[i], self.y[i], self.width, self.height, self.speed1, i)
-		self.x[i] = move
-		self.y[i] = fall
+	def movement(self, mobs):
+		fall = ai.falling(GRAVITY, self.x[mobs], self.y[mobs], self.width, self.height)
+		move = ai.move(self.x[mobs], self.y[mobs], self.width, self.height, self.speed1, mobs)
+		self.x[mobs] = move
+		self.y[mobs] = fall
 
-	def render(self, window, camX, camY, i):
-		pygame.draw.rect(window, RED, (self.x[i] - camX, self.y[i] - camY, self.width, self.height))
+	def render(self, window, camX, camY, mobs):
+		pygame.draw.rect(window, RED, (self.x[mobs] - camX, self.y[mobs] - camY, self.width, self.height))
 
 	def update(self, window, camX, camY):
-		for i in range (self.mobNumber):
-			self.movement(i)
-			self.render(window, camX, camY, i)
+		for mobs in range (self.mobNumber):
+			if (self.x[mobs] > camX and self.y[mobs] > camY and self.x[mobs] < camX + WINDOW_WIDTH and self.y[mobs] < camY + WINDOW_HEIGHT):
+				self.movement(mobs)
+				self.render(window, camX, camY, mobs)

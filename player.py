@@ -86,13 +86,13 @@ class Player(object):
 
 		""" -- Gravity function for sloped tiles "y1 = y + (x1 - x)" -- """
 		if colf.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, SLOPE_LEFT):
-		 	if self.y ==  (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - ((self.x-1+TILESIZE) - (((self.x-1+TILESIZE)/TILESIZE)*TILESIZE)):
-		 		self.y -= gravity
+			if self.y ==  (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - ((self.x-1+TILESIZE) - (((self.x-1+TILESIZE)/TILESIZE)*TILESIZE)):
+				self.y -= gravity
 				self.is_falling = False
 
 		if colf.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, SLOPE_RIGHT):
 			if self.y == (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.x - ((self.x/TILESIZE)*TILESIZE))):
-		 		self.y -= gravity
+				self.y -= gravity
 				self.is_falling = False
 
 
@@ -201,7 +201,7 @@ class Player(object):
 			self.velocity_x = 0
 
 		if self.DOWN:
-		 	self.velocity_y = self.speed
+			self.velocity_y = self.speed
 
 		if self.JUMP:
 			self.velocity_j -= self.jump_speed
@@ -230,12 +230,12 @@ class Player(object):
 
 		""" -- Y Move (collision) function for sloped tiles "y1 = y + (x1 - x)"" -- """
 		if col.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, SLOPE_LEFT):
-		 	if self.y == (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - ((self.x-1+TILESIZE) - (((self.x-1+TILESIZE)/TILESIZE)*TILESIZE)):
-		 		self.y -= self.velocity_y
+			if self.y == (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - ((self.x-1+TILESIZE) - (((self.x-1+TILESIZE)/TILESIZE)*TILESIZE)):
+				self.y -= self.velocity_y
 
- 		if col.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, SLOPE_RIGHT):
+		if col.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, SLOPE_RIGHT):
 			if self.y == (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.x - ((self.x/TILESIZE)*TILESIZE))):
-		 		self.y -= self.velocity_y
+				self.y -= self.velocity_y
 
 		self.y += self.velocity_j
 		if self.y < 0 or self.y + self.height > MAPHEIGHT*TILESIZE or col.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, WALL) == True:
