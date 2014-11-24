@@ -107,4 +107,4 @@ textures =	{
 
 """ -- Mob types -- """
 
-MOB_SIMPLE = 0
+MOB_NUMBER = 2
