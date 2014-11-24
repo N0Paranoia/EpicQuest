@@ -273,7 +273,7 @@ class Player(object):
 	def render(self, window, camX, camY):
 		window.blit(self.spriteSurface, (self.x - camX, self.y - camY), self.rect)
 
-	def update (self, event, window, camX, camY, gravity):
+	def update (self, event, window, camX, camY, gravity, mobsX, mobsY):
 		self.input(event)
 		self.falling(gravity)
 		self.attack()

@@ -59,7 +59,6 @@ class Collision(object):
 
 	""" -- Tile specific collision check -- """
 	def TileCollision(self, x, y, w, h, camX, camY, tile):
-
 		for row in range(MAPHEIGHT):
 				for column in range (MAPWIDTH):
 					if level[row][column] == tile:
@@ -71,7 +70,6 @@ class Collision(object):
 
 	""" -- Tile specific collision check -- """
 	def CloudCollision(self, x, y, w, h, camX, camY, tile):
-
 		for row in range(MAPHEIGHT):
 				for column in range (MAPWIDTH):
 					if level[row][column] == tile:

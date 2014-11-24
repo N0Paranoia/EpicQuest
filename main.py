@@ -89,8 +89,8 @@ class Main(object):
 					world.update(window, camera.x, camera.y)
 
 					""" -- Handle player events -- """
-					player.update(event, window, camera.x, camera.y, GRAVITY)
-
+					player.update(event, window, camera.x, camera.y, GRAVITY, mobs.x, mobs.y)
+					
 					""" -- Handle AI events -- """
 					mobs.update(window,camera.x, camera.y)
 
