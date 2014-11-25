@@ -158,9 +158,11 @@ class Player(object):
 		else:
 			self.canGoTroughDoor = True
 
-	def playerHealth(self):
+	def playerHealth(self, mobsX, mobsY):
 		colH = Collision()
 		if colH.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, LAVA) == True :
+			self.health -= 5
+		if self.mobCollision(mobsX, mobsY):
 			self.health -= 5
 		if self.health <= 0:
 			self.x = PLAYER_START_X
@@ -188,10 +190,15 @@ class Player(object):
 		else:
 			self.canBlock = True
 
+	def mobCollision(self, mobsX, mobsY):
+		col = Collision()
+		for i in range(MOB_NUMBER):
+			if col.MobCollision(self.x, self.y, mobsX[i], mobsY[i]):
+				return True
+
+
 	def move(self, gravity):
 		col = Collision()
-		self.slopeX = self.x + self.width/2
-		self.slopeW = 1
 
 		if self.LEFT:
 			self.velocity_x = -self.speed
@@ -210,8 +217,6 @@ class Player(object):
 
 		self.x += self.velocity_x
 		if self.x < 0 or self.x + self.width > MAPWIDTH*TILESIZE or col.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, WALL) == True:
-			# """ -- Ignore side collision when on a slope -- """
-			# if not col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, SLOPE_RIGHT) and not col.TileCollision(self.x, self.y, self.width, self.height, camX, camY, SLOPE_LEFT):
 			self.x -= self.velocity_x
 
 		""" -- X Move (collision) function for sloped tiles "y1 = y + (x1 - x)"" -- """
@@ -283,6 +288,6 @@ class Player(object):
 		self.gotroughdoor()
 		self.move(gravity)
 		self.playerStamina()
-		self.playerHealth()
+		self.playerHealth(mobsX, mobsY)
 		self.animate()
 		self.render(window, camX, camY)

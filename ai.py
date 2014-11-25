@@ -8,10 +8,9 @@ class Ai(object):
 	def __init__(self):
 		self.velocity_x = 0
 		self.velocity_y = 0
-		self.LEFT = False
-		self.RIGHT = True
-		self.LEFT1 = [False, False]
-		self.RIGHT1 = [True, True]
+		self.LEFT = [False, False]
+		self.RIGHT = [True, True]
+		self.aggroGange = 3*TILESIZE
 
 	def falling(self, gravity, x, y, width, height):
 		self.is_falling = True
@@ -22,21 +21,30 @@ class Ai(object):
 
 		return y
 
-	def move(self, x, y, width, height, speed, numberOfMobs):
+	def move(self, x, y, width, height, speed, numberOfMobs, playerX, playerY):
 
-		if self.LEFT1[numberOfMobs]:
+		if self.LEFT[numberOfMobs]:
 			self.velocity_x = -speed
 
-		elif self.RIGHT1[numberOfMobs]:
+		elif self.RIGHT[numberOfMobs]:
 			self.velocity_x = speed
 
 		x += self.velocity_x
 
+		""" -- Ai collision -- """
 		if x < 0 or x > MAPWIDTH*32 - TILESIZE or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, WALL) or Collision().TileCollision(x, y+TILESIZE, width, height, x+TILESIZE, y+TILESIZE, LAVA) or Collision().TileCollision(x, y+TILESIZE, width, height, x+TILESIZE, y+TILESIZE, SKY) or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_LEFT) or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_RIGHT) or Collision().TileCollision(x, y+TILESIZE, width, height, x+TILESIZE, y+TILESIZE, SLOPE_LEFT) or Collision().TileCollision(x, y+TILESIZE, width, height, x+TILESIZE, y+TILESIZE, SLOPE_RIGHT):
 			x -= self.velocity_x
 
-			self.LEFT1[numberOfMobs] = not self.LEFT1[numberOfMobs]
-			self.RIGHT1[numberOfMobs] = not self.RIGHT1[numberOfMobs]
+			self.LEFT[numberOfMobs] = not self.LEFT[numberOfMobs]
+			self.RIGHT[numberOfMobs] = not self.RIGHT[numberOfMobs]
+
+		""" -- Aggro -- """
+		if playerX > x - self.aggroGange and playerX < x and playerY > y - self.aggroGange and playerY	< y + self.aggroGange:
+			self.RIGHT[numberOfMobs] = False
+			self.LEFT[numberOfMobs] = True
+		if playerX < x + self.aggroGange and playerX > x and playerY > y - self.aggroGange and playerY	< y + self.aggroGange:
+			self.LEFT[numberOfMobs] = False
+			self.RIGHT[numberOfMobs] = True
 
 		return x
 
