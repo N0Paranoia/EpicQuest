@@ -38,7 +38,7 @@ class Collision(object):
 	def CheckCloudCollision(self, x, y, w, h, tile):
 		leftA = x
 		rightA = x + w
-		topA = y + TILESIZE - GRAVITY
+		topA = y + h - GRAVITY
 		bottomA = y + h
 
 		leftB = tile.x
@@ -57,11 +57,11 @@ class Collision(object):
 		""" -- If none of the sides from A are outside B -- """
 		return True
 
-	def CheckMobCollision(self, playerX, playerY, mobX, mobY):
-		leftA = playerX
-		rightA = playerX + TILESIZE
-		topA = playerY
-		bottomA = playerY + TILESIZE
+	def CheckMobCollision(self, x, y, w, h, mobX, mobY):
+		leftA = x
+		rightA = x + w
+		topA = y
+		bottomA = y + h
 
 		leftB = mobX
 		rightB = mobX + TILESIZE
@@ -101,7 +101,7 @@ class Collision(object):
 							if col.CheckCloudCollision(x, y, w, h, tiles) == True:
 								return True
 
-	def MobCollision(self, playerX, playerY, mobX, mobY):
+	def MobCollision(self, x, y, w, h, mobX, mobY):
 		col = Collision()
-		if col.CheckMobCollision(playerX, playerY, mobX, mobY) == True:
+		if col.CheckMobCollision(x, y, w, h, mobX, mobY) == True:
 			return True

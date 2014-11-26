@@ -193,7 +193,7 @@ class Player(object):
 	def mobCollision(self, mobsX, mobsY):
 		col = Collision()
 		for i in range(MOB_NUMBER):
-			if col.MobCollision(self.x, self.y, mobsX[i], mobsY[i]):
+			if col.MobCollision(self.x, self.y, self.width, self.height, mobsX[i], mobsY[i]):
 				return True
 
 
@@ -252,10 +252,10 @@ class Player(object):
 		if self.frameCounter > self.frameSwitch:
 			if self.ATTACK:
 				self.frameHor = 0
-				self.frameVert = 16
+				self.frameVert = 32
 			elif self.BLOCK:
 				self.frameHor = 16
-				self.frameVert = 16
+				self.frameVert = 32
 			elif self.RIGHT:
 				self.frameHor += self.frameAnimation
 				if self.frameHor > self.frameEnd:
@@ -270,7 +270,7 @@ class Player(object):
 				self.frameHor = self.frameIdelX
 				self.frameVert = self.frameIdelY
 
-		self.rect = pygame.Rect((self.frameHor,self.frameVert),(self.frameHor+PLAYER_WIDTH,self.frameVert+PLAYER_WIDTH))
+		self.rect = pygame.Rect((self.frameHor,self.frameVert),(self.frameHor+PLAYER_WIDTH,self.frameVert+PLAYER_HEIGHT))
 
 		self.spriteSurface = pygame.Surface(self.rect.size).convert()
 		self.spriteSurface.blit(self.spriteSheet,(0,0),self.rect)

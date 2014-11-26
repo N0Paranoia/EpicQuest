@@ -6,16 +6,16 @@ class Doors(object):
 	def __init__(self):
 
 		self.door1Ax = 9*TILESIZE
-		self.door1Ay = 3*TILESIZE
+		self.door1Ay = 2*TILESIZE
 
 		self.door1Bx = 2*TILESIZE
-		self.door1By = 28*TILESIZE
+		self.door1By = 27*TILESIZE
 
 		self.door2Ax = 21*TILESIZE
-		self.door2Ay = 3*TILESIZE
+		self.door2Ay = 2*TILESIZE
 
 		self.door2Bx = 27*TILESIZE
-		self.door2By = 28*TILESIZE
+		self.door2By = 27*TILESIZE
 
 	def doorConnections(self, x, y):
 		if x + TILESIZE/2 >= self.door1Ax  and x - TILESIZE/2 <= self.door1Ax and y == self.door1Ay:

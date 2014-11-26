@@ -5,7 +5,7 @@
  </tileset>
  <layer name="Tilelaag 1" width="30" height="30">
   <data encoding="base64" compression="zlib">
-   eJztlrsSxSAIRDWPJq///9w0SSbDsMIaTGWxDRc55rKiOaWUux6NL0XmDop2UWsiuDL3AAykDcSZ/aMapTqr8W3LpVKOVYNdswj9wdX6tTfmljyisSO4Hl9KNsu9GfMl5hzIdagH8jeW4RX639C+IoV61ZJt+aMFm5mV94xDtTxzM3pORs1aZg2z/yiu96xEcq27R8v5yvXceVoe4xGvz61YtFZnjPVCjd9q+ti5/3GZ93YtV2Ogt3np3WHF5L0mGa3PHdIJd7cHsw==
+   eJzllsEOhDAIRKuul1b3/z93L5oYwhSmwsbEw1wq5VUZoVMpZXqglosiYz25PgTXGzsr2gO5X8BA2sA6c36Uo5enGe9WD/VirBzsnir0D65Wrz2Z2/OIxo7genwp2Sz3ZKyHmP9A7kM1kM/qAMfS1Xvyu6FzRQrVKpNt+SODzfTKs8ehXJ6+Gd0no3ots4c5fxTXqk0G15o9WsxdrmfmaXGMR7w+9873KDXnGuuFEb+N1PGNXOa+PcrVGMwd+Q5XMhC3d++w1uRck4zs/w7pB9L+B98=
   </data>
  </layer>
  <layer name="Moblaag1" width="30" height="30">
