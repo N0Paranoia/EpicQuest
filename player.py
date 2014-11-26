@@ -41,13 +41,18 @@ class Player(object):
 
 		self.frameHor = 0
 		self.frameVert = 0
-		self.frameIdelX = 0
+		self.frameRightIdelX = 80
+		self.frameLeftIdelX = 64
 		self.frameIdelY = 0
-		self.frameStartX = 16
+		self.frameRightStartX = 96
+		self.frameLeftStartX = 48
 		self.frameStartY = 0
 		self.frameAnimation = PLAYER_WIDTH/2
-		self.frameEnd = 64
+		self.frameRightEnd = 144
+		self.frameLeftEnd = 0
 		self.spriteSheet = pygame.image.load(SPRITE_PATH)
+		self.rightFrame = True
+		self.leftFrame = False
 
 	def input(self, event):
 		keys = pygame.key.get_pressed()
@@ -94,7 +99,6 @@ class Player(object):
 			if self.y == (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.x - ((self.x/TILESIZE)*TILESIZE))):
 				self.y -= gravity
 				self.is_falling = False
-
 
 	def attack(self):
 		if self.canAttack:
@@ -251,23 +255,36 @@ class Player(object):
 		self.frameCounter += self.frameSpeed
 		if self.frameCounter > self.frameSwitch:
 			if self.ATTACK:
-				self.frameHor = 0
+				if self.leftFrame:
+					self.frameHor = 80
+				elif self.rightFrame:
+					self.frameHor = 64
 				self.frameVert = 32
 			elif self.BLOCK:
-				self.frameHor = 16
+				if self.leftFrame:
+					self.frameHor = 96
+				elif self.rightFrame:
+					self.frameHor = 48
 				self.frameVert = 32
 			elif self.RIGHT:
 				self.frameHor += self.frameAnimation
-				if self.frameHor > self.frameEnd:
-					self.frameHor = self.frameStartX
+				if self.frameHor > self.frameRightEnd:
+					self.frameHor = self.frameRightStartX
 				self.frameCounter = 0
+				self.rightFrame = False
+				self.leftFrame = True
 			elif self.LEFT:
-				self.frameHor += self.frameAnimation
-				if self.frameHor > self.frameEnd:
-					self.frameHor = self.frameStartX
+				self.frameHor -= self.frameAnimation
+				if self.frameHor < self.frameLeftEnd:
+					self.frameHor = self.frameLeftStartX
 				self.frameCounter = 0
+				self.leftFrame = False
+				self.rightFrame = True
 			else:
-				self.frameHor = self.frameIdelX
+				if self.rightFrame:
+					self.frameHor = self.frameRightIdelX
+				elif self.leftFrame:
+					self.frameHor = self.frameLeftIdelX
 				self.frameVert = self.frameIdelY
 
 		self.rect = pygame.Rect((self.frameHor,self.frameVert),(self.frameHor+PLAYER_WIDTH,self.frameVert+PLAYER_HEIGHT))
