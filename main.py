@@ -9,7 +9,6 @@ from hud import *
 from gamestates import *
 from pygame.locals import *
 
-
 pygame.init()
 
 class Main(object):
