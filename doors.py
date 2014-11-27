@@ -6,13 +6,13 @@ class Doors(object):
 	def __init__(self):
 
 		self.door1Ax = 9*TILESIZE
-		self.door1Ay = 2*TILESIZE
+		self.door1Ay = 1*TILESIZE
 
 		self.door1Bx = 2*TILESIZE
 		self.door1By = 27*TILESIZE
 
-		self.door2Ax = 21*TILESIZE
-		self.door2Ay = 2*TILESIZE
+		self.door2Ax = 20*TILESIZE
+		self.door2Ay = 1*TILESIZE
 
 		self.door2Bx = 27*TILESIZE
 		self.door2By = 27*TILESIZE

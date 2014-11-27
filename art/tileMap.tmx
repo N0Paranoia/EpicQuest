@@ -5,12 +5,12 @@
  </tileset>
  <layer name="Tilelaag 1" width="30" height="30">
   <data encoding="base64" compression="zlib">
-   eJzllsEOhDAIRKuul1b3/z93L5oYwhSmwsbEw1wq5VUZoVMpZXqglosiYz25PgTXGzsr2gO5X8BA2sA6c36Uo5enGe9WD/VirBzsnir0D65Wrz2Z2/OIxo7genwp2Sz3ZKyHmP9A7kM1kM/qAMfS1Xvyu6FzRQrVKpNt+SODzfTKs8ehXJ6+Gd0no3ots4c5fxTXqk0G15o9WsxdrmfmaXGMR7w+9873KDXnGuuFEb+N1PGNXOa+PcrVGMwd+Q5XMhC3d++w1uRck4zs/w7pB9L+B98=
+   eJzllrkOxCAMRMkm25Dj/z83DZGQ5WvAzhZbTAMDD8UTw1JKWRStnTQf6vXstQFcr/dX3E/Tycxd3bzkQbzUw+lQ5qSzz+zxaDe+U23SPNYe6JpK9AaXq5FU9yiulguOHcH1ZJGyUe7D+DZZPKp+nVQDOlcHOJb67CE9IUpSrTLZVj4y2J5M0h4n7WX1u4w+GdVrkTXI+aO4Vm0yuNbdw3lmuZ47j/MhGfHm3Hu/R2l3jqFZGMnbSB3/kYu880e5HAN5b89wKUPiau8Oa4zea5SR/d9JugFrVwgT
   </data>
  </layer>
  <layer name="Moblaag1" width="30" height="30">
   <data encoding="base64" compression="zlib">
-   eJzty6EBAAAMAiDL/n95ZxiETkLblS4AALDtAYpcAAs=
+   eJztzDENAAAIA7A9+LeMjAXSCmhCwxw5AQCAvxaKXAAL
   </data>
  </layer>
 </map>

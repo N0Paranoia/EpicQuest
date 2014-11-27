@@ -9,7 +9,7 @@ ai = Ai()
 class Mobs(object):
 
 	def __init__(self):
-		self.x = [9*TILESIZE,21*TILESIZE]
+		self.x = [3*TILESIZE,25*TILESIZE]
 		self.y = [3*TILESIZE,3*TILESIZE]
 		self.width = 32
 		self.height = 32
