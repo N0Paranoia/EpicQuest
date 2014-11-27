@@ -1,7 +1,5 @@
 import pygame
 from constants import *
-
-
 from pygame.locals import *
 
 class Hud(object):

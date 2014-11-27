@@ -27,6 +27,10 @@ class Main(object):
 		centerCam = CenterCamera()
 		gamestate = GameStates()
 		world = World()
+		
+		""" -- Variables to implement frame dealay's -- """
+		self.startFrame = 0
+		self.delayFrame = 1
 
 		Run = True
 		while Run:
@@ -83,6 +87,7 @@ class Main(object):
 				gamestate.mainMenu = False
 
 				if gamestate.pause == False:
+					self.startFrame += 1
 
 					""" -- Initialize world -- """
 					world.update(window, camera.x, camera.y)

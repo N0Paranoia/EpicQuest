@@ -200,7 +200,6 @@ class Player(object):
 			if col.MobCollision(self.x, self.y, self.width, self.height, mobsX[i], mobsY[i]):
 				return True
 
-
 	def move(self, gravity):
 		col = Collision()
 
