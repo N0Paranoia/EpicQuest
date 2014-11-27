@@ -198,7 +198,15 @@ class Player(object):
 		col = Collision()
 		for i in range(MOB_NUMBER):
 			if col.MobCollision(self.x, self.y, self.width, self.height, mobsX[i], mobsY[i]):
+				self.knockBack()
 				return True
+
+	def knockBack(self):
+		if self.leftFrame:
+			print "knockBack left"
+		if self.rightFrame:
+			print "knockBack right"
+
 
 	def move(self, gravity):
 		col = Collision()
