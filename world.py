@@ -16,8 +16,10 @@ class World(object):
     for row in range (MAPHEIGHT):
       for column in range (MAPWIDTH):
         if column * TILESIZE > rangeX - TILESIZE and column * TILESIZE < rangeX + WINDOW_WIDTH and row * TILESIZE > rangeY - TILESIZE and row * TILESIZE < rangeY + WINDOW_HEIGHT:
-          self.initializeTiles(column*TILESIZE - rangeX, row*TILESIZE - rangeY, textures[level[row][column]])
-          self.renderTiles(window)
+          """ -- for tiles that doesn't have to be drawn -- """
+          if level[row][column] > 1:
+            self.initializeTiles(column*TILESIZE - rangeX, row*TILESIZE - rangeY, textures[level[row][column]])
+            self.renderTiles(window)
 
   def initializeTiles(self, x, y, textures):
     self.x = x

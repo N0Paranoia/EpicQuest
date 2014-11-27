@@ -42,6 +42,7 @@ LIGHT_BLUE = (0,200,255)
 MAGENTA = (255,0,255)
 GRAY = (100,100,100)
 LIGHT_GRAY = (200, 200, 200)
+SKY_BLUE = (140, 190, 214)
 
 """ -- Tile(map) constants -- """
 TILESIZE = 32

@@ -87,6 +87,7 @@ class Main(object):
 				gamestate.mainMenu = False
 
 				if gamestate.pause == False:
+					window.fill ((SKY_BLUE))
 					self.startFrame += 1
 
 					""" -- Initialize world -- """
