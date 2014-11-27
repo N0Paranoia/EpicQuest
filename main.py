@@ -116,7 +116,6 @@ class Main(object):
 				hud.update(window, FPS, clock, PAUSE)
 
 				""" -- Update Screen -- """
-
 				pygame.display.flip()
 
 			""" -- GameOver Game State -- """
