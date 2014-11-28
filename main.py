@@ -136,3 +136,10 @@ class Main(object):
 				pygame.display.flip()
 
 Main()
+
+# def main():
+#     for x in range(10000):
+#         pass
+        
+# import cProfile as profile
+# profile.run('Main()')

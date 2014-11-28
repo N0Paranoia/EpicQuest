@@ -166,7 +166,7 @@ class Player(object):
 		if colH.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, LAVA) == True :
 			self.health -= 5
 		if self.mobCollision(mobsX, mobsY):
-			self.health -= 5
+			self.health -= 25
 		if self.health <= 0:
 			self.x = PLAYER_START_X
 			self.y = PLAYER_START_Y
