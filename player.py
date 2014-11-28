@@ -5,8 +5,6 @@ from collision import *
 from doors import *
 from camera import *
 
-
-
 class Player(object):
 
 	def __init__(self, x, y):
@@ -18,6 +16,7 @@ class Player(object):
 		self.stamina = 100
 		self.lives = 3
 		self.speed = PLAYER_SPEED
+		self.knockBackSpeed = PLAYER_SPEED
 		self.velocity_x = 0
 		self.velocity_y = 0
 		self.velocity_j = 4
@@ -195,18 +194,35 @@ class Player(object):
 			self.canBlock = True
 
 	def mobCollision(self, mobsX, mobsY):
+		self.knockBackLeft = 0
+		self.knockBackRight = 1
+		self.knockBackUp = 2
+		self.knockBackDown = 3
 		col = Collision()
 		for i in range(MOB_NUMBER):
 			if col.MobCollision(self.x, self.y, self.width, self.height, mobsX[i], mobsY[i]):
-				self.knockBack()
+				if self.x < mobsX[i]: 
+					self.knockBack(self.knockBackLeft)
+				if self.x > mobsX[i]:
+					self.knockBack(self.knockBackRight)
+				if self.y < mobsY[i]:
+					self.knockBack(self.knockBackUp)
+				if self.y > mobsY[i]:
+					self.knockBack(self.knockBackDown)
 				return True
 
-	def knockBack(self):
-		if self.leftFrame:
-			print "knockBack left"
-		if self.rightFrame:
-			print "knockBack right"
+	def knockBack(self, direction):
+		if direction == self.knockBackLeft:
+			self.velocity_x = -self.knockBackSpeed
+		if direction == self.knockBackRight:
+			self.velocity_x = self.knockBackSpeed
+		if direction == self.knockBackUp:
+			self.velocity_y = -self.knockBackSpeed
+		if direction == self.knockBackDown:
+			self.velocity_y = self.knockBackSpeed		
 
+		self.x += self.velocity_x
+		self.y += self.velocity_y
 
 	def move(self, gravity):
 		col = Collision()
