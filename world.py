@@ -7,7 +7,7 @@ class World(object):
 
   def __init__(self):
     """ -- Load Tilesheet -- """
-    self.tileSheet = pygame.image.load(TILE_PATH)
+    self.tileSheet = pygame.image.load(TILE_PATH).convert()
     """ -- Create Surface to draw tiles on -- """
     self.TileSurface = pygame.Surface((MAPWIDTH*TILESIZE,MAPHEIGHT*TILESIZE)).convert()
 

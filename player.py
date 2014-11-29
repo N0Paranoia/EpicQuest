@@ -49,7 +49,8 @@ class Player(object):
 		self.frameAnimation = PLAYER_WIDTH/2
 		self.frameRightEnd = 144
 		self.frameLeftEnd = 0
-		self.spriteSheet = pygame.image.load(SPRITE_PATH)
+		self.spriteSheet = pygame.image.load(SPRITE_PATH).convert()
+		# self.spriteSheet = self.spriteSheet.convert_alpha()
 		self.rightFrame = True
 		self.leftFrame = False
 

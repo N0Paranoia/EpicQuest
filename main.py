@@ -31,7 +31,7 @@ class Main(object):
 		""" -- Variables to implement frame dealay's -- """
 		self.startFrame = 0
 		self.delayFrame = 1
-
+ 
 		Run = True
 		while Run:
 
