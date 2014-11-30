@@ -49,8 +49,7 @@ class Player(object):
 		self.frameAnimation = PLAYER_WIDTH/2
 		self.frameRightEnd = 144
 		self.frameLeftEnd = 0
-		self.spriteSheet = pygame.image.load(SPRITE_PATH).convert()
-		# self.spriteSheet = self.spriteSheet.convert_alpha()
+		self.spriteSheet = pygame.image.load(SPRITE_PATH).convert_alpha()
 		self.rightFrame = True
 		self.leftFrame = False
 
@@ -313,7 +312,7 @@ class Player(object):
 
 		self.rect = pygame.Rect((self.frameHor,self.frameVert),(self.frameHor+PLAYER_WIDTH,self.frameVert+PLAYER_HEIGHT))
 
-		self.spriteSurface = pygame.Surface(self.rect.size).convert()
+		self.spriteSurface = pygame.Surface((self.rect.size), pygame.SRCALPHA)
 		self.spriteSurface.blit(self.spriteSheet,(0,0),self.rect)
 
 	def render(self, window, camX, camY):
