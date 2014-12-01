@@ -100,7 +100,11 @@ class Player(object):
 				self.is_falling = False
 
 	def attack(self, mobsX, mobsY):
-		self.swordX = self.x + TILESIZE
+		if self.leftFrame:
+			self.swordX = self.x + TILESIZE
+		elif self.rightFrame:
+			self.swordX = self.x - TILESIZE
+
 		self.swordY = self.y + TILESIZE
 		self.swordW  = 0
 		self.swordH = 0
