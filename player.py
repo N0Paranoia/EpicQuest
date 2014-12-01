@@ -100,10 +100,14 @@ class Player(object):
 				self.is_falling = False
 
 	def attack(self):
+		self.swordW  = 0
+		self.swordH = 0
 		if self.canAttack:
 			if self.ATTACK:
 				self.is_attacking = True
-				self.stamina -= 5
+				self.stamina -= 10
+				self.swordW  = 32
+				self.swordH = 8
 			else:
 				self.is_attacking = False;
 
@@ -180,11 +184,14 @@ class Player(object):
 		if self.stamina <= 50:
 			if self.is_jumping == False:
 				self.canJump = False
+		if self.stamina <= 10:
+			self.canAttack = False
 		else:
 			self.canJump = True
 		""" -- Stamina Threshold for Attcking -- """
 		if self.stamina <= 5:
-			self.canAttack = False
+			if self.is_attacking == False:
+				self.canAttack = False
 		else:
 			self.canAttack = True
 		""" -- Stamina Threshold for Blocking -- """
@@ -277,7 +284,7 @@ class Player(object):
 
 		self.frameCounter += self.frameSpeed
 		if self.frameCounter > self.frameSwitch:
-			if self.ATTACK:
+			if self.is_attacking :
 				if self.leftFrame:
 					self.frameHor = 80
 				elif self.rightFrame:
@@ -317,6 +324,7 @@ class Player(object):
 
 	def render(self, window, camX, camY):
 		window.blit(self.spriteSurface, (self.x - camX, self.y - camY), self.rect)
+		pygame.draw.rect(window, GREEN, (self.x + TILESIZE - camX, self.y + TILESIZE - camY, self.swordW, self.swordH))
 
 	def update (self, event, window, camX, camY, gravity, mobsX, mobsY):
 		self.input(event)

@@ -59,7 +59,7 @@ class Main(object):
 			if gamestate.intro:
 				for x in range(0, WINDOW_WIDTH):
 					hud = Hud(0, None, None)
-					pygame.draw.rect(window, YELLOW, (0, 0, x, WINDOW_HEIGHT))
+					pygame.draw.rect(window, WHITE, (0, WINDOW_HEIGHT - 100, x, 32))
 
 					hud.update(window, FPS, clock, INTRO)
 

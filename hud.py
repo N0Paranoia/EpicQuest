@@ -19,7 +19,7 @@ class Hud(object):
 		font14 = pygame.font.Font(FONT_PATH, 14)
 
 		if state == INTRO:
-			textIntro = textIntro = font14.render("Intro", 1, (BLACK))
+			textIntro = textIntro = font14.render("LOADING", 1, (WHITE))
 			window.blit(textIntro, (WINDOW_WIDTH/2- TILESIZE, WINDOW_HEIGHT/4))
 
 		elif state == MAIN_MENU:
