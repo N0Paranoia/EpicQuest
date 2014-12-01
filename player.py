@@ -99,15 +99,20 @@ class Player(object):
 				self.y -= gravity
 				self.is_falling = False
 
-	def attack(self):
+	def attack(self, mobsX, mobsY):
+		self.swordX = self.x + TILESIZE
+		self.swordY = self.y + TILESIZE
 		self.swordW  = 0
 		self.swordH = 0
+
 		if self.canAttack:
 			if self.ATTACK:
 				self.is_attacking = True
 				self.stamina -= 10
 				self.swordW  = 32
 				self.swordH = 8
+				if self.mobCollision(self.swordX, self.swordY, self.swordW, self.swordH, mobsX, mobsY):
+					print "Kill"
 			else:
 				self.is_attacking = False;
 
@@ -169,7 +174,7 @@ class Player(object):
 		colH = Collision()
 		if colH.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, LAVA) == True :
 			self.health -= 5
-		if self.mobCollision(mobsX, mobsY):
+		if self.mobCollision(self.x, self.y, self.width, self.height, mobsX, mobsY):
 			self.health -= 25
 		if self.health <= 0:
 			self.x = PLAYER_START_X
@@ -200,14 +205,14 @@ class Player(object):
 		else:
 			self.canBlock = True
 
-	def mobCollision(self, mobsX, mobsY):
+	def mobCollision(self, x, y, w, h, mobsX, mobsY):
 		self.knockBackLeft = 0
 		self.knockBackRight = 1
 		self.knockBackUp = 2
 		self.knockBackDown = 3
 		col = Collision()
 		for i in range(MOB_NUMBER):
-			if col.MobCollision(self.x, self.y, self.width, self.height, mobsX[i], mobsY[i]):
+			if col.MobCollision(x, y, w, h, mobsX[i], mobsY[i]):
 				if self.x < mobsX[i]: 
 					self.knockBack(self.knockBackLeft)
 				if self.x > mobsX[i]:
@@ -324,12 +329,12 @@ class Player(object):
 
 	def render(self, window, camX, camY):
 		window.blit(self.spriteSurface, (self.x - camX, self.y - camY), self.rect)
-		pygame.draw.rect(window, GREEN, (self.x + TILESIZE - camX, self.y + TILESIZE - camY, self.swordW, self.swordH))
+		pygame.draw.rect(window, GREEN, (self.swordX - camX, self.swordY - camY, self.swordW, self.swordH))
 
 	def update (self, event, window, camX, camY, gravity, mobsX, mobsY):
 		self.input(event)
 		self.falling(gravity)
-		self.attack()
+		self.attack(mobsX, mobsY)
 		self.block()
 		self.jump()
 		self.climbing()
