@@ -101,7 +101,7 @@ class Main(object):
 
 					""" -- Camera -- """
 					centerCam.update(player.x, player.y, camera.x, camera.y, window)
-					camera = Camera(centerCam.x, centerCam.y)
+					camera = Camera(centerCam.x, centerCam.y) 
 					camera.update(centerCam.x, centerCam.y, window)
 
 					""" -- Set FPS -- """
