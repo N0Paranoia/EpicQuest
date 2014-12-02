@@ -27,12 +27,14 @@ class Player(object):
 		self.canBlock = True
 		self.jump_speed = 0
 		self.jump_height = 8
-
 		self.jump_count = 0
 		self.canJump = True
 		self.is_jumping = False;
 		self.is_climbing = False
 		self.canGoTroughDoor = True
+
+		self.attack_count = 0
+		self.attack_duration = 8
 
 		self.frameCounter = 0
 		self.frameSpeed = 6
@@ -100,24 +102,29 @@ class Player(object):
 				self.is_falling = False
 
 	def attack(self, mobsX, mobsY):
-		if self.leftFrame:
-			self.swordX = self.x + TILESIZE
-		elif self.rightFrame:
-			self.swordX = self.x - TILESIZE
-
-		self.swordY = self.y + TILESIZE
+		self.swordX = -10
+		self.swordY = -10
 		self.swordW  = 0
 		self.swordH = 0
 
 		if self.canAttack:
 			if self.ATTACK:
 				self.is_attacking = True
-				self.stamina -= 10
-				self.swordW  = 32
-				self.swordH = 8
-				if self.mobCollision(self.swordX, self.swordY, self.swordW, self.swordH, mobsX, mobsY):
-					print "Kill"
+				if self.attack_count <= self.attack_duration:
+					if self.rightFrame:
+						self.swordX = self.x + TILESIZE
+						self.swordY = self.y + TILESIZE
+					elif self.leftFrame:
+						self.swordX = self.x - TILESIZE
+						self.swordY = self.y + TILESIZE
+					self.stamina -= 10
+					self.swordW  = 32
+					self.swordH = 8
+					self.attack_count += 1
+					if self.mobCollision(self.swordX, self.swordY, self.swordW, self.swordH, mobsX, mobsY):
+						print "KILL"
 			else:
+				self.attack_count = 0
 				self.is_attacking = False;
 
 	def block(self):
@@ -194,7 +201,8 @@ class Player(object):
 			if self.is_jumping == False:
 				self.canJump = False
 		if self.stamina <= 10:
-			self.canAttack = False
+			if self.is_attacking == False:
+				self.canAttack = False
 		else:
 			self.canJump = True
 		""" -- Stamina Threshold for Attcking -- """
@@ -300,9 +308,9 @@ class Player(object):
 					self.frameHor = 64
 				self.frameVert = 32
 			elif self.BLOCK:
-				if self.leftFrame:
+				if self.rightFrame:
 					self.frameHor = 96
-				elif self.rightFrame:
+				elif self.leftFrame:
 					self.frameHor = 48
 				self.frameVert = 32
 			elif self.RIGHT:
@@ -310,15 +318,15 @@ class Player(object):
 				if self.frameHor > self.frameRightEnd:
 					self.frameHor = self.frameRightStartX
 				self.frameCounter = 0
-				self.rightFrame = False
-				self.leftFrame = True
+				self.leftFrame = False
+				self.rightFrame = True
 			elif self.LEFT:
 				self.frameHor -= self.frameAnimation
 				if self.frameHor < self.frameLeftEnd:
 					self.frameHor = self.frameLeftStartX
 				self.frameCounter = 0
-				self.leftFrame = False
-				self.rightFrame = True
+				self.rightFrame = False
+				self.leftFrame = True
 			else:
 				if self.rightFrame:
 					self.frameHor = self.frameRightIdelX
@@ -333,7 +341,7 @@ class Player(object):
 
 	def render(self, window, camX, camY):
 		window.blit(self.spriteSurface, (self.x - camX, self.y - camY), self.rect)
-		pygame.draw.rect(window, GREEN, (self.swordX - camX, self.swordY - camY, self.swordW, self.swordH))
+		pygame.draw.rect(window, RED, (self.swordX - camX, self.swordY - camY, self.swordW, self.swordH), 2)
 
 	def update (self, event, window, camX, camY, gravity, mobsX, mobsY):
 		self.input(event)

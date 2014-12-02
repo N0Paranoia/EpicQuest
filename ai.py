@@ -21,7 +21,10 @@ class Ai(object):
 
 		return y
 
-	def move(self, x, y, width, height, speed, numberOfMobs, playerX, playerY):
+	def health(self, swordX, swordY):
+		pass
+
+	def move(self, x, y, width, height, speed, numberOfMobs, playerX, playerY, swordX, swordY):
 
 		if self.LEFT[numberOfMobs]:
 			self.velocity_x = -speed
