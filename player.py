@@ -121,8 +121,8 @@ class Player(object):
 					self.swordW  = 32
 					self.swordH = 8
 					self.attack_count += 1
-					if self.mobCollision(self.swordX, self.swordY, self.swordW, self.swordH, mobsX, mobsY):
-						print "KILL"
+					# if self.mobCollision(self.swordX, self.swordY, self.swordW, self.swordH, mobsX, mobsY):
+					# 	print "KILL"
 			else:
 				self.attack_count = 0
 				self.is_attacking = False;
@@ -181,11 +181,11 @@ class Player(object):
 		else:
 			self.canGoTroughDoor = True
 
-	def playerHealth(self, mobsX, mobsY):
+	def playerHealth(self, mobsX, mobsY, mobsW, mobsH, alive):
 		colH = Collision()
 		if colH.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, LAVA) == True :
 			self.health -= 5
-		if self.mobCollision(self.x, self.y, self.width, self.height, mobsX, mobsY):
+		if self.mobCollision(self.x, self.y, self.width, self.height, mobsX, mobsY, mobsW, mobsH, alive):
 			self.health -= 25
 		if self.health <= 0:
 			self.x = PLAYER_START_X
@@ -217,23 +217,24 @@ class Player(object):
 		else:
 			self.canBlock = True
 
-	def mobCollision(self, x, y, w, h, mobsX, mobsY):
+	def mobCollision(self, x, y, w, h, mobsX, mobsY, mobsW, mobsH, alive):
 		self.knockBackLeft = 0
 		self.knockBackRight = 1
 		self.knockBackUp = 2
 		self.knockBackDown = 3
 		col = Collision()
 		for i in range(MOB_NUMBER):
-			if col.MobCollision(x, y, w, h, mobsX[i], mobsY[i]):
-				if self.x < mobsX[i]: 
-					self.knockBack(self.knockBackLeft)
-				if self.x > mobsX[i]:
-					self.knockBack(self.knockBackRight)
-				if self.y < mobsY[i]:
-					self.knockBack(self.knockBackUp)
-				if self.y > mobsY[i]:
-					self.knockBack(self.knockBackDown)
-				return True
+			if alive[i]:
+				if col.MobCollision(x, y, w, h, mobsX[i], mobsY[i],  mobsW, mobsH):
+					if self.x < mobsX[i]: 
+						self.knockBack(self.knockBackLeft)
+					if self.x > mobsX[i]:
+						self.knockBack(self.knockBackRight)
+					if self.y < mobsY[i]:
+						self.knockBack(self.knockBackUp)
+					if self.y > mobsY[i]:
+						self.knockBack(self.knockBackDown)
+					return True
 
 	def knockBack(self, direction):
 		if direction == self.knockBackLeft:
@@ -343,7 +344,7 @@ class Player(object):
 		window.blit(self.spriteSurface, (self.x - camX, self.y - camY), self.rect)
 		pygame.draw.rect(window, RED, (self.swordX - camX, self.swordY - camY, self.swordW, self.swordH), 2)
 
-	def update (self, event, window, camX, camY, gravity, mobsX, mobsY):
+	def update (self, event, window, camX, camY, gravity, mobsX, mobsY, mobsW, mobsH, alive):
 		self.input(event)
 		self.falling(gravity)
 		self.attack(mobsX, mobsY)
@@ -353,6 +354,6 @@ class Player(object):
 		self.gotroughdoor()
 		self.move(gravity)
 		self.playerStamina()
-		self.playerHealth(mobsX, mobsY)
+		self.playerHealth(mobsX, mobsY, mobsW, mobsH, alive)
 		self.animate()
 		self.render(window, camX, camY)

@@ -16,6 +16,9 @@ class Mobs(object):
 		self.speed1 = 1
 		self.speed2 = 1
 		self.mobNumber = 2
+		self.gotHit = False
+		self.health = [32,32]
+		self.alive = [True, True]
 
 	# def generateMob(self, window, camX, camY, playerX, playerY):
 	# 	for row in range(MAPHEIGHT):
@@ -25,14 +28,20 @@ class Mobs(object):
 	# 					m0bs = MobPosition(column*TILESIZE, row*TILESIZE)
 	# 					m0bs.update(window, camX, camY, playerX, playerY)
 
-	def movement(self, mobs, playerX, playerY, swordX, swordY):
+	def movement(self, mobs, playerX, playerY, swordX, swordY, swordW, swordH):
 		fall = ai.falling(GRAVITY, self.x[mobs], self.y[mobs], self.width, self.height)
-		move = ai.move(self.x[mobs], self.y[mobs], self.width, self.height, self.speed1, mobs, playerX, playerY, swordX, swordY)
+		move = ai.move(self.x[mobs], self.y[mobs], self.width, self.height, self.speed1, mobs, playerX, playerY, swordX, swordY, swordW, swordH)
 		self.x[mobs] = move
 		self.y[mobs] = fall
 
+	def hitDetect(self, mobs, playerX, playerY, swordX, swordY, swordW, swordH):
+		if ai.getHit(self.x[mobs], self.y[mobs], self.width, self.height, playerX, playerY, swordX, swordY, swordW, swordH):
+			self.health[mobs] -= 5
+			if self.health[mobs] <= 0:
+				self.alive[mobs] = False
+			
 	def healthBar(self, window, camX, camY, mobs):
-		pygame.draw.rect(window, RED, (self.x[mobs] - camX, self.y[mobs] - 10  - camY, self.width, 2))
+		pygame.draw.rect(window, RED, (self.x[mobs] - camX, self.y[mobs] - 10  - camY, self.health[mobs], 2))
 
 	def render(self, window, camX, camY, mobs):
 		pygame.draw.rect(window, RED, (self.x[mobs] - camX, self.y[mobs] - camY, self.width, self.height))
@@ -40,13 +49,16 @@ class Mobs(object):
 	# def renderMobs(self, window, camX, camY):
 	# 	pygame.draw.rect(window, YELLOW, (self.x1 - camX, self.y1 - camY, self.width, self.height))
 
-	def update(self, window, camX, camY, playerX, playerY, swordX, swordY):
+	def update(self, window, camX, camY, playerX, playerY, swordX, swordY, swordW, swordH):
 		# self.generateMob(window, camX, camY, playerX, playerY)
 		for mobs in range (self.mobNumber):
 			if (self.x[mobs] > camX and self.y[mobs] > camY and self.x[mobs] < camX + WINDOW_WIDTH and self.y[mobs] < camY + WINDOW_HEIGHT):
-				self.movement(mobs, playerX, playerY, swordX, swordY)
-				self.healthBar(window, camX, camY, mobs)
-				self.render(window, camX, camY, mobs)
+				if self.alive[mobs]:
+					self.movement(mobs, playerX, playerY, swordX, swordY, swordW, swordH)
+					self.hitDetect(mobs, playerX, playerY, swordX, swordY, swordW, swordH)
+					self.healthBar(window, camX, camY, mobs)
+					self.render(window, camX, camY, mobs)
+
 
 # class MobPosition(object):
 

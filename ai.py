@@ -24,7 +24,11 @@ class Ai(object):
 	def health(self, swordX, swordY):
 		pass
 
-	def move(self, x, y, width, height, speed, numberOfMobs, playerX, playerY, swordX, swordY):
+	def getHit(self, x, y, width, height, playerX, playerY, swordX, swordY, swordW, swordH):
+		if Collision().MobCollision(x, y, width, height, swordX, swordY, swordW, swordH):
+			return True
+
+	def move(self, x, y, width, height, speed, numberOfMobs, playerX, playerY, swordX, swordY, swordW, swordH):
 
 		if self.LEFT[numberOfMobs]:
 			self.velocity_x = -speed
