@@ -42,14 +42,14 @@ class Player(object):
 
 		self.frameHor = 0
 		self.frameVert = 0
-		self.frameRightIdelX = 80
-		self.frameLeftIdelX = 64
+		self.frameRightIdelX = 112
+		self.frameLeftIdelX = 96
 		self.frameIdelY = 0
-		self.frameRightStartX = 96
-		self.frameLeftStartX = 48
+		self.frameRightStartX = 128
+		self.frameLeftStartX = 80
 		self.frameStartY = 0
 		self.frameAnimation = PLAYER_WIDTH/2
-		self.frameRightEnd = 144
+		self.frameRightEnd = 208
 		self.frameLeftEnd = 0
 		self.spriteSheet = pygame.image.load(SPRITE_PATH).convert_alpha()
 		self.rightFrame = True
@@ -121,8 +121,6 @@ class Player(object):
 					self.swordW  = 32
 					self.swordH = 8
 					self.attack_count += 1
-					# if self.mobCollision(self.swordX, self.swordY, self.swordW, self.swordH, mobsX, mobsY):
-					# 	print "KILL"
 			else:
 				self.attack_count = 0
 				self.is_attacking = False;
@@ -181,11 +179,11 @@ class Player(object):
 		else:
 			self.canGoTroughDoor = True
 
-	def playerHealth(self, mobsX, mobsY, mobsW, mobsH, alive):
+	def playerHealth(self, mobsX, mobsY, mobsW, mobsH, mobAlive):
 		colH = Collision()
 		if colH.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, LAVA) == True :
 			self.health -= 5
-		if self.mobCollision(self.x, self.y, self.width, self.height, mobsX, mobsY, mobsW, mobsH, alive):
+		if self.mobCollision(self.x, self.y, self.width, self.height, mobsX, mobsY, mobsW, mobsH, mobAlive):
 			self.health -= 25
 		if self.health <= 0:
 			self.x = PLAYER_START_X
@@ -217,22 +215,22 @@ class Player(object):
 		else:
 			self.canBlock = True
 
-	def mobCollision(self, x, y, w, h, mobsX, mobsY, mobsW, mobsH, alive):
+	def mobCollision(self, x, y, w, h, mobsX, mobsY, mobsW, mobsH, mobAlive):
 		self.knockBackLeft = 0
 		self.knockBackRight = 1
 		self.knockBackUp = 2
 		self.knockBackDown = 3
 		col = Collision()
-		for i in range(MOB_NUMBER):
-			if alive[i]:
-				if col.MobCollision(x, y, w, h, mobsX[i], mobsY[i],  mobsW, mobsH):
-					if self.x < mobsX[i]: 
+		for mobs in range(MOB_NUMBER):
+			if mobAlive[mobs]:
+				if col.MobCollision(x, y, w, h, mobsX[mobs], mobsY[mobs],  mobsW, mobsH):
+					if self.x < mobsX[mobs]: 
 						self.knockBack(self.knockBackLeft)
-					if self.x > mobsX[i]:
+					if self.x > mobsX[mobs]:
 						self.knockBack(self.knockBackRight)
-					if self.y < mobsY[i]:
+					if self.y < mobsY[mobs]:
 						self.knockBack(self.knockBackUp)
-					if self.y > mobsY[i]:
+					if self.y > mobsY[mobs]:
 						self.knockBack(self.knockBackDown)
 					return True
 
@@ -304,15 +302,15 @@ class Player(object):
 		if self.frameCounter > self.frameSwitch:
 			if self.is_attacking :
 				if self.leftFrame:
-					self.frameHor = 80
+					self.frameHor = 96
 				elif self.rightFrame:
-					self.frameHor = 64
+					self.frameHor = 112
 				self.frameVert = 32
 			elif self.BLOCK:
 				if self.rightFrame:
-					self.frameHor = 96
+					self.frameHor = 128
 				elif self.leftFrame:
-					self.frameHor = 48
+					self.frameHor = 80
 				self.frameVert = 32
 			elif self.RIGHT:
 				self.frameHor += self.frameAnimation
@@ -344,7 +342,7 @@ class Player(object):
 		window.blit(self.spriteSurface, (self.x - camX, self.y - camY), self.rect)
 		pygame.draw.rect(window, RED, (self.swordX - camX, self.swordY - camY, self.swordW, self.swordH), 2)
 
-	def update (self, event, window, camX, camY, gravity, mobsX, mobsY, mobsW, mobsH, alive):
+	def update (self, event, window, camX, camY, gravity, mobsX, mobsY, mobsW, mobsH, mobAlive):
 		self.input(event)
 		self.falling(gravity)
 		self.attack(mobsX, mobsY)
@@ -354,6 +352,6 @@ class Player(object):
 		self.gotroughdoor()
 		self.move(gravity)
 		self.playerStamina()
-		self.playerHealth(mobsX, mobsY, mobsW, mobsH, alive)
+		self.playerHealth(mobsX, mobsY, mobsW, mobsH, mobAlive)
 		self.animate()
 		self.render(window, camX, camY)
