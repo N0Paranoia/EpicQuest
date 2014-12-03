@@ -319,6 +319,7 @@ class Player(object):
 				self.frameCounter = 0
 				self.leftFrame = False
 				self.rightFrame = True
+				self.frameVert = self.frameIdelY
 			elif self.LEFT:
 				self.frameHor -= self.frameAnimation
 				if self.frameHor < self.frameLeftEnd:
@@ -326,6 +327,7 @@ class Player(object):
 				self.frameCounter = 0
 				self.rightFrame = False
 				self.leftFrame = True
+				self.frameVert = self.frameIdelY
 			else:
 				if self.rightFrame:
 					self.frameHor = self.frameRightIdelX

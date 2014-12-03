@@ -28,7 +28,7 @@ class Main(object):
 		gamestate = GameStates()
 		world = World()
 		
-		""" -- Variables to implement frame delay's -- """
+		""" -- Variables to implement frame delays -- """
 		self.startFrame = 0
 		self.delayFrame = 1
  

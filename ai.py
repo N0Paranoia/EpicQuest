@@ -28,7 +28,7 @@ class Ai(object):
 		if Collision().MobCollision(x, y, width, height, swordX, swordY, swordW, swordH):
 			return True
 
-	def move(self, x, y, width, height, speed, numberOfMobs, playerX, playerY, swordX, swordY, swordW, swordH, gotHit):
+	def move(self, x, y, width, height, speed, numberOfMobs, playerX, playerY, swordX, swordY, swordW, swordH):
 
 		if self.LEFT[numberOfMobs]:
 			self.velocity_x = -speed
@@ -37,15 +37,7 @@ class Ai(object):
 			self.velocity_x = speed
 
 		x += self.velocity_x
-
-		""" -- KnockBack -- """
-		if gotHit:
-			if playerX < x:
-				print "Knockback RIGHT"
-			if playerX > x + width:
-				print "Knockback LEFT"
-
-
+				
 		""" -- Ai collision -- """
 		if x < 0 or x > MAPWIDTH*32 - TILESIZE or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, WALL) or Collision().TileCollision(x, y+TILESIZE, width, height, x+TILESIZE, y+TILESIZE, LAVA) or Collision().TileCollision(x, y+TILESIZE, width, height, x+TILESIZE, y+TILESIZE, SKY) or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_LEFT) or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_RIGHT) or Collision().TileCollision(x, y+TILESIZE, width, height, x+TILESIZE, y+TILESIZE, SLOPE_LEFT) or Collision().TileCollision(x, y+TILESIZE, width, height, x+TILESIZE, y+TILESIZE, SLOPE_RIGHT):
 			x -= self.velocity_x
