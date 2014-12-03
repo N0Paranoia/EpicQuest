@@ -20,8 +20,6 @@ class Mobs(object):
 		self.gotHit = False
 		self.health = [32,32]
 		self.alive = [True, True]
-		self.counter = 0
-		self.counterEnd = 10000
 
 	# def generateMob(self, window, camX, camY, playerX, playerY):
 	# 	for row in range(MAPHEIGHT):
