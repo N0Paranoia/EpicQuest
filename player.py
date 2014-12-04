@@ -55,6 +55,8 @@ class Player(object):
 		self.rightFrame = True
 		self.leftFrame = False
 
+		self.damage = 10
+
 	def input(self, event):
 		keys = pygame.key.get_pressed()
 

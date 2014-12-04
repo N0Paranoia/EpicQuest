@@ -78,9 +78,6 @@ class Main(object):
 				pygame.draw.rect(window, WHITE, (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
 				hud.update(window, FPS, clock, MAIN_MENU)
 
-				""" -- Update Screen -- """
-				pygame.display.flip()
-
 			""" -- Running game State -- """
 			if gamestate.running == True:
 
@@ -97,7 +94,7 @@ class Main(object):
 					player.update(event, window, camera.x, camera.y, GRAVITY, mobs.x, mobs.y, mobs.width, mobs.height, mobs.alive)
 
 					""" -- Handle AI events -- """
-					mobs.update(window,camera.x, camera.y, player.x, player.y, player.swordX, player.swordY, player.swordW, player.swordH)
+					mobs.update(window,camera.x, camera.y, player.x, player.y, player.swordX, player.swordY, player.swordW, player.swordH, player.damage)
 
 					""" -- Camera -- """
 					centerCam.update(player.x, player.y, camera.x, camera.y, window)
@@ -111,18 +108,12 @@ class Main(object):
 					hud = Hud(player.health, player.stamina, player.lives)
 					hud.update(window, FPS, clock, RUNNING)
 
-					""" -- Update screen -- """
-					pygame.display.flip()
-
 					""" -- Debug info -- """
 
 			""" -- Pause Game State -- """
 			if gamestate.pause:
 				hud = Hud(player.health, player.stamina, player.lives)
 				hud.update(window, FPS, clock, PAUSE)
-
-				""" -- Update Screen -- """
-				pygame.display.flip()
 
 			""" -- GameOver Game State -- """
 			if gamestate.gameOver:
@@ -132,8 +123,8 @@ class Main(object):
 				pygame.draw.rect(window, BLACK, (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
 				hud.update(window, FPS, clock, GAME_OVER)
 
-				""" -- Update Screen -- """
-				pygame.display.flip()
+			""" -- Update Screen -- """
+			pygame.display.flip()
 
 Main()
 
