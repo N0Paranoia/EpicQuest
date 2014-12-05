@@ -1,4 +1,5 @@
 import pygame
+import math
 from pygame.locals import *
 from constants import *
 from level import *
@@ -39,7 +40,6 @@ class Mobs(object):
 		if self.canGetHit[mobs]:			
 			if ai.getHit(self.x[mobs], self.y[mobs], self.width, self.height, playerX, playerY, swordX, swordY, swordW, swordH):
 				self.health[mobs] -= damage*0.32
-				print self.health[mobs]
 
 			if self.health[mobs] <= 0:
 				self.alive[mobs] = False
