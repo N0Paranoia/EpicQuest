@@ -112,6 +112,7 @@ class Player(object):
 		if self.canAttack:
 			if self.ATTACK:
 				self.is_attacking = True
+				self.canBlock = False
 				if self.attack_count <= self.attack_duration:
 					self.stamina -= 10
 					self.swordW  = 32
