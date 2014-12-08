@@ -363,8 +363,8 @@ class Player(object):
 
 	def render(self, window, camX, camY):
 		window.blit(self.spriteSurface, (self.x - camX, self.y - camY), self.rect)
-		pygame.draw.rect(window, RED, (self.swordX - camX, self.swordY - camY, self.swordW, self.swordH), 2)
-		pygame.draw.rect(window, BLUE, (self.shieldX - camX, self.shieldY - camY, self.shieldW, self.shieldH), 2)
+		pygame.draw.rect(window, RED, (self.swordX - camX, self.swordY - camY, self.swordW, self.swordH), 1)
+		pygame.draw.rect(window, BLUE, (self.shieldX - camX, self.shieldY - camY, self.shieldW, self.shieldH), 1)
 
 	def update (self, event, window, camX, camY, gravity, mobsX, mobsY, mobsW, mobsH, mobAlive):
 		self.input(event)
