@@ -60,7 +60,7 @@ class Main(object):
 				for x in range(0, WINDOW_WIDTH):
 					hud = Hud(0, None, None)
 					pygame.draw.rect(window, WHITE, (0, WINDOW_HEIGHT - 100, x, 32))
-
+ 
 					hud.update(window, FPS, clock, INTRO)
 
 					""" -- Update Screen -- """
@@ -94,7 +94,7 @@ class Main(object):
 					player.update(event, window, camera.x, camera.y, GRAVITY, mobs.x, mobs.y, mobs.width, mobs.height, mobs.alive)
 
 					""" -- Handle AI events -- """
-					mobs.update(window,camera.x, camera.y, player.x, player.y, player.swordX, player.swordY, player.swordW, player.swordH, player.damage)
+					mobs.update(window,camera.x, camera.y, player.x, player.y, player.swordX, player.swordY, player.swordW, player.swordH, player.damage, player.shieldX, player.shieldY, player.shieldW, player.shieldH)
 
 					""" -- Camera -- """
 					centerCam.update(player.x, player.y, camera.x, camera.y, window)

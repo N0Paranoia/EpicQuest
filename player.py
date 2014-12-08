@@ -55,7 +55,7 @@ class Player(object):
 		self.rightFrame = True
 		self.leftFrame = False
 
-		self.damage = 10
+		self.damage = 5
 
 	def input(self, event):
 		keys = pygame.key.get_pressed()
@@ -113,25 +113,37 @@ class Player(object):
 			if self.ATTACK:
 				self.is_attacking = True
 				if self.attack_count <= self.attack_duration:
+					self.stamina -= 10
+					self.swordW  = 32
+					self.swordH = 8
+					self.attack_count += 1
 					if self.rightFrame:
 						self.swordX = self.x + TILESIZE
 						self.swordY = self.y + TILESIZE
 					elif self.leftFrame:
 						self.swordX = self.x - TILESIZE
 						self.swordY = self.y + TILESIZE
-					self.stamina -= 10
-					self.swordW  = 32
-					self.swordH = 8
-					self.attack_count += 1
 			else:
 				self.attack_count = 0
 				self.is_attacking = False;
 
-	def block(self):
+	def block(self, mobsX, mobsY):
+		self.shieldX = -10
+		self.shieldY = -10
+		self.shieldW = 0
+		self.shieldH = 0
+
 		if self.canBlock:
 			if self.BLOCK:
 				self.is_blocking = True
-				self.stamina -= 5
+				self.shieldW  = 8
+				self.shieldH = 32
+				if self.rightFrame:
+					self.shieldX = self.x + TILESIZE
+					self.shieldY = self.y + TILESIZE/2
+				elif self.leftFrame:
+					self.shieldX = self.x - self.shieldW
+					self.shieldY = self.y + TILESIZE/2
 			else:
 				self.is_blocking = False
 
@@ -345,16 +357,17 @@ class Player(object):
 	def render(self, window, camX, camY):
 		window.blit(self.spriteSurface, (self.x - camX, self.y - camY), self.rect)
 		pygame.draw.rect(window, RED, (self.swordX - camX, self.swordY - camY, self.swordW, self.swordH), 2)
+		pygame.draw.rect(window, BLUE, (self.shieldX - camX, self.shieldY - camY, self.shieldW, self.shieldH), 2)
 
 	def update (self, event, window, camX, camY, gravity, mobsX, mobsY, mobsW, mobsH, mobAlive):
 		self.input(event)
 		self.falling(gravity)
-		self.attack(mobsX, mobsY)
-		self.block()
 		self.jump()
 		self.climbing()
 		self.gotroughdoor()
 		self.move(gravity)
+		self.attack(mobsX, mobsY)
+		self.block(mobsX, mobsY)
 		self.playerStamina()
 		self.playerHealth(mobsX, mobsY, mobsW, mobsH, mobAlive)
 		self.animate()
