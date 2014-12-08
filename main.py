@@ -94,7 +94,7 @@ class Main(object):
 					player.update(event, window, camera.x, camera.y, GRAVITY, mobs.x, mobs.y, mobs.width, mobs.height, mobs.alive)
 
 					""" -- Handle AI events -- """
-					mobs.update(window,camera.x, camera.y, player.x, player.y, player.swordX, player.swordY, player.swordW, player.swordH, player.damage, player.shieldX, player.shieldY, player.shieldW, player.shieldH)
+					mobs.update(window,camera.x, camera.y, player.x, player.y, player.swordX, player.swordY, player.swordW, player.swordH, player.damage, player.shieldHit)
 
 					""" -- Camera -- """
 					centerCam.update(player.x, player.y, camera.x, camera.y, window)

@@ -144,6 +144,8 @@ class Player(object):
 				elif self.leftFrame:
 					self.shieldX = self.x - self.shieldW
 					self.shieldY = self.y + TILESIZE/2
+				if self.shieldHit:
+					self.stamina -= 5
 			else:
 				self.is_blocking = False
 
@@ -234,6 +236,7 @@ class Player(object):
 		self.knockBackRight = 1
 		self.knockBackUp = 2
 		self.knockBackDown = 3
+		self.shieldHit = False
 		col = Collision()
 		for mobs in range(MOB_NUMBER):
 			if mobAlive[mobs]:
@@ -247,6 +250,10 @@ class Player(object):
 					if self.y > mobsY[mobs]:
 						self.knockBack(self.knockBackDown)
 					return True
+				
+				""" -- Test MOB -> Shield collision -- """
+				if col.MobCollision(self.shieldX, self.shieldY, self.shieldW, self.shieldH, mobsX[mobs], mobsY[mobs],  mobsW, mobsH):
+					self.shieldHit = True
 
 	def knockBack(self, direction):
 		if direction == self.knockBackLeft:
