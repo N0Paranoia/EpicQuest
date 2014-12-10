@@ -79,6 +79,8 @@ LADDER_TOP = 12
 SLOPE_RIGHT = 13
 SLOPE_LEFT = 14
 
+SIMPLE = 5
+
 """ -- Linking recources/ colors -- (can be deleted) -- """
 colors = {
 			SKY : WHITE,
@@ -108,7 +110,5 @@ textures =	{
 				SLOPE_RIGHT : SLOPE_TILE_RIGHT,
 				SLOPE_LEFT : SLOPE_TILE_LEFT
 			}
-
-""" -- Mob types -- """
 
 MOB_NUMBER = 2
