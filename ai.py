@@ -8,8 +8,6 @@ class Ai(object):
 	def __init__(self):
 		self.velocity_x = 0
 		self.velocity_y = 0
-		self.LEFT2 = False
-		self.RIGHT2 = False
 		self.LEFT = [False, False]
 		self.RIGHT = [True, True]
 		self.aggroGange = 3*TILESIZE

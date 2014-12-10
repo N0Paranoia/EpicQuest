@@ -198,7 +198,7 @@ class Player(object):
 
 	def playerHealth(self, mobsX, mobsY, mobsW, mobsH, mobAlive):
 		colH = Collision()
-		if colH.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, LAVA) == True :
+		if colH.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, LAVA):
 			self.health -= 5
 		if self.mobCollision(self.x, self.y, self.width, self.height, mobsX, mobsY, mobsW, mobsH, mobAlive):
 			self.health -= 25
@@ -254,6 +254,10 @@ class Player(object):
 				
 				""" -- Test MOB -> Shield collision -- """
 				if col.MobCollision(self.shieldX, self.shieldY, self.shieldW, self.shieldH, mobsX[mobs], mobsY[mobs],  mobsW, mobsH):
+					self.shieldHit = True
+
+				""" -- Test MOB Sword <- Player -- """
+				if col.MobCollision(x, y, w, self.shieldH, mobsX[mobs], mobsY[mobs],  mobsW, mobsH):
 					self.shieldHit = True
 
 	def knockBack(self, direction):
