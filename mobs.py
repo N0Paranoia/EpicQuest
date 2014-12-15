@@ -24,7 +24,7 @@ class Mobs(object):
 		self.weaponX = [-10,-10]
 		self.weaponY = [-10,-10]
 		self.weaponW = [32,32]
-		self.weaponH = [16,16]
+		self.weaponH = [8,8]
 		self.attacking = [False, False]
 		self.attack_count = [0, 0]
 		self.attack_duration = [8, 8]
@@ -50,7 +50,7 @@ class Mobs(object):
 				self.attacking[mobs] = True
 				self.attack_count[mobs] += 1
 				self.weapon(mobs, playerX, playerY, camX, camY)
-				pygame.draw.rect(window, RED, (self.weaponX[mobs] - camX, self.weaponY[mobs] - camY, self.weaponW[mobs], self.weaponH[mobs]), 2)
+				pygame.draw.rect(window, RED, (self.weaponX[mobs] - camX, self.weaponY[mobs] - camY, self.weaponW[mobs], self.weaponH[mobs]), 1)
 		else:
 			self.weapon(mobs, playerX, playerY, camX, camY)
 			self.attack_count[mobs] = 0

@@ -240,22 +240,21 @@ class Player(object):
 		self.shieldHit = False
 		col = Collision()
 		for mobs in range(MOB_NUMBER):
-		
-			""" -- Test MOB Sword <- Player -- """
-			if col.MobCollision(self.shieldX, self.shieldY, self.shieldW, self.shieldH, mobsWeaponX[mobs], mobsWeaponY[mobs], mobsWeaponW[mobs], mobsWeaponH[mobs]):
-				self.shieldHit = True
-				if self.x < mobsX[mobs]: 
-					self.knockBack(self.knockBackLeft)
-				if self.x > mobsX[mobs]:
-					self.knockBack(self.knockBackRight)
-				if self.y < mobsY[mobs]:
-					self.knockBack(self.knockBackUp)
-				if self.y > mobsY[mobs]:
-					self.knockBack(self.knockBackDown)
-				print "Shield"
-				return False
-
 			if mobAlive[mobs]:
+				""" -- Test MOB Sword <- Player -- """
+				if col.MobCollision(self.shieldX, self.shieldY, self.shieldW, self.shieldH, mobsWeaponX[mobs], mobsWeaponY[mobs], mobsWeaponW[mobs], mobsWeaponH[mobs]):
+					self.shieldHit = True
+					if self.x < mobsX[mobs]: 
+						self.knockBack(self.knockBackLeft)
+					if self.x > mobsX[mobs]:
+						self.knockBack(self.knockBackRight)
+					if self.y < mobsY[mobs]:
+						self.knockBack(self.knockBackUp)
+					if self.y > mobsY[mobs]:
+						self.knockBack(self.knockBackDown)
+					print "Shield"
+					return False
+
 				if col.MobCollision(x, y, w, h, mobsX[mobs], mobsY[mobs],  mobsW, mobsH):
 					if self.x < mobsX[mobs]: 
 						self.knockBack(self.knockBackLeft)
