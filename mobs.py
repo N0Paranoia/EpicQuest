@@ -25,6 +25,7 @@ class Mobs(object):
 		self.weaponY = [-10,-10]
 		self.weaponW = [32,32]
 		self.weaponH = [16,16]
+		self.attacking = [False, False]
 		self.attack_count = [0, 0]
 		self.attack_duration = [8, 8]
 
@@ -43,18 +44,20 @@ class Mobs(object):
 			if self.health[mobs] <= 0:
 				self.alive[mobs] = False
 				
-	def attack(self, window, mobs, playerX, playerY, camX, camY, shieldHit):
-		if ai.attack(self.x[mobs], self.y[mobs], self.width, self.height, self.speed, mobs, playerX, playerY, shieldHit):
+	def attack(self, window, mobs, playerX, playerY, camX, camY):
+		if ai.attack(self.x[mobs], self.y[mobs], self.width, self.height, self.speed, mobs, playerX, playerY):
 			if self.attack_count[mobs] <= self.attack_duration[mobs]:
+				self.attacking[mobs] = True
 				self.attack_count[mobs] += 1
-				self.weapon(mobs, playerX, playerY, camX, camY, shieldHit)
+				self.weapon(mobs, playerX, playerY, camX, camY)
 				pygame.draw.rect(window, RED, (self.weaponX[mobs] - camX, self.weaponY[mobs] - camY, self.weaponW[mobs], self.weaponH[mobs]), 2)
 		else:
-			self.weapon(mobs, playerX, playerY, camX, camY, shieldHit)
+			self.weapon(mobs, playerX, playerY, camX, camY)
 			self.attack_count[mobs] = 0
+			self.attacking[mobs] = False 
 
-	def weapon(self, mobs, playerX, playerY, camX, camY, shieldHit):
-		weapon = ai.weapon(self.x[mobs], self.y[mobs], self.width, self.height, self.speed, mobs, playerX, playerY, shieldHit)
+	def weapon(self, mobs, playerX, playerY, camX, camY):
+		weapon = ai.weapon(self.x[mobs], self.y[mobs], self.width, self.height, self.speed, mobs, playerX, playerY)
 		self.weaponX[mobs] = weapon
 		self.weaponY[mobs] = self.y[mobs] + self.height/4
 		
@@ -69,7 +72,7 @@ class Mobs(object):
 			if (self.x[mobs] > camX and self.y[mobs] > camY and self.x[mobs] < camX + WINDOW_WIDTH and self.y[mobs] < camY + WINDOW_HEIGHT):
 				if self.alive[mobs]:
 					self.movement(mobs, playerX, playerY, shieldHit)
-					self.attack(window, mobs, playerX, playerY, camX, camY, shieldHit)
+					self.attack(window, mobs, playerX, playerY, camX, camY)
 					self.hitDetect(mobs, swordX, swordY, swordW, swordH, damage)
 					self.healthBar(window, camX, camY, mobs)
 					self.render(window, camX, camY, mobs)

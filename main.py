@@ -91,7 +91,7 @@ class Main(object):
 					world.update(window, camera.x, camera.y)
 
 					""" -- Handle player events -- """
-					player.update(event, window, camera.x, camera.y, GRAVITY, mobs.x, mobs.y, mobs.width, mobs.height, mobs.alive)
+					player.update(event, window, camera.x, camera.y, GRAVITY, mobs.x, mobs.y, mobs.width, mobs.height, mobs.alive, mobs.weaponX, mobs.weaponY, mobs.weaponW, mobs.weaponH, mobs.attacking)
 
 					""" -- Handle AI events -- """
 					mobs.update(window,camera.x, camera.y, player.x, player.y, player.swordX, player.swordY, player.swordW, player.swordH, player.damage, player.shieldHit)

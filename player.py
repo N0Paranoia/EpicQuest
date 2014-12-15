@@ -196,11 +196,11 @@ class Player(object):
 		else:
 			self.canGoTroughDoor = True
 
-	def playerHealth(self, mobsX, mobsY, mobsW, mobsH, mobAlive):
+	def playerHealth(self, mobsX, mobsY, mobsW, mobsH, mobAlive, mobsWeaponX, mobsWeaponY, mobsWeaponW, mobsWeaponH, mobsAttacking):
 		colH = Collision()
 		if colH.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, LAVA):
 			self.health -= 5
-		if self.mobCollision(self.x, self.y, self.width, self.height, mobsX, mobsY, mobsW, mobsH, mobAlive):
+		if self.mobCollision(self.x, self.y, self.width, self.height, mobsX, mobsY, mobsW, mobsH, mobAlive, mobsWeaponX, mobsWeaponY, mobsWeaponW, mobsWeaponH, mobsAttacking):
 			self.health -= 25
 		if self.health <= 0:
 			self.x = PLAYER_START_X
@@ -232,7 +232,7 @@ class Player(object):
 		else:
 			self.canBlock = True
 
-	def mobCollision(self, x, y, w, h, mobsX, mobsY, mobsW, mobsH, mobAlive):
+	def mobCollision(self, x, y, w, h, mobsX, mobsY, mobsW, mobsH, mobAlive, mobsWeaponX, mobsWeaponY, mobsWeaponW, mobsWeaponH, mobsAttacking):
 		self.knockBackLeft = 0
 		self.knockBackRight = 1
 		self.knockBackUp = 2
@@ -240,6 +240,21 @@ class Player(object):
 		self.shieldHit = False
 		col = Collision()
 		for mobs in range(MOB_NUMBER):
+		
+			""" -- Test MOB Sword <- Player -- """
+			if col.MobCollision(self.shieldX, self.shieldY, self.shieldW, self.shieldH, mobsWeaponX[mobs], mobsWeaponY[mobs], mobsWeaponW[mobs], mobsWeaponH[mobs]):
+				self.shieldHit = True
+				if self.x < mobsX[mobs]: 
+					self.knockBack(self.knockBackLeft)
+				if self.x > mobsX[mobs]:
+					self.knockBack(self.knockBackRight)
+				if self.y < mobsY[mobs]:
+					self.knockBack(self.knockBackUp)
+				if self.y > mobsY[mobs]:
+					self.knockBack(self.knockBackDown)
+				print "Shield"
+				return False
+
 			if mobAlive[mobs]:
 				if col.MobCollision(x, y, w, h, mobsX[mobs], mobsY[mobs],  mobsW, mobsH):
 					if self.x < mobsX[mobs]: 
@@ -251,13 +266,21 @@ class Player(object):
 					if self.y > mobsY[mobs]:
 						self.knockBack(self.knockBackDown)
 					return True
-				
+				if mobsAttacking[mobs]:
+					if col.MobCollision(x, y, w, h, mobsWeaponX[mobs], mobsWeaponY[mobs], mobsWeaponW[mobs], mobsWeaponH[mobs]):
+						print "Auw"
+						if self.x < mobsX[mobs]: 
+							self.knockBack(self.knockBackLeft)
+						if self.x > mobsX[mobs]:
+							self.knockBack(self.knockBackRight)
+						if self.y < mobsY[mobs]:
+							self.knockBack(self.knockBackUp)
+						if self.y > mobsY[mobs]:
+							self.knockBack(self.knockBackDown)
+						return True
+			
 				""" -- Test MOB -> Shield collision -- """
 				if col.MobCollision(self.shieldX, self.shieldY, self.shieldW, self.shieldH, mobsX[mobs], mobsY[mobs],  mobsW, mobsH):
-					self.shieldHit = True
-
-				""" -- Test MOB Sword <- Player -- """
-				if col.MobCollision(x, y, w, self.shieldH, mobsX[mobs], mobsY[mobs],  mobsW, mobsH):
 					self.shieldHit = True
 
 	def knockBack(self, direction):
@@ -371,7 +394,7 @@ class Player(object):
 		pygame.draw.rect(window, RED, (self.swordX - camX, self.swordY - camY, self.swordW, self.swordH), 1)
 		pygame.draw.rect(window, BLUE, (self.shieldX - camX, self.shieldY - camY, self.shieldW, self.shieldH), 1)
 
-	def update (self, event, window, camX, camY, gravity, mobsX, mobsY, mobsW, mobsH, mobAlive):
+	def update (self, event, window, camX, camY, gravity, mobsX, mobsY, mobsW, mobsH, mobAlive, mobsWeaponX, mobsWeaponY, mobsWeaponW, mobsWeaponH, mobsAttacking):
 		self.input(event)
 		self.falling(gravity)
 		self.jump()
@@ -381,6 +404,6 @@ class Player(object):
 		self.attack(mobsX, mobsY)
 		self.block(mobsX, mobsY)
 		self.playerStamina()
-		self.playerHealth(mobsX, mobsY, mobsW, mobsH, mobAlive)
+		self.playerHealth(mobsX, mobsY, mobsW, mobsH, mobAlive, mobsWeaponX, mobsWeaponY, mobsWeaponW, mobsWeaponH, mobsAttacking)
 		self.animate()
 		self.render(window, camX, camY)

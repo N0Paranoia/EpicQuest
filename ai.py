@@ -25,13 +25,13 @@ class Ai(object):
 		if Collision().MobCollision(x, y, width, height, swordX, swordY, swordW, swordH):
 			return True
 
-	def attack(self, x, y, width, height, speed, numberOfMobs, playerX, playerY, shieldHit):
+	def attack(self, x, y, width, height, speed, numberOfMobs, playerX, playerY):
 		if playerX > x - self.aggroGange and playerX < x and playerY > y - self.aggroGange and playerY	< y + self.aggroGange or  playerX < x + self.aggroGange and playerX > x and playerY > y - self.aggroGange and playerY	< y + self.aggroGange:
 				return True
 		else:
 			return False
 
-	def weapon(self, x, y, width, height, speed, numberOfMobs, playerX, playerY, shieldHit):
+	def weapon(self, x, y, width, height, speed, numberOfMobs, playerX, playerY):
 		if self.LEFT[numberOfMobs]:
 			return x - width
 		elif self.RIGHT[numberOfMobs]:
