@@ -146,7 +146,7 @@ class Player(object):
 					self.shieldX = self.x - self.shieldW
 					self.shieldY = self.y + TILESIZE/2
 				if self.shieldHit:
-					self.stamina -= 5
+					self.stamina -= 15
 			else:
 				self.is_blocking = False
 
@@ -241,9 +241,8 @@ class Player(object):
 		col = Collision()
 		for mobs in range(MOB_NUMBER):
 			if mobAlive[mobs]:
-				""" -- Test MOB Sword <- Player -- """
+				""" -- Check if the Mob weapon hits the player shield -- """
 				if col.MobCollision(self.shieldX, self.shieldY, self.shieldW, self.shieldH, mobsWeaponX[mobs], mobsWeaponY[mobs], mobsWeaponW[mobs], mobsWeaponH[mobs]):
-					self.shieldHit = True
 					if self.x < mobsX[mobs]: 
 						self.knockBack(self.knockBackLeft)
 					if self.x > mobsX[mobs]:
@@ -252,9 +251,10 @@ class Player(object):
 						self.knockBack(self.knockBackUp)
 					if self.y > mobsY[mobs]:
 						self.knockBack(self.knockBackDown)
-					print "Shield"
+					self.shieldHit = True
 					return False
 
+				""" -- Check if the mob hits the player -- """
 				if col.MobCollision(x, y, w, h, mobsX[mobs], mobsY[mobs],  mobsW, mobsH):
 					if self.x < mobsX[mobs]: 
 						self.knockBack(self.knockBackLeft)
@@ -265,9 +265,10 @@ class Player(object):
 					if self.y > mobsY[mobs]:
 						self.knockBack(self.knockBackDown)
 					return True
+
+				""" -- Check id the mob's weapon hits the player -- """
 				if mobsAttacking[mobs]:
 					if col.MobCollision(x, y, w, h, mobsWeaponX[mobs], mobsWeaponY[mobs], mobsWeaponW[mobs], mobsWeaponH[mobs]):
-						print "Auw"
 						if self.x < mobsX[mobs]: 
 							self.knockBack(self.knockBackLeft)
 						if self.x > mobsX[mobs]:
@@ -278,9 +279,10 @@ class Player(object):
 							self.knockBack(self.knockBackDown)
 						return True
 			
-				""" -- Test MOB -> Shield collision -- """
+				""" -- Check if the mob is hitting the shield -- """
 				if col.MobCollision(self.shieldX, self.shieldY, self.shieldW, self.shieldH, mobsX[mobs], mobsY[mobs],  mobsW, mobsH):
 					self.shieldHit = True
+					return False
 
 	def knockBack(self, direction):
 		if direction == self.knockBackLeft:

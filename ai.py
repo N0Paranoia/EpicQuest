@@ -3,6 +3,7 @@ from pygame.locals import *
 from constants import *
 from collision import *
 
+
 class Ai(object):
 
 	def __init__(self):
@@ -11,7 +12,7 @@ class Ai(object):
 		self.LEFT = [False, False]
 		self.RIGHT = [True, True]
 		self.aggroGange = 3*TILESIZE
-
+		
 	def falling(self, gravity, x, y, width, height):
 		self.is_falling = True
 		y += gravity
@@ -27,7 +28,7 @@ class Ai(object):
 
 	def attack(self, x, y, width, height, speed, numberOfMobs, playerX, playerY):
 		if playerX > x - self.aggroGange and playerX < x and playerY > y - self.aggroGange and playerY	< y + self.aggroGange or  playerX < x + self.aggroGange and playerX > x and playerY > y - self.aggroGange and playerY	< y + self.aggroGange:
-				return True
+			return True
 		else:
 			return False
 
