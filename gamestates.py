@@ -1,5 +1,4 @@
 import pygame
-from level import *
 
 class GameStates(object):
 

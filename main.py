@@ -18,7 +18,6 @@ class Main(object):
 		window = pygame.display.set_mode(screenSize)
 		pygame.display.set_caption("EpicQuest")
 
-
 		clock = pygame.time.Clock()
 
 		player = Player(PLAYER_START_X, PLAYER_START_Y)
@@ -31,7 +30,7 @@ class Main(object):
 		""" -- Variables to implement frame delays -- """
 		self.startFrame = 0
 		self.delayFrame = 1
-		
+
 		Run = True
 		while Run:
 
@@ -94,7 +93,7 @@ class Main(object):
 					player.update(event, window, camera.x, camera.y, GRAVITY, mobs.x, mobs.y, mobs.width, mobs.height, mobs.alive, mobs.weaponX, mobs.weaponY, mobs.weaponW, mobs.weaponH, mobs.attacking, level)
 
 					""" -- Handle AI events -- """
-					mobs.update(window,camera.x, camera.y, player.x, player.y, player.swordX, player.swordY, player.swordW, player.swordH, player.damage, player.shieldHit, level)
+					mobs.update(window,camera.x, camera.y, player.x, player.y, player.swordX, player.swordY, player.swordW, player.swordH, player.damage, player.shieldHit, levelq)
 
 					""" -- Camera -- """
 					centerCam.update(player.x, player.y, camera.x, camera.y, window)
