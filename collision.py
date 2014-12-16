@@ -80,10 +80,10 @@ class Collision(object):
 		return True
 
 	""" -- Tile specific collision check -- """
-	def TileCollision(self, x, y, w, h, camX, camY, tile):
-		for row in range(MAPHEIGHT):
-				for column in range (MAPWIDTH):
-					if level[row][column] == tile:
+	def TileCollision(self, x, y, w, h, camX, camY, tile, tileMap):
+		for row in range(LEVEL_HEIGHT):
+				for column in range (LEVEL_WIDTH):
+					if tileMap[row][column] == tile:
 						if column * TILESIZE > camX - 2*TILESIZE and column * TILESIZE < camX + WINDOW_WIDTH + TILESIZE and row * TILESIZE > camY - 2*TILESIZE and row * TILESIZE < camY + WINDOW_HEIGHT + TILESIZE:
 							tiles = Tile(column*TILESIZE, row*TILESIZE)
 							col = Collision()
@@ -91,10 +91,10 @@ class Collision(object):
 								return True
 
 	""" -- Tile specific collision check -- """
-	def CloudCollision(self, x, y, w, h, camX, camY, tile):
-		for row in range(MAPHEIGHT):
-				for column in range (MAPWIDTH):
-					if level[row][column] == tile:
+	def CloudCollision(self, x, y, w, h, camX, camY, tile, tileMap):
+		for row in range(LEVEL_HEIGHT):
+				for column in range (LEVEL_WIDTH):
+					if tileMap[row][column] == tile:
 						if column * TILESIZE > camX - 2*TILESIZE and column * TILESIZE < camX + WINDOW_WIDTH + TILESIZE and row * TILESIZE > camY - 2*TILESIZE and row * TILESIZE < camY + WINDOW_HEIGHT + TILESIZE:
 							tiles = Tile(column*TILESIZE, row*TILESIZE)
 							col = Collision()

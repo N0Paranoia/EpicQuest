@@ -5,7 +5,7 @@ WINDOW_WIDTH = 854
 WINDOW_HEIGHT = 480
 
 """ -- Player Starting point -- """
-PLAYER_START_X = 0
+PLAYER_START_X = 32
 PLAYER_START_Y = 32
 PLAYER_SPEED = 4
 PLAYER_HEIGHT = 64
@@ -46,8 +46,17 @@ SKY_BLUE = (140, 190, 214)
 
 """ -- Tile(map) constants -- """
 TILESIZE = 32
-MAPWIDTH = 30
-MAPHEIGHT = 30
+
+OUTSIDE = True
+INSIDE = False	
+if OUTSIDE:
+	LEVEL_WIDTH = 30
+	LEVEL_HEIGHT = 30
+elif INSIDE:
+	LEVEL_WIDTH = 10
+	LEVEL_HEIGHT = 8
+
+
 
 """ -- tile Sheet -- """
 NO_TILE = (-TILESIZE, -TILESIZE, TILESIZE, TILESIZE)
@@ -111,4 +120,4 @@ textures =	{
 				SLOPE_LEFT : SLOPE_TILE_LEFT
 			}
 
-MOB_NUMBER = 2
+MOB_NUMBER = 4

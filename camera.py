@@ -14,10 +14,10 @@ class Camera(object):
 			self.x = 0
 		if self.y < 0:
 			self.y = 0
-		if self.x + self.width > MAPWIDTH*TILESIZE:
-			self.x = MAPWIDTH*TILESIZE - self.width
-		if self.y + self.height > MAPHEIGHT*TILESIZE:
-			self.y = MAPHEIGHT*TILESIZE - self.height
+		if self.x + self.width > LEVEL_WIDTH*TILESIZE:
+			self.x = LEVEL_WIDTH*TILESIZE - self.width
+		if self.y + self.height > LEVEL_HEIGHT*TILESIZE:
+			self.y = LEVEL_HEIGHT*TILESIZE - self.height
 
 	def render(self, window):
 		pygame.draw.rect(window, WHITE, (self.x/WINDOW_WIDTH, self.y/WINDOW_HEIGHT, self.width, self.height), 2)

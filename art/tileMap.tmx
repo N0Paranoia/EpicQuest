@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="30" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="30" tilewidth="32" tileheight="32" backgroundcolor="#8cbed6">
  <tileset firstgid="1" name="tileSheet" tilewidth="32" tileheight="32">
   <image source="tileSheet.png" width="128" height="128"/>
  </tileset>
  <layer name="Tilelaag 1" width="30" height="30">
   <data encoding="base64" compression="zlib">
-   eJzllksOwyAMRIGmG5Lm/sdtKoGELP+GmHbRxWzw4IdiB5xTSlnRY5DmQ72eXBvA9Xp/xT0ulUsvJna2WFE8iLd7Psyd+MsQ49YLk0/ySTn2Ju780npXbdI8Wu4ZbiX6BpfWUat7FJdjauwIrsaU2Ci3M55NFo9q3Cd9BxqrExxLY+8hd0KUpFqtZFv9sYLt6Ul6x0m5pDtzjCN3rfUP5KAc6B7k/FFcqzYruNbbw3nucj1vHudDesTb5573PVLcfCLNLEgvzPTbTB3/kYvM+bNcjoHM23e4lCFxtbnDWqPvGmWs/u8kvQESFAix
+   eJzVluEKgzAMhEXdH3W+/+PKoIGQnU0utXQLHCok/dQ0TebJt0WpxUdsLopw1wDX8/kV7lGub+BzKr8nfA7lt5u4iLYiNm4396wJl7V/5Op8olz24No9xLIzXMRk2R5XGK+i6H7V/uhdbO1on0x91OrNfktLnlir5agX22P2YEeZ9sy+M6+n2LMYCVmttiLxtTUy3CfenY3xctOD+6lDPcus5nmZvvtEK1d6T4S73ayBuMxZiPaot28zHCs0m2TmlVodIEP/ju3fo7nMzJ3laobmRmffFq4wRnOjvUj3FlsT0bjRugAmJQa4
   </data>
  </layer>
- <layer name="Moblaag1" width="30" height="30">
+ <layer name="Moblaag1" width="30" height="30" visible="0">
   <data encoding="base64" compression="zlib">
    eJztzDENAAAIA7A9+LeMjAXSCmhCwxw5AQCAvxaKXAAL
   </data>

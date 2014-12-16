@@ -9,16 +9,16 @@ class World(object):
     """ -- Load Tilesheet -- """
     self.tileSheet = pygame.image.load(TILE_PATH).convert()
     """ -- Create Surface to draw tiles on -- """
-    self.TileSurface = pygame.Surface((MAPWIDTH*TILESIZE,MAPHEIGHT*TILESIZE)).convert()
+    self.TileSurface = pygame.Surface((LEVEL_WIDTH*TILESIZE,LEVEL_HEIGHT*TILESIZE)).convert()
 
-  def generateTileMap(self, window, rangeX, rangeY):
+  def generateTileMap(self, window, rangeX, rangeY, tileMap):
     self.TileSurface.blit(self.tileSheet,(0,0))
-    for row in range (MAPHEIGHT):
-      for column in range (MAPWIDTH):
+    for row in range (LEVEL_HEIGHT):
+      for column in range (LEVEL_WIDTH):
         if column * TILESIZE > rangeX - TILESIZE and column * TILESIZE < rangeX + WINDOW_WIDTH and row * TILESIZE > rangeY - TILESIZE and row * TILESIZE < rangeY + WINDOW_HEIGHT:
           """ -- for tiles that doesn't have to be drawn -- """
-          if level[row][column] > 1:
-            self.initializeTiles(column*TILESIZE - rangeX, row*TILESIZE - rangeY, textures[level[row][column]])
+          if tileMap[row][column] > 1:
+            self.initializeTiles(column*TILESIZE - rangeX, row*TILESIZE - rangeY, textures[tileMap[row][column]])
             self.renderTiles(window)
 
   def initializeTiles(self, x, y, textures):
@@ -30,8 +30,8 @@ class World(object):
     """ -- Blit textures on the surface -- """
     window.blit(self.TileSurface, (self.x, self.y),(self.textures))
 
-  def update(self, window, rangeX, rangeY):
-    self.generateTileMap(window, rangeX, rangeY)
+  def update(self, window, rangeX, rangeY, tileMap):
+    self.generateTileMap(window, rangeX, rangeY, tileMap)
 
 """ -- Tile Position for the collision class -- """
 class Tile(object):
