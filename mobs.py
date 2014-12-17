@@ -5,7 +5,7 @@ from constants import *
 from level import *
 from ai import *
 
-ai = Ai()
+ai = Ai(MOB_NUMBER)
 
 class Mobs(object):
 
@@ -15,19 +15,13 @@ class Mobs(object):
 		self.width = 32
 		self.height = 64
 		self.speed = 1
-		self.knockbackSpeed = 16
-		self.mobNumber = 4
-		self.canGetHit = [True, True, True, True]
-		self.gotHit = False
-		self.health = [32,32,32,32]
-		self.alive = [True, True, True, True]
-		self.weaponX = [-10,-10,-10,-10]
-		self.weaponY = [-10,-10,-10,-10]
-		self.weaponW = [32,32,32,32]
-		self.weaponH = [8,8, 8,8]
-		self.attacking = [False, False, False, False]
-		self.attack_count = [0,0,0,0]
-		self.attack_duration = [8,8,8,8]
+		self.canGetHit = [True]*MOB_NUMBER
+		self.health = [32]*MOB_NUMBER
+		self.alive = [True]*MOB_NUMBER
+		self.weaponX,self.weaponY,self.weaponW,self.weaponH = [-10]*MOB_NUMBER,[-10]*MOB_NUMBER,[32]*MOB_NUMBER,[8]*MOB_NUMBER
+		self.attacking = [False]*MOB_NUMBER
+		self.attack_count = [0]*MOB_NUMBER
+		self.attack_duration = [8]*MOB_NUMBER
 
 
 	def movement(self, mobs, playerX, playerY, shieldHit, tileMap):
@@ -69,7 +63,7 @@ class Mobs(object):
 		
 	def update(self, window, camX, camY, playerX, playerY, swordX, swordY, swordW, swordH, damage, shieldHit, tileMap):
 		if OUTSIDE:
-			for mobs in range (self.mobNumber):
+			for mobs in range (MOB_NUMBER):
 				if (self.x[mobs] > camX and self.y[mobs] > camY and self.x[mobs] < camX + WINDOW_WIDTH and self.y[mobs] < camY + WINDOW_HEIGHT):
 					if self.alive[mobs]:
 						self.movement(mobs, playerX, playerY, shieldHit, tileMap)

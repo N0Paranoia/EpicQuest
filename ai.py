@@ -6,11 +6,11 @@ from collision import *
 
 class Ai(object):
 
-	def __init__(self):
+	def __init__(self, mobNumber):
 		self.velocity_x = 0
 		self.velocity_y = 0
-		self.LEFT = [False,False,False,False]
-		self.RIGHT = [True,True,True,True]
+		self.LEFT = [False]*mobNumber
+		self.RIGHT = [True]*mobNumber
 		self.aggroGange = 3*TILESIZE
 		
 	def falling(self, gravity, x, y, width, height, tileMap):

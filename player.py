@@ -29,7 +29,7 @@ class Player(object):
 		self.jump_height = 8
 		self.jump_count = 0
 		self.canJump = True
-		self.is_jumping = False;
+		self.is_jumping = False
 		self.is_climbing = False
 		self.canGoTroughDoor = True
 
