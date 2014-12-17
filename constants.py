@@ -90,6 +90,9 @@ SLOPE_LEFT = 14
 
 SIMPLE = 5
 
+# LEVEL_1 = 1
+# LEVEL_2 = 2
+
 """ -- Linking recources/ colors -- (can be deleted) -- """
 colors = {
 			SKY : WHITE,

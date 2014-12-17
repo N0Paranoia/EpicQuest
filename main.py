@@ -87,13 +87,13 @@ class Main(object):
 					self.startFrame += 1
 
 					""" -- Initialize world -- """
-					world.update(window, camera.x, camera.y, level)
+					world.update(window, camera.x, camera.y, LEVEL_1)
 
 					""" -- Handle player events -- """
-					player.update(event, window, camera.x, camera.y, GRAVITY, mobs.x, mobs.y, mobs.width, mobs.height, mobs.alive, mobs.weaponX, mobs.weaponY, mobs.weaponW, mobs.weaponH, mobs.attacking, level)
+					player.update(event, window, camera.x, camera.y, GRAVITY, mobs.x, mobs.y, mobs.width, mobs.height, mobs.alive, mobs.weaponX, mobs.weaponY, mobs.weaponW, mobs.weaponH, mobs.attacking, LEVEL_1)
 
 					""" -- Handle AI events -- """
-					mobs.update(window,camera.x, camera.y, player.x, player.y, player.swordX, player.swordY, player.swordW, player.swordH, player.damage, player.shieldHit, level)
+					mobs.update(window,camera.x, camera.y, player.x, player.y, player.swordX, player.swordY, player.swordW, player.swordH, player.damage, player.shieldHit, LEVEL_1)
 
 					""" -- Camera -- """
 					centerCam.update(player.x, player.y, camera.x, camera.y, window)
