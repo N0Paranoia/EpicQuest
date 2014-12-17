@@ -1,12 +1,12 @@
 import pygame
-from constants import *
+import constants
+import level
 from player import *
 from mobs import *
 from world import *
-from level import *
 from camera import *
 from hud import *
-from gamestates import *
+from states import *
 from pygame.locals import *
 
 pygame.init()
@@ -26,7 +26,8 @@ class Main(object):
 		centerCam = CenterCamera()
 		gamestate = GameStates()
 		world = World()
-		
+		levelStates = LevelStates()
+
 		""" -- Variables to implement frame delays -- """
 		self.startFrame = 0
 		self.delayFrame = 1
@@ -86,14 +87,16 @@ class Main(object):
 					window.fill ((SKY_BLUE))
 					self.startFrame += 1
 
+					print levelStates.changeState(level)
+
 					""" -- Initialize world -- """
-					world.update(window, camera.x, camera.y, LEVEL_1)
+					world.update(window, camera.x, camera.y, level)
 
 					""" -- Handle player events -- """
-					player.update(event, window, camera.x, camera.y, GRAVITY, mobs.x, mobs.y, mobs.width, mobs.height, mobs.alive, mobs.weaponX, mobs.weaponY, mobs.weaponW, mobs.weaponH, mobs.attacking, LEVEL_1)
+					player.update(event, window, camera.x, camera.y, GRAVITY, mobs.x, mobs.y, mobs.width, mobs.height, mobs.alive, mobs.weaponX, mobs.weaponY, mobs.weaponW, mobs.weaponH, mobs.attacking, level)
 
 					""" -- Handle AI events -- """
-					mobs.update(window,camera.x, camera.y, player.x, player.y, player.swordX, player.swordY, player.swordW, player.swordH, player.damage, player.shieldHit, LEVEL_1)
+					mobs.update(window,camera.x, camera.y, player.x, player.y, player.swordX, player.swordY, player.swordW, player.swordH, player.damage, player.shieldHit, level)
 
 					""" -- Camera -- """
 					centerCam.update(player.x, player.y, camera.x, camera.y, window)

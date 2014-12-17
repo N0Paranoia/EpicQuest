@@ -17,7 +17,7 @@ class World(object):
       for column in range (LEVEL_WIDTH):
         if column * TILESIZE > rangeX - TILESIZE and column * TILESIZE < rangeX + WINDOW_WIDTH and row * TILESIZE > rangeY - TILESIZE and row * TILESIZE < rangeY + WINDOW_HEIGHT:
           """ -- for tiles that doesn't have to be drawn -- """
-          if tileMap[row][column] > 1:
+          if tileMap[row][column] > 0:
             self.initializeTiles(column*TILESIZE - rangeX, row*TILESIZE - rangeY, textures[tileMap[row][column]])
             self.renderTiles(window)
 

@@ -1,6 +1,6 @@
 import pygame
-from pygame.locals import *
 from constants import *
+from pygame.locals import *
 
 class Doors(object):
 	def __init__(self):
@@ -8,8 +8,8 @@ class Doors(object):
 
 		self.doorAx = [10*TILESIZE,19*TILESIZE,14*TILESIZE]
 		self.doorAy = [1*TILESIZE,1*TILESIZE,19*TILESIZE]
-		self.doorBx = [2*TILESIZE,27*TILESIZE,15*TILESIZE]
-		self.doorBy = [26*TILESIZE,26*TILESIZE,19*TILESIZE]
+		self.doorBx = [2*TILESIZE,27*TILESIZE,PLAYER_START_X]
+		self.doorBy = [26*TILESIZE,26*TILESIZE,PLAYER_START_Y]
 
 	def doorConnections(self, x, y):
 		for doors in range (self.numberOfDoors):

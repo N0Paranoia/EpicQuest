@@ -47,16 +47,14 @@ SKY_BLUE = (140, 190, 214)
 """ -- Tile(map) constants -- """
 TILESIZE = 32
 
-OUTSIDE = True
-INSIDE = False	
-if OUTSIDE:
+levelID = 1
+
+if levelID == 1:
 	LEVEL_WIDTH = 30
 	LEVEL_HEIGHT = 30
-elif INSIDE:
+elif levelID == 2:
 	LEVEL_WIDTH = 10
 	LEVEL_HEIGHT = 8
-
-
 
 """ -- tile Sheet -- """
 NO_TILE = (-TILESIZE, -TILESIZE, TILESIZE, TILESIZE)
@@ -89,9 +87,6 @@ SLOPE_RIGHT = 13
 SLOPE_LEFT = 14
 
 SIMPLE = 5
-
-# LEVEL_1 = 1
-# LEVEL_2 = 2
 
 """ -- Linking recources/ colors -- (can be deleted) -- """
 colors = {
