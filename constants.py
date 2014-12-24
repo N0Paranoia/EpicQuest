@@ -21,9 +21,9 @@ GAME_OVER = 9
 """ -- Define levels -- """
 # FIRST_LEVEL = 1
 
-
 FONT_PATH = './fonts/Grand9K Pixel.ttf'
 SPRITE_PATH = './art/spriteSheet.png'
+NPC_PATH = './art/npcSheet.png'
 TILE_PATH = './art/tileSheet.png'
 
 #  -- Physics -- """

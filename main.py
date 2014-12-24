@@ -3,6 +3,7 @@ import constants
 from level import *
 from player import *
 from mobs import *
+from npc import *
 from world import *
 from camera import *
 from hud import *
@@ -21,6 +22,7 @@ class Main(object):
 		clock = pygame.time.Clock()
 
 		player = Player(PLAYER_START_X, PLAYER_START_Y, 1)
+		npc = Npc()
 		mobs = Mobs()
 		camera = Camera(0,0)
 		centerCam = CenterCamera()
@@ -96,8 +98,11 @@ class Main(object):
 					""" -- Handle player events -- """
 					player.update(event, window, camera.x, camera.y, GRAVITY, mobs.x, mobs.y, mobs.width, mobs.height, mobs.alive, mobs.weaponX, mobs.weaponY, mobs.weaponW, mobs.weaponH, mobs.attacking, level.level)
 
+					""" -- Handel NPC Events -- """
+					npc.update(window, camera.x, camera.y, player.x, player.y, levelID)
+
 					""" -- Handle AI events -- """
-					mobs.update(window,camera.x, camera.y, player.x, player.y, player.swordX, player.swordY, player.swordW, player.swordH, player.damage, player.shieldHit, levelID, level.level)
+					mobs.update(window, camera.x, camera.y, player.x, player.y, player.swordX, player.swordY, player.swordW, player.swordH, player.damage, player.shieldHit, levelID, level.level)
 
 					""" -- Camera -- """
 					centerCam.update(player.x, player.y, camera.x, camera.y, window)

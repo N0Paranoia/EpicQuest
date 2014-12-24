@@ -10,7 +10,7 @@ class Player(object):
 	def __init__(self, x, y, z):
 		self.x = x
 		self.y = y
-		self.z = z
+		self.z = z # z coordinate is level
 		self.width = PLAYER_WIDTH
 		self.height = PLAYER_HEIGHT
 		self.health = 100

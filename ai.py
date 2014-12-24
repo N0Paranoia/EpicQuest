@@ -11,7 +11,7 @@ class Ai(object):
 		self.velocity_y = 0
 		self.LEFT = [False]*mobNumber
 		self.RIGHT = [True]*mobNumber
-		self.aggroGange = 3*TILESIZE
+		self.aggroRange = 3*TILESIZE
 		
 	def falling(self, gravity, x, y, width, height, tileMap):
 		self.is_falling = True
@@ -27,7 +27,7 @@ class Ai(object):
 			return True
 
 	def attack(self, x, y, width, height, speed, numberOfMobs, playerX, playerY):
-		if playerX > x - self.aggroGange and playerX < x and playerY > y - self.aggroGange and playerY	< y + self.aggroGange or  playerX < x + self.aggroGange and playerX > x and playerY > y - self.aggroGange and playerY	< y + self.aggroGange:
+		if playerX > x - self.aggroRange and playerX < x and playerY > y - self.aggroRange and playerY	< y + self.aggroRange or  playerX < x + self.aggroRange and playerX > x and playerY > y - self.aggroRange and playerY	< y + self.aggroRange:
 			return True
 		else:
 			return False
@@ -61,10 +61,10 @@ class Ai(object):
 			x -= self.velocity_x
 
 		""" -- Aggro -- """
-		if playerX > x - self.aggroGange and playerX < x and playerY > y - self.aggroGange and playerY	< y + self.aggroGange:
+		if playerX > x - self.aggroRange and playerX < x and playerY > y - self.aggroRange and playerY	< y + self.aggroRange:
 			self.RIGHT[numberOfMobs] = False
 			self.LEFT[numberOfMobs] = True
-		if playerX < x + self.aggroGange and playerX > x and playerY > y - self.aggroGange and playerY	< y + self.aggroGange:
+		if playerX < x + self.aggroRange and playerX > x and playerY > y - self.aggroRange and playerY	< y + self.aggroRange:
 			self.LEFT[numberOfMobs] = False
 			self.RIGHT[numberOfMobs] = True
 
