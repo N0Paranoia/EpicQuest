@@ -7,9 +7,10 @@ from camera import *
 
 class Player(object):
 
-	def __init__(self, x, y):
+	def __init__(self, x, y, z):
 		self.x = x
 		self.y = y
+		self.z = z
 		self.width = PLAYER_WIDTH
 		self.height = PLAYER_HEIGHT
 		self.health = 100
@@ -190,7 +191,7 @@ class Player(object):
 		if self.UP:
 			if self.canGoTroughDoor:
 				if colD.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, DOOR, tileMap) == True:
-					self.x, self.y = doorD.doorConnections(self.x, self.y)
+					self.x, self.y, self.z = doorD.doorConnections(self.x, self.y, self.z)
 					self.canGoTroughDoor = False
 					self.UP = False
 		else:
@@ -408,3 +409,4 @@ class Player(object):
 		self.playerHealth(mobsX, mobsY, mobsW, mobsH, mobAlive, mobsWeaponX, mobsWeaponY, mobsWeaponW, mobsWeaponH, mobsAttacking, tileMap)
 		self.animate()
 		self.render(window, camX, camY)
+		# return self.z

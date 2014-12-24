@@ -47,14 +47,8 @@ SKY_BLUE = (140, 190, 214)
 """ -- Tile(map) constants -- """
 TILESIZE = 32
 
-levelID = 1
-
-if levelID == 1:
-	LEVEL_WIDTH = 30
-	LEVEL_HEIGHT = 30
-elif levelID == 2:
-	LEVEL_WIDTH = 10
-	LEVEL_HEIGHT = 8
+LEVEL_WIDTH = 30
+LEVEL_HEIGHT = 30
 
 """ -- tile Sheet -- """
 NO_TILE = (-TILESIZE, -TILESIZE, TILESIZE, TILESIZE)

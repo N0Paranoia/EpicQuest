@@ -18,9 +18,7 @@ class GameStates(object):
 class LevelStates(object):
 
 	def __init__(self):
-		self.level_1 = True
-		self.level_2 = True
+		pass
 
 	def changeState(self, level):
-		return "Test"
-
+		return level

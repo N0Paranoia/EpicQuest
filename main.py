@@ -1,6 +1,6 @@
 import pygame
 import constants
-import level
+from level import *
 from player import *
 from mobs import *
 from world import *
@@ -20,7 +20,7 @@ class Main(object):
 
 		clock = pygame.time.Clock()
 
-		player = Player(PLAYER_START_X, PLAYER_START_Y)
+		player = Player(PLAYER_START_X, PLAYER_START_Y, 1)
 		mobs = Mobs()
 		camera = Camera(0,0)
 		centerCam = CenterCamera()
@@ -85,18 +85,19 @@ class Main(object):
 
 				if gamestate.pause == False:
 					window.fill ((SKY_BLUE))
-					self.startFrame += 1
-
-					print levelStates.changeState(level)
+					
+					""" -- Set level -- """
+					levelID = levelStates.changeState(player.z)
+					level = Levels(levelID)
 
 					""" -- Initialize world -- """
-					world.update(window, camera.x, camera.y, level)
+					world.update(window, camera.x, camera.y, level.level)
 
 					""" -- Handle player events -- """
-					player.update(event, window, camera.x, camera.y, GRAVITY, mobs.x, mobs.y, mobs.width, mobs.height, mobs.alive, mobs.weaponX, mobs.weaponY, mobs.weaponW, mobs.weaponH, mobs.attacking, level)
+					player.update(event, window, camera.x, camera.y, GRAVITY, mobs.x, mobs.y, mobs.width, mobs.height, mobs.alive, mobs.weaponX, mobs.weaponY, mobs.weaponW, mobs.weaponH, mobs.attacking, level.level)
 
 					""" -- Handle AI events -- """
-					mobs.update(window,camera.x, camera.y, player.x, player.y, player.swordX, player.swordY, player.swordW, player.swordH, player.damage, player.shieldHit, level)
+					mobs.update(window,camera.x, camera.y, player.x, player.y, player.swordX, player.swordY, player.swordW, player.swordH, player.damage, player.shieldHit, levelID, level.level)
 
 					""" -- Camera -- """
 					centerCam.update(player.x, player.y, camera.x, camera.y, window)
