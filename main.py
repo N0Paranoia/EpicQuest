@@ -54,7 +54,7 @@ class Main(object):
 							gamestate.running = True
 						elif gamestate.gameOver:
 							""" -- Reset Player values -- """
-							player = Player(PLAYER_START_X, PLAYER_START_Y)
+							player = Player(PLAYER_START_X, PLAYER_START_Y, 1)
 							gamestate.mainMenu = True
 
 			""" -- Intro game state -- """
