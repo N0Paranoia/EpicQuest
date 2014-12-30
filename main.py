@@ -4,6 +4,7 @@ from level import *
 from player import *
 from mobs import *
 from npc import *
+from items import *
 from world import *
 from camera import *
 from hud import *
@@ -23,6 +24,7 @@ class Main(object):
 
 		player = Player(PLAYER_START_X, PLAYER_START_Y, 1)
 		npc = Npc()
+		items = Items()
 		mobs = Mobs()
 		camera = Camera(0,0)
 		centerCam = CenterCamera()
@@ -96,10 +98,13 @@ class Main(object):
 					world.update(window, camera.x, camera.y, level.level)
 
 					""" -- Handle player events -- """
-					player.update(event, window, camera.x, camera.y, GRAVITY, mobs.x, mobs.y, mobs.width, mobs.height, mobs.alive, mobs.weaponX, mobs.weaponY, mobs.weaponW, mobs.weaponH, mobs.attacking, level.level)
+					player.update(event, window, camera.x, camera.y, GRAVITY, mobs.x, mobs.y, mobs.width, mobs.height, mobs.alive, mobs.weaponX, mobs.weaponY, mobs.weaponW, mobs.weaponH, mobs.attacking, level.level, items.pickedUpSword, items.pickedUpShield)
 
-					""" -- Handel NPC Events -- """
+					""" -- Handle NPC Events -- """
 					npc.update(window, camera.x, camera.y, player.x, player.y, levelID)
+
+					""" -- Handle Item Events -- """
+					items.update(window, camera.x, camera.y, player.x, player.y, levelID)
 
 					""" -- Handle AI events -- """
 					mobs.update(window, camera.x, camera.y, player.x, player.y, player.swordX, player.swordY, player.swordW, player.swordH, player.damage, player.shieldHit, levelID, level.level)

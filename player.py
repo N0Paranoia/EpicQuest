@@ -56,6 +56,9 @@ class Player(object):
 		self.rightFrame = True
 		self.leftFrame = False
 
+		self.haveSword = False
+		self.haveShield = False
+
 		self.damage = 5
 
 	def input(self, event):
@@ -104,52 +107,52 @@ class Player(object):
 				self.y -= gravity
 				self.is_falling = False
 
-	def attack(self, mobsX, mobsY):
+	def attack(self, mobsX, mobsY, pickedUpSword):
 		self.swordX = -10
 		self.swordY = -10
 		self.swordW  = 0
 		self.swordH = 0
+		if pickedUpSword == True:
+			if self.canAttack:
+				if self.ATTACK:
+					self.is_attacking = True
+					self.canBlock = False
+					if self.attack_count <= self.attack_duration:
+						self.stamina -= 10
+						self.swordW  = 32
+						self.swordH = 8
+						self.attack_count += 1
+						if self.rightFrame:
+							self.swordX = self.x + TILESIZE
+							self.swordY = self.y + TILESIZE
+						elif self.leftFrame:
+							self.swordX = self.x - TILESIZE
+							self.swordY = self.y + TILESIZE
+				else:
+					self.attack_count = 0
+					self.is_attacking = False;
 
-		if self.canAttack:
-			if self.ATTACK:
-				self.is_attacking = True
-				self.canBlock = False
-				if self.attack_count <= self.attack_duration:
-					self.stamina -= 10
-					self.swordW  = 32
-					self.swordH = 8
-					self.attack_count += 1
-					if self.rightFrame:
-						self.swordX = self.x + TILESIZE
-						self.swordY = self.y + TILESIZE
-					elif self.leftFrame:
-						self.swordX = self.x - TILESIZE
-						self.swordY = self.y + TILESIZE
-			else:
-				self.attack_count = 0
-				self.is_attacking = False;
-
-	def block(self, mobsX, mobsY):
+	def block(self, mobsX, mobsY, pickedUpShield):
 		self.shieldX = -10
 		self.shieldY = -10
 		self.shieldW = 0
 		self.shieldH = 0
-
-		if self.canBlock:
-			if self.BLOCK:
-				self.is_blocking = True
-				self.shieldW  = 8
-				self.shieldH = 32
-				if self.rightFrame:
-					self.shieldX = self.x + TILESIZE
-					self.shieldY = self.y + TILESIZE/2
-				elif self.leftFrame:
-					self.shieldX = self.x - self.shieldW
-					self.shieldY = self.y + TILESIZE/2
-				if self.shieldHit:
-					self.stamina -= 15
-			else:
-				self.is_blocking = False
+		if pickedUpShield == True:
+			if self.canBlock:
+				if self.BLOCK:
+					self.is_blocking = True
+					self.shieldW  = 8
+					self.shieldH = 32
+					if self.rightFrame:
+						self.shieldX = self.x + TILESIZE
+						self.shieldY = self.y + TILESIZE/2
+					elif self.leftFrame:
+						self.shieldX = self.x - self.shieldW
+						self.shieldY = self.y + TILESIZE/2
+					if self.shieldHit:
+						self.stamina -= 15
+				else:
+					self.is_blocking = False
 
 	def jump(self):
 		if self.canJump:
@@ -396,17 +399,16 @@ class Player(object):
 		pygame.draw.rect(window, RED, (self.swordX - camX, self.swordY - camY, self.swordW, self.swordH), 1)
 		pygame.draw.rect(window, BLUE, (self.shieldX - camX, self.shieldY - camY, self.shieldW, self.shieldH), 1)
 
-	def update (self, event, window, camX, camY, gravity, mobsX, mobsY, mobsW, mobsH, mobAlive, mobsWeaponX, mobsWeaponY, mobsWeaponW, mobsWeaponH, mobsAttacking, tileMap):
+	def update (self, event, window, camX, camY, gravity, mobsX, mobsY, mobsW, mobsH, mobAlive, mobsWeaponX, mobsWeaponY, mobsWeaponW, mobsWeaponH, mobsAttacking, tileMap, pickedUpSword, pickedUpShield):
 		self.input(event)
 		self.falling(gravity, tileMap)
 		self.jump()
 		self.climbing(tileMap)
 		self.gotroughdoor(tileMap)
 		self.move(gravity, tileMap)
-		self.attack(mobsX, mobsY)
-		self.block(mobsX, mobsY)
+		self.attack(mobsX, mobsY, pickedUpSword)
+		self.block(mobsX, mobsY, pickedUpShield)
 		self.playerStamina()
 		self.playerHealth(mobsX, mobsY, mobsW, mobsH, mobAlive, mobsWeaponX, mobsWeaponY, mobsWeaponW, mobsWeaponH, mobsAttacking, tileMap)
 		self.animate()
 		self.render(window, camX, camY)
-		# return self.z
