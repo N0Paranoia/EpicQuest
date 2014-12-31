@@ -17,7 +17,7 @@ class Npc(object):
 
 	def interact(self, playerX, playerY):
 		if playerX > self.x - self.interactRange and playerX < self.x + self.interactRange and playerY == self.y:
-			print "IT'S DANGEROUS TO GO ALONE! TAKE THIS."
+			print "IT'S DANGEROUS TO GO ALONE! TAKE THESE."
 
 	def render(self, window, camX, camY):
 		window.blit(self.npcSurface, (self.x - camX, self.y - camY), self.rect)

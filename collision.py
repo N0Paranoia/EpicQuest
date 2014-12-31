@@ -57,7 +57,7 @@ class Collision(object):
 		""" -- If none of the sides from A are outside B -- """
 		return True
 
-	def CheckMobCollision(self, x, y, w, h, x2, y2, w2, h2):
+	def CheckVarCollision(self, x, y, w, h, x2, y2, w2, h2):
 		leftA = x
 		rightA = x + w
 		topA = y
@@ -101,7 +101,7 @@ class Collision(object):
 							if col.CheckCloudCollision(x, y, w, h, tiles) == True:
 								return True
 
-	def MobCollision(self, x, y, w, h, x2, y2, w2, h2):
+	def VarCollision(self, x, y, w, h, x2, y2, w2, h2):
 		col = Collision()
-		if col.CheckMobCollision(x, y, w, h, x2, y2, w2, h2) == True:
+		if col.CheckVarCollision(x, y, w, h, x2, y2, w2, h2) == True:
 			return True

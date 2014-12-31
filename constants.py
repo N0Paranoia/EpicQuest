@@ -25,6 +25,7 @@ FONT_PATH = './fonts/Grand9K Pixel.ttf'
 SPRITE_PATH = './art/spriteSheet.png'
 NPC_PATH = './art/npcSheet.png'
 TILE_PATH = './art/tileSheet.png'
+ITEM_PATH   = './art/itemSheet.png'
 
 #  -- Physics -- """
 FPS = 120
@@ -65,6 +66,10 @@ CYAN_TILE = (64, 64, TILESIZE, TILESIZE)
 LIGHT_BLUE_TILE = (96, 64, TILESIZE, TILESIZE)
 SLOPE_TILE_RIGHT = (0, 96, TILESIZE, TILESIZE)
 SLOPE_TILE_LEFT = (32, 96, TILESIZE, TILESIZE)
+
+""" -- item Sheet -- """
+SWORD = ((0, 0), (TILESIZE, TILESIZE))
+SHIELD  = ((TILESIZE, 0), (TILESIZE,TILESIZE))
 
 CLEAR = 0
 SKY = 1

@@ -23,7 +23,7 @@ class Ai(object):
 		return y
 
 	def getHit(self, x, y, width, height, swordX, swordY, swordW, swordH):
-		if Collision().MobCollision(x, y, width, height, swordX, swordY, swordW, swordH):
+		if Collision().VarCollision(x, y, width, height, swordX, swordY, swordW, swordH):
 			return True
 
 	def attack(self, x, y, width, height, speed, numberOfMobs, playerX, playerY):

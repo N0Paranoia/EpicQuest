@@ -204,7 +204,7 @@ class Player(object):
 		colH = Collision()
 		if colH.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, LAVA, tileMap):
 			self.health -= 5
-		if self.mobCollision(self.x, self.y, self.width, self.height, mobsX, mobsY, mobsW, mobsH, mobAlive, mobsWeaponX, mobsWeaponY, mobsWeaponW, mobsWeaponH, mobsAttacking):
+		if self.MobCollision(self.x, self.y, self.width, self.height, mobsX, mobsY, mobsW, mobsH, mobAlive, mobsWeaponX, mobsWeaponY, mobsWeaponW, mobsWeaponH, mobsAttacking):
 			self.health -= 25
 		if self.health <= 0:
 			self.x = PLAYER_START_X
@@ -236,7 +236,7 @@ class Player(object):
 		else:
 			self.canBlock = True
 
-	def mobCollision(self, x, y, w, h, mobsX, mobsY, mobsW, mobsH, mobAlive, mobsWeaponX, mobsWeaponY, mobsWeaponW, mobsWeaponH, mobsAttacking):
+	def MobCollision(self, x, y, w, h, mobsX, mobsY, mobsW, mobsH, mobAlive, mobsWeaponX, mobsWeaponY, mobsWeaponW, mobsWeaponH, mobsAttacking):
 		self.knockBackLeft = 0
 		self.knockBackRight = 1
 		self.knockBackUp = 2
@@ -246,7 +246,7 @@ class Player(object):
 		for mobs in range(MOB_NUMBER):
 			if mobAlive[mobs]:
 				""" -- Check if the Mob weapon hits the player shield -- """
-				if col.MobCollision(self.shieldX, self.shieldY, self.shieldW, self.shieldH, mobsWeaponX[mobs], mobsWeaponY[mobs], mobsWeaponW[mobs], mobsWeaponH[mobs]):
+				if col.VarCollision(self.shieldX, self.shieldY, self.shieldW, self.shieldH, mobsWeaponX[mobs], mobsWeaponY[mobs], mobsWeaponW[mobs], mobsWeaponH[mobs]):
 					if self.x < mobsX[mobs]: 
 						self.knockBack(self.knockBackLeft)
 					if self.x > mobsX[mobs]:
@@ -259,7 +259,7 @@ class Player(object):
 					return False
 
 				""" -- Check if the mob hits the player -- """
-				if col.MobCollision(x, y, w, h, mobsX[mobs], mobsY[mobs],  mobsW, mobsH):
+				if col.VarCollision(x, y, w, h, mobsX[mobs], mobsY[mobs],  mobsW, mobsH):
 					if self.x < mobsX[mobs]: 
 						self.knockBack(self.knockBackLeft)
 					if self.x > mobsX[mobs]:
@@ -272,7 +272,7 @@ class Player(object):
 
 				""" -- Check id the mob's weapon hits the player -- """
 				if mobsAttacking[mobs]:
-					if col.MobCollision(x, y, w, h, mobsWeaponX[mobs], mobsWeaponY[mobs], mobsWeaponW[mobs], mobsWeaponH[mobs]):
+					if col.VarCollision(x, y, w, h, mobsWeaponX[mobs], mobsWeaponY[mobs], mobsWeaponW[mobs], mobsWeaponH[mobs]):
 						if self.x < mobsX[mobs]: 
 							self.knockBack(self.knockBackLeft)
 						if self.x > mobsX[mobs]:
@@ -284,7 +284,7 @@ class Player(object):
 						return True
 			
 				""" -- Check if the mob is hitting the shield -- """
-				if col.MobCollision(self.shieldX, self.shieldY, self.shieldW, self.shieldH, mobsX[mobs], mobsY[mobs],  mobsW, mobsH):
+				if col.VarCollision(self.shieldX, self.shieldY, self.shieldW, self.shieldH, mobsX[mobs], mobsY[mobs],  mobsW, mobsH):
 					self.shieldHit = True
 					return False
 
@@ -360,7 +360,7 @@ class Player(object):
 				elif self.rightFrame:
 					self.frameHor = 112
 				self.frameVert = 32
-			elif self.BLOCK:
+			elif self.is_blocking:
 				if self.rightFrame:
 					self.frameHor = 128
 				elif self.leftFrame:
