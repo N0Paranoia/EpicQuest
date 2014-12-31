@@ -24,9 +24,9 @@ class Npc(object):
 
 		if levelID == 1: 
 			if playerX > self.x[npc] - self.interactRange and playerX < self.x[npc] + self.interactRange and playerY == self.y[npc]:
-				self.text = self.dialog(2)
-				pygame.draw.rect(window, WHITE, (self.x[npc] - 5*TILESIZE- 8, self.y[npc], 7*TILESIZE, TILESIZE-3/TILESIZE))
-				window.blit(textControl, (self.x[npc] - 5*TILESIZE, self.y[npc] - TILESIZE))
+				self.text = self.dialog(0)
+				pygame.draw.rect(window, WHITE, (self.x[npc] - TILESIZE- 8, self.y[npc], 7*TILESIZE, TILESIZE-3/TILESIZE))
+				window.blit(textControl, (self.x[npc] - TILESIZE- 8, self.y[npc]))
 
 		if levelID == 2: 
 			if playerX > self.x[1] - self.interactRange and playerX < self.x[1] + self.interactRange and playerY == self.y[1] and self.z[1]:
