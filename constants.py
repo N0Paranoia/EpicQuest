@@ -121,4 +121,4 @@ textures =	{
 			}
 
 MOB_NUMBER = 4
-NPC_NUMBER = 1
+NPC_NUMBER = 2

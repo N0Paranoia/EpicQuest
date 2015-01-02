@@ -7,7 +7,7 @@ class Doors(object):
 		self.numberOfDoors = 3
 
 		self.doorAx = [10*TILESIZE,19*TILESIZE,14*TILESIZE]
-		self.doorAy = [1*TILESIZE,1*TILESIZE,19*TILESIZE]
+		self.doorAy = [3*TILESIZE,3*TILESIZE,19*TILESIZE]
 		self.doorAz = [1,1,1]
 		
 		self.doorBx = [2*TILESIZE,27*TILESIZE,2*TILESIZE]

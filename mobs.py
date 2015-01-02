@@ -9,8 +9,9 @@ ai = Ai(MOB_NUMBER)
 class Mobs(object):
 
 	def __init__(self):
-		self.x = [5*TILESIZE,24*TILESIZE,5*TILESIZE,24*TILESIZE]
-		self.y = [2*TILESIZE,2*TILESIZE,27*TILESIZE,27*TILESIZE]
+		self.x = [8*TILESIZE,21*TILESIZE,5*TILESIZE,24*TILESIZE]
+		self.y = [3*TILESIZE,3*TILESIZE,27*TILESIZE,27*TILESIZE]
+		self.z = [1,1,1,1]
 		self.width = 32
 		self.height = 64
 		self.speed = 1
@@ -60,9 +61,9 @@ class Mobs(object):
 	def render(self, window, camX, camY, mobs):
 		pygame.draw.rect(window, RED, (self.x[mobs] - camX, self.y[mobs] - camY, self.width, self.height))
 		
-	def update(self, window, camX, camY, playerX, playerY, swordX, swordY, swordW, swordH, damage, shieldHit, levelID,tileMap):
-		if levelID == 1:
-			for mobs in range (MOB_NUMBER):
+	def update(self, window, camX, camY, playerX, playerY, swordX, swordY, swordW, swordH, damage, shieldHit, levelID, tileMap):
+		for mobs in range (MOB_NUMBER):
+			if self.z[mobs] == levelID:
 				if (self.x[mobs] > camX and self.y[mobs] > camY and self.x[mobs] < camX + WINDOW_WIDTH and self.y[mobs] < camY + WINDOW_HEIGHT):
 					if self.alive[mobs]:
 						self.movement(mobs, playerX, playerY, shieldHit, tileMap)
