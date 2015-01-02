@@ -39,7 +39,6 @@ class Mobs(object):
 		if self.canGetHit[mobs]:			
 			if ai.getHit(self.x[mobs], self.y[mobs], self.width, self.height, swordX, swordY, swordW, swordH):
 				self.health[mobs] -= damage*0.32
-
 			if self.health[mobs] <= 0:
 				self.alive[mobs] = False
 				
