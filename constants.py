@@ -24,6 +24,7 @@ GAME_OVER = 9
 FONT_PATH = './fonts/Grand9K Pixel.ttf'
 SPRITE_PATH = './art/spriteSheet.png'
 NPC_PATH = './art/npcSheet.png'
+MOB_PATH = './art/mobSheet.png'
 TILE_PATH = './art/tileSheet.png'
 ITEM_PATH   = './art/itemSheet.png'
 
@@ -71,8 +72,12 @@ SLOPE_TILE_LEFT = (32, 96, TILESIZE, TILESIZE)
 SWORD = ((0, 0), (TILESIZE, TILESIZE))
 SHIELD  = ((TILESIZE, 0), (TILESIZE,TILESIZE))
 
-""" --NPC Sheet -- """
+""" -- NPC Sheet -- """
 OLD_MAN = ((0, 0), (TILESIZE, 2*TILESIZE))
+
+""" -- Mob Sheet -- """
+MOB_ONE = ((0, 0), (TILESIZE, 2*TILESIZE))
+
 
 CLEAR = 0
 SKY = 1

@@ -24,6 +24,11 @@ class Mobs(object):
 		self.attack_duration = [8]*MOB_NUMBER
 
 
+		self.mobSheet = pygame.image.load(MOB_PATH).convert_alpha()
+		self.mobSurface = pygame.Surface((LEVEL_WIDTH*TILESIZE,LEVEL_HEIGHT*TILESIZE), pygame.SRCALPHA)
+		self.mobSurface.blit(self.mobSheet,(0,0))
+
+
 	def movement(self, mobs, playerX, playerY, shieldHit, tileMap):
 		fall = ai.falling(GRAVITY, self.x[mobs], self.y[mobs], self.width, self.height, tileMap)
 		move = ai.move(self.x[mobs], self.y[mobs], self.width, self.height, self.speed, mobs, playerX, playerY, shieldHit, tileMap)
@@ -59,8 +64,8 @@ class Mobs(object):
 		pygame.draw.rect(window, RED, (self.x[mobs] - camX, self.y[mobs] - 10  - camY, self.health[mobs], 2))
 
 	def render(self, window, camX, camY, mobs):
-		pygame.draw.rect(window, RED, (self.x[mobs] - camX, self.y[mobs] - camY, self.width, self.height))
-		
+		window.blit(self.mobSurface, (self.x[mobs] - camX, self.y[mobs] - camY), MOB_ONE)
+				
 	def update(self, window, camX, camY, playerX, playerY, swordX, swordY, swordW, swordH, damage, shieldHit, levelID, tileMap):
 		for mobs in range (MOB_NUMBER):
 			if self.z[mobs] == levelID:
