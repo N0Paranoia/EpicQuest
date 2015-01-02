@@ -31,7 +31,7 @@ class Main(object):
 		gamestate = GameStates()
 		world = World()
 		levelStates = LevelStates()
-
+		
 		""" -- Variables to implement frame delays -- """
 		self.startFrame = 0
 		self.delayFrame = 1
@@ -55,8 +55,13 @@ class Main(object):
 						if gamestate.mainMenu:
 							gamestate.running = True
 						elif gamestate.gameOver:
-							""" -- Reset Player values -- """
+							""" -- Reset Game values -- """
 							player = Player(PLAYER_START_X, PLAYER_START_Y, 1)
+							npc = Npc()
+							items = Items()
+							mobs = Mobs()
+							world = World()
+							levelStates = LevelStates()
 							gamestate.mainMenu = True
 
 			""" -- Intro game state -- """
@@ -131,12 +136,12 @@ class Main(object):
 			""" -- GameOver Game State -- """
 			if gamestate.gameOver:
 				hud = Hud(0, None, None)
-
 				gamestate.running = False
 				pygame.draw.rect(window, BLACK, (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
 				hud.update(window, FPS, clock, GAME_OVER)
-
+			
 			""" -- Update Screen -- """
+	
 			pygame.display.flip()
 
 Main()
