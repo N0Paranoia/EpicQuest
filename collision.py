@@ -86,8 +86,7 @@ class Collision(object):
 					if tileMap[row][column] == tile:
 						if column * TILESIZE > camX - 2*TILESIZE and column * TILESIZE < camX + WINDOW_WIDTH + TILESIZE and row * TILESIZE > camY - 2*TILESIZE and row * TILESIZE < camY + WINDOW_HEIGHT + TILESIZE:
 							tiles = Tile(column*TILESIZE, row*TILESIZE)
-							col = Collision()
-							if col.CheckCollision(x, y, w, h, tiles) == True:
+							if self.CheckCollision(x, y, w, h, tiles) == True:
 								return True
 
 	""" -- Tile specific collision check -- """
@@ -97,11 +96,9 @@ class Collision(object):
 					if tileMap[row][column] == tile:
 						if column * TILESIZE > camX - 2*TILESIZE and column * TILESIZE < camX + WINDOW_WIDTH + TILESIZE and row * TILESIZE > camY - 2*TILESIZE and row * TILESIZE < camY + WINDOW_HEIGHT + TILESIZE:
 							tiles = Tile(column*TILESIZE, row*TILESIZE)
-							col = Collision()
-							if col.CheckCloudCollision(x, y, w, h, tiles) == True:
+							if self.CheckCloudCollision(x, y, w, h, tiles) == True:
 								return True
 
 	def VarCollision(self, x, y, w, h, x2, y2, w2, h2):
-		col = Collision()
-		if col.CheckVarCollision(x, y, w, h, x2, y2, w2, h2) == True:
+		if self.CheckVarCollision(x, y, w, h, x2, y2, w2, h2) == True:
 			return True

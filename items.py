@@ -23,10 +23,12 @@ class Items(object):
 		self.itemSurface = pygame.Surface((LEVEL_WIDTH*TILESIZE,LEVEL_HEIGHT*TILESIZE), pygame.SRCALPHA)
 		self.itemSurface.blit(self.itemSheet,(0,0))
 
+		self.collision = Collision()
+
 	def interact(self, playerX, playerY):
-		if Collision().VarCollision(self.swordX, self.swordY, self.swordW, self.swordH, playerX, playerY, PLAYER_WIDTH, PLAYER_HEIGHT):
+		if self.collision.VarCollision(self.swordX, self.swordY, self.swordW, self.swordH, playerX, playerY, PLAYER_WIDTH, PLAYER_HEIGHT):
 			self.pickedUpSword = True
-		if Collision().VarCollision(self.shieldX, self.shieldY, self.shieldW, self.shieldH, playerX, playerY, PLAYER_WIDTH, PLAYER_HEIGHT):
+		if self.collision.VarCollision(self.shieldX, self.shieldY, self.shieldW, self.shieldH, playerX, playerY, PLAYER_WIDTH, PLAYER_HEIGHT):
 			self.pickedUpShield = True
 
 	def render(self, window, camX, camY):
