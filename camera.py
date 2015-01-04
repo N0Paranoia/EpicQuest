@@ -31,8 +31,8 @@ class CenterCamera(object):
 	def __init__(self):
 		self.x = 0
 		self.y = 0
-		self.width = 64
-		self.height = 112
+		self.width = 2*PLAYER_WIDTH
+		self.height = 224
 
 	def follow (self, x, y):
 		if self.x > x:

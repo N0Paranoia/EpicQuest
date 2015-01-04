@@ -27,7 +27,7 @@ class Player(object):
 		self.is_blocking = False
 		self.canBlock = True
 		self.jump_speed = 0
-		self.jump_height = 8
+		self.jump_height = 16
 		self.jump_count = 0
 		self.canJump = True
 		self.is_jumping = False
@@ -43,8 +43,8 @@ class Player(object):
 
 		self.frameHor = 0
 		self.frameVert = 0
-		self.frameRightIdelX = 112
-		self.frameLeftIdelX = 96
+		self.frameRightIdelX = 4*TILESIZE
+		self.frameLeftIdelX = 7*TILESIZE
 		self.frameIdelY = 0
 		self.frameRightStartX = 128
 		self.frameLeftStartX = 80
