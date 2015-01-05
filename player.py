@@ -27,7 +27,7 @@ class Player(object):
 		self.is_blocking = False
 		self.canBlock = True
 		self.jump_speed = 0
-		self.jump_height = 8
+		self.jump_height = 6
 		self.jump_count = 0
 		self.canJump = True
 		self.is_jumping = False

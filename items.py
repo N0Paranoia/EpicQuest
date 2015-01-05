@@ -9,15 +9,15 @@ class Items(object):
 		self.swordX = 6 * TILESIZE
 		self.swordY = 6 * TILESIZE
 		self.swordW = 8
-		self.swordH = 32
+		self.swordH = 48
 		self.shieldX = 7 * TILESIZE
 		self.shieldY = 6 * TILESIZE
 		self.shieldW = 16
-		self.shieldH = 32
+		self.shieldH = 48
 		self.pickedUpSword = False
 		self.pickedUpShield = False
 		self.frameSword = 0
-		self.frameShield = 32
+		self.frameShield = 48
 
 		self.itemSheet = pygame.image.load(ITEM_PATH).convert_alpha()
 		self.itemSurface = pygame.Surface((LEVEL_WIDTH*TILESIZE,LEVEL_HEIGHT*TILESIZE), pygame.SRCALPHA)

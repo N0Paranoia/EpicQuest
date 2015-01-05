@@ -4,12 +4,19 @@ import pygame
 WINDOW_WIDTH = 1024	
 WINDOW_HEIGHT = 576
 
+
+""" -- Tile(map) constants -- """
+TILESIZE = 48
+
+LEVEL_WIDTH = 30
+LEVEL_HEIGHT = 30
+
 """ -- Player Starting point -- """
-PLAYER_START_X = 64
-PLAYER_START_Y = 64
+PLAYER_START_X = TILESIZE
+PLAYER_START_Y = TILESIZE
 PLAYER_SPEED = 4
-PLAYER_HEIGHT = 128
-PLAYER_WIDTH = 64
+PLAYER_HEIGHT = 2*TILESIZE
+PLAYER_WIDTH = TILESIZE
 
 """ -- Define gamestates -- """
 INTRO = 0
@@ -22,11 +29,11 @@ GAME_OVER = 9
 # FIRST_LEVEL = 1
 
 FONT_PATH = './fonts/Grand9K Pixel.ttf'
-SPRITE_PATH = './art/spriteSheet64.png'
-NPC_PATH = './art/npcSheet64.png'
-MOB_PATH = './art/mobSheet64.png'
-TILE_PATH = './art/tileSheet64.png'
-ITEM_PATH   = './art/itemSheet64.png'
+SPRITE_PATH = './art/spriteSheet48.png'
+NPC_PATH = './art/npcSheet48.png'
+MOB_PATH = './art/mobSheet48.png'
+TILE_PATH = './art/tileSheet48.png'
+ITEM_PATH   = './art/itemSheet48.png'
 
 #  -- Physics -- """
 FPS = 120
@@ -46,11 +53,6 @@ GRAY = (100,100,100)
 LIGHT_GRAY = (200, 200, 200)
 SKY_BLUE = (140, 190, 214)
 
-""" -- Tile(map) constants -- """
-TILESIZE = 64
-
-LEVEL_WIDTH = 30
-LEVEL_HEIGHT = 30
 
 """ -- tile Sheet -- """
 NO_TILE = (-TILESIZE, -TILESIZE, TILESIZE, TILESIZE)
