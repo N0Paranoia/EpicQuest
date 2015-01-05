@@ -25,9 +25,7 @@ RUNNING = 2
 PAUSE = 8
 GAME_OVER = 9
 
-""" -- Define levels -- """
-# FIRST_LEVEL = 1
-
+""" -- Load-in external files -- """
 FONT_PATH = './fonts/Grand9K Pixel.ttf'
 SPRITE_PATH = './art/spriteSheet48.png'
 NPC_PATH = './art/npcSheet48.png'
@@ -35,7 +33,7 @@ MOB_PATH = './art/mobSheet48.png'
 TILE_PATH = './art/tileSheet48.png'
 ITEM_PATH   = './art/itemSheet48.png'
 
-#  -- Physics -- """
+""" -- Physics -- """
 FPS = 120
 GRAVITY = 4
 
@@ -82,6 +80,7 @@ MOB_ONE_RIGHT = ((0, 0), (TILESIZE, 2*TILESIZE))
 MOB_ONE_LEFT = ((TILESIZE, 0), (TILESIZE, 2*TILESIZE))
 
 
+""" -- Tile Types -- """
 CLEAR = 0
 SKY = 1
 WALL = 2

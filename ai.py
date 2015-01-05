@@ -22,7 +22,6 @@ class Ai(object):
 		if y < 0 or y + height > LEVEL_HEIGHT*TILESIZE or self.collision.TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, WALL, tileMap) == True or self.collision.TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, LADDER_TOP, tileMap) == True or Collision().CloudCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, PLATFORM, tileMap) == True:
 			y -= gravity
 			self.is_falling = False
-
 		return y
 
 	def getHit(self, x, y, width, height, swordX, swordY, swordW, swordH):
@@ -41,7 +40,6 @@ class Ai(object):
 			return x - width
 		elif self.RIGHT[numberOfMobs]:
 			return x + width
-
 
 	def move(self, x, y, width, height, speed, numberOfMobs, playerX, playerY, shieldHit, tileMap):
 		
@@ -71,11 +69,9 @@ class Ai(object):
 		if playerX < x + self.aggroRange and playerX > x and playerY > y - self.aggroRange and playerY	< y + self.aggroRange:
 			self.LEFT[numberOfMobs] = False
 			self.RIGHT[numberOfMobs] = True
-
 		return x
 
 		y += self.velocity_y
 		if y < 0 or y > MAPHEIGHT*TILESIZE - TILESIZE or self.collision.TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, WALL) == True:
 			y -= self.velocity_y
-
 		return y
