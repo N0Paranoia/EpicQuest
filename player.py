@@ -27,7 +27,7 @@ class Player(object):
 		self.is_blocking = False
 		self.canBlock = True
 		self.jump_speed = 0
-		self.jump_height = 12
+		self.jump_height = 8
 		self.jump_count = 0
 		self.canJump = True
 		self.is_jumping = False
@@ -160,7 +160,7 @@ class Player(object):
 		if self.canJump:
 			if self.JUMP:
 				self.is_jumping = True
-				self.jump_speed = 4
+				self.jump_speed = 6
 				self.is_climbing = False
 				if self.jump_count <= self.jump_height:
 					self.velocity_j = -self.jump_speed
@@ -327,8 +327,9 @@ class Player(object):
 					self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - ((self.x + TILESIZE) - (((self.x-1+TILESIZE)/TILESIZE)*TILESIZE)) - self.velocity_x
 
 		if self.collision.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, SLOPE_RIGHT, tileMap):
-			if self.y is not (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.x - ((self.x/TILESIZE)*TILESIZE))):
-				self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.x - ((self.x/TILESIZE)*TILESIZE))) + self.velocity_x
+			if not self.JUMP:
+				if self.y is not (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.x - ((self.x/TILESIZE)*TILESIZE))):
+					self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.x - ((self.x/TILESIZE)*TILESIZE))) + self.velocity_x
 
 		self.y += self.velocity_y
 		if self.y < 0 or self.y + self.height > LEVEL_HEIGHT*TILESIZE or self.collision.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, WALL, tileMap) == True:

@@ -8,8 +8,8 @@ class Npc(object):
 		self.x = [4*TILESIZE, 8*TILESIZE]
 		self.y = [2*TILESIZE, 5*TILESIZE]
 		self.z = [1,2]
-		self.width = 48
-		self.height = 96
+		self.width = 64
+		self.height = 128
 		self.interactRange = 2*TILESIZE
 		self.text = ""
 
@@ -19,7 +19,7 @@ class Npc(object):
 
 		
 	def interact(self, npc, window,  playerX, playerY):
-		font = pygame.font.Font(FONT_PATH, 8)
+		font = pygame.font.Font(FONT_PATH, 16)
 		textControl = font.render(self.text, 1, (BLACK))
 		textRect = textControl.get_rect().height
 

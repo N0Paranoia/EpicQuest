@@ -12,8 +12,8 @@ class Mobs(object):
 		self.x = [8*TILESIZE,21*TILESIZE,5*TILESIZE,24*TILESIZE]
 		self.y = [3*TILESIZE,3*TILESIZE,27*TILESIZE,27*TILESIZE]
 		self.z = [1,1,1,1]
-		self.width = 48
-		self.height = 96
+		self.width = 64
+		self.height = 128
 		self.speed = 1
 		self.canGetHit = [True]*MOB_NUMBER
 		self.health = [self.width]*MOB_NUMBER
