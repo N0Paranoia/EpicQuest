@@ -12,13 +12,13 @@ class Mobs(object):
 		self.x = [8*TILESIZE,21*TILESIZE,5*TILESIZE,24*TILESIZE]
 		self.y = [3*TILESIZE,3*TILESIZE,27*TILESIZE,27*TILESIZE]
 		self.z = [1,1,1,1]
-		self.width = 64
-		self.height = 128
+		self.width = 48
+		self.height = 96
 		self.speed = 1
 		self.canGetHit = [True]*MOB_NUMBER
-		self.health = [32]*MOB_NUMBER
+		self.health = [self.width]*MOB_NUMBER
 		self.alive = [True]*MOB_NUMBER
-		self.weaponX,self.weaponY,self.weaponW,self.weaponH = [-10]*MOB_NUMBER,[-10]*MOB_NUMBER,[32]*MOB_NUMBER,[8]*MOB_NUMBER
+		self.weaponX,self.weaponY,self.weaponW,self.weaponH = [-10]*MOB_NUMBER,[-10]*MOB_NUMBER,[TILESIZE]*MOB_NUMBER,[TILESIZE/4]*MOB_NUMBER
 		self.attacking = [False]*MOB_NUMBER
 		self.attack_count = [0]*MOB_NUMBER
 		self.attack_duration = [8]*MOB_NUMBER
@@ -44,7 +44,7 @@ class Mobs(object):
 	def hitDetect(self, mobs, swordX, swordY, swordW, swordH, damage):
 		if self.canGetHit[mobs]:			
 			if ai.getHit(self.x[mobs], self.y[mobs], self.width, self.height, swordX, swordY, swordW, swordH):
-				self.health[mobs] -= damage*0.32
+				self.health[mobs] -= damage*0.48
 			if self.health[mobs] <= 0:
 				self.alive[mobs] = False
 				

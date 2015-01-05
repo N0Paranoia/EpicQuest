@@ -54,7 +54,7 @@ class Ai(object):
 		x += self.velocity_x
 				
 		""" -- Ai collision -- """
-		if x < 0 or x > LEVEL_WIDTH*32 - TILESIZE or self.collision.TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, WALL, tileMap) or self.collision.TileCollision(x, y+TILESIZE, width, height, x+TILESIZE, y+TILESIZE, LAVA, tileMap) or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_LEFT, tileMap) or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_RIGHT, tileMap) or Collision().TileCollision(x, y+TILESIZE, width, height, x+TILESIZE, y+TILESIZE, SLOPE_LEFT, tileMap) or Collision().TileCollision(x, y+TILESIZE, width, height, x+TILESIZE, y+TILESIZE, SLOPE_RIGHT, tileMap) or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+height+TILESIZE, SKY, tileMap):
+		if x < 0 or x > LEVEL_WIDTH*TILESIZE - TILESIZE or self.collision.TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, WALL, tileMap) or self.collision.TileCollision(x, y+TILESIZE, width, height, x+TILESIZE, y+TILESIZE, LAVA, tileMap) or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_LEFT, tileMap) or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_RIGHT, tileMap) or Collision().TileCollision(x, y+TILESIZE, width, height, x+TILESIZE, y+TILESIZE, SLOPE_LEFT, tileMap) or Collision().TileCollision(x, y+TILESIZE, width, height, x+TILESIZE, y+TILESIZE, SLOPE_RIGHT, tileMap) or Collision().TileCollision(x, y, width, height, x+TILESIZE, y+height+TILESIZE, SKY, tileMap):
 			x -= self.velocity_x
 		
 			self.LEFT[numberOfMobs] = not self.LEFT[numberOfMobs]
@@ -75,7 +75,7 @@ class Ai(object):
 		return x
 
 		y += self.velocity_y
-		if y < 0 or y > MAPHEIGHT*32 - TILESIZE or self.collision.TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, WALL) == True:
+		if y < 0 or y > MAPHEIGHT*TILESIZE - TILESIZE or self.collision.TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, WALL) == True:
 			y -= self.velocity_y
 
 		return y

@@ -4,9 +4,9 @@ from constants import *
 class GameStates(object):
 
 	def __init__(self):
-		self.intro = True
+		self.intro = False
 		self.mainMenu = False
-		self.running = False
+		self.running = True
 		self.pause = False
 		self.gameOver = False
 		

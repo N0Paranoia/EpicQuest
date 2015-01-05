@@ -27,7 +27,7 @@ class Player(object):
 		self.is_blocking = False
 		self.canBlock = True
 		self.jump_speed = 0
-		self.jump_height = 16
+		self.jump_height = 12
 		self.jump_count = 0
 		self.canJump = True
 		self.is_jumping = False
@@ -43,14 +43,14 @@ class Player(object):
 
 		self.frameHor = 0
 		self.frameVert = 0
-		self.frameRightIdelX = 4*TILESIZE
-		self.frameLeftIdelX = 7*TILESIZE
+		self.frameRightIdelX = 7*self.width
+		self.frameLeftIdelX = 6*self.width
 		self.frameIdelY = 0
-		self.frameRightStartX = 128
-		self.frameLeftStartX = 80
+		self.frameRightStartX = 8*self.width
+		self.frameLeftStartX = 5*self.width
 		self.frameStartY = 0
-		self.frameAnimation = PLAYER_WIDTH/2
-		self.frameRightEnd = 208
+		self.frameAnimation = self.width
+		self.frameRightEnd = 13*self.width
 		self.frameLeftEnd = 0
 		self.spriteSheet = pygame.image.load(SPRITE_PATH).convert_alpha()
 		self.rightFrame = True
@@ -121,8 +121,8 @@ class Player(object):
 					self.canBlock = False
 					if self.attack_count <= self.attack_duration:
 						self.stamina -= 10
-						self.swordW  = 32
-						self.swordH = 8
+						self.swordW  = TILESIZE
+						self.swordH = TILESIZE/4
 						self.attack_count += 1
 						if self.rightFrame:
 							self.swordX = self.x + TILESIZE
@@ -143,8 +143,8 @@ class Player(object):
 			if self.canBlock:
 				if self.BLOCK:
 					self.is_blocking = True
-					self.shieldW  = 8
-					self.shieldH = 32
+					self.shieldW  = TILESIZE/4
+					self.shieldH = TILESIZE
 					if self.rightFrame:
 						self.shieldX = self.x + TILESIZE
 						self.shieldY = self.y + TILESIZE/2
@@ -353,16 +353,16 @@ class Player(object):
 		if self.frameCounter > self.frameSwitch:
 			if self.is_attacking :
 				if self.leftFrame:
-					self.frameHor = 96
+					self.frameHor = 6*self.width
 				elif self.rightFrame:
-					self.frameHor = 112
-				self.frameVert = 32
+					self.frameHor = 7*self.width
+				self.frameVert = self.height
 			elif self.is_blocking:
 				if self.rightFrame:
-					self.frameHor = 128
+					self.frameHor = 8*self.width
 				elif self.leftFrame:
-					self.frameHor = 80
-				self.frameVert = 32
+					self.frameHor = 5*self.width
+				self.frameVert = self.height
 			elif self.RIGHT:
 				self.frameHor += self.frameAnimation
 				if self.frameHor > self.frameRightEnd:
@@ -386,10 +386,10 @@ class Player(object):
 					self.frameHor = self.frameLeftIdelX
 				self.frameVert = self.frameIdelY
 
-		self.rect = pygame.Rect((self.frameHor,self.frameVert),(self.frameHor+PLAYER_WIDTH,self.frameVert+PLAYER_HEIGHT))
+		self.rect = pygame.Rect((self.frameHor, self.frameVert),(self.frameHor+self.width, self.frameVert+self.height))
 
 		self.spriteSurface = pygame.Surface((self.rect.size), pygame.SRCALPHA)
-		self.spriteSurface.blit(self.spriteSheet,(0,0),self.rect)
+		self.spriteSurface.blit(self.spriteSheet,(0,0))
 
 	def render(self, window, camX, camY):
 		window.blit(self.spriteSurface, (self.x - camX, self.y - camY), self.rect)

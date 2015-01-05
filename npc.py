@@ -8,8 +8,8 @@ class Npc(object):
 		self.x = [4*TILESIZE, 8*TILESIZE]
 		self.y = [2*TILESIZE, 5*TILESIZE]
 		self.z = [1,2]
-		self.width = 64
-		self.height = 128
+		self.width = 48
+		self.height = 96
 		self.interactRange = 2*TILESIZE
 		self.text = ""
 
