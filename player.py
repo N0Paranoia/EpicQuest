@@ -43,14 +43,14 @@ class Player(object):
 
 		self.frameHor = 0
 		self.frameVert = 0
-		self.frameRightIdelX = 7*self.width
-		self.frameLeftIdelX = 6*self.width
+		self.frameRightIdelX = 9*self.width
+		self.frameLeftIdelX = 8*self.width
 		self.frameIdelY = 0
-		self.frameRightStartX = 8*self.width
-		self.frameLeftStartX = 5*self.width
+		self.frameRightStartX = 10*self.width
+		self.frameLeftStartX = 7*self.width
 		self.frameStartY = 0
 		self.frameAnimation = self.width
-		self.frameRightEnd = 13*self.width
+		self.frameRightEnd = 17*self.width
 		self.frameLeftEnd = 0
 		self.spriteSheet = pygame.image.load(SPRITE_PATH).convert_alpha()
 		self.rightFrame = True
@@ -355,15 +355,15 @@ class Player(object):
 		if self.frameCounter > self.frameSwitch:
 			if self.is_attacking :
 				if self.leftFrame:
-					self.frameHor = 6*self.width
+					self.frameHor = 8*self.width
 				elif self.rightFrame:
-					self.frameHor = 7*self.width
+					self.frameHor = 9*self.width
 				self.frameVert = self.height
 			elif self.is_blocking:
 				if self.rightFrame:
-					self.frameHor = 8*self.width
+					self.frameHor = 10*self.width
 				elif self.leftFrame:
-					self.frameHor = 5*self.width
+					self.frameHor = 7*self.width
 				self.frameVert = self.height
 			elif self.RIGHT:
 				self.frameHor += self.frameAnimation
