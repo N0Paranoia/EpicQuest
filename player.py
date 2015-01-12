@@ -76,8 +76,10 @@ class Player(object):
 
 		if keys[K_a]:
 			self.LEFT = True
+			self.RIGHT = False
 		if keys[K_d]:
 			self.RIGHT = True
+			self.LEFT = False
 		if keys[K_w]:
 			self.UP = True
 		if keys[K_s]:
@@ -91,7 +93,7 @@ class Player(object):
 				self.JUMP = True
 
 	def falling(self, gravity, tileMap):
-		
+
 		self.is_falling = True
 		self.y += gravity
 		if self.y < 0 or self.y + self.height > LEVEL_HEIGHT*TILESIZE or self.collision.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, WALL, tileMap) == True or self.collision.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, LADDER_TOP, tileMap) == True or self.collision.CloudCollision(self.x, self.y, self.width, self.height, self.x, self.y, PLATFORM, tileMap) == True or self.is_climbing == True:
@@ -100,12 +102,12 @@ class Player(object):
 
 		""" -- Gravity function for sloped tiles "y1 = y + (x1 - x)" -- """
 		if self.collision.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, SLOPE_LEFT, tileMap):
-			if self.y ==  (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - ((self.x-1+TILESIZE) - (((self.x-1+TILESIZE)/TILESIZE)*TILESIZE)):
+			if self.y ==  (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - ((self.x-1+TILESIZE) - (((self.x-1+TILESIZE)/TILESIZE)*TILESIZE)) + self.speed:
 				self.y -= gravity
 				self.is_falling = False
 
 		if self.collision.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, SLOPE_RIGHT, tileMap):
-			if self.y == (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.x - ((self.x/TILESIZE)*TILESIZE))):
+			if self.y == (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.x - ((self.x/TILESIZE)*TILESIZE))) + self.speed:
 				self.y -= gravity
 				self.is_falling = False
 
@@ -245,7 +247,7 @@ class Player(object):
 			if mobAlive[mobs]:
 				""" -- Check if the Mob weapon hits the player shield -- """
 				if self.collision.VarCollision(self.shieldX, self.shieldY, self.shieldW, self.shieldH, mobsWeaponX[mobs], mobsWeaponY[mobs], mobsWeaponW[mobs], mobsWeaponH[mobs]):
-					if self.x < mobsX[mobs]: 
+					if self.x < mobsX[mobs]:
 						self.knockBack(self.knockBackLeft)
 					if self.x > mobsX[mobs]:
 						self.knockBack(self.knockBackRight)
@@ -258,7 +260,7 @@ class Player(object):
 
 				""" -- Check if the mob hits the player -- """
 				if self.collision.VarCollision(x, y, w, h, mobsX[mobs], mobsY[mobs],  mobsW, mobsH):
-					if self.x < mobsX[mobs]: 
+					if self.x < mobsX[mobs]:
 						self.knockBack(self.knockBackLeft)
 					if self.x > mobsX[mobs]:
 						self.knockBack(self.knockBackRight)
@@ -271,7 +273,7 @@ class Player(object):
 				""" -- Check id the mob's weapon hits the player -- """
 				if mobsAttacking[mobs]:
 					if self.collision.VarCollision(x, y, w, h, mobsWeaponX[mobs], mobsWeaponY[mobs], mobsWeaponW[mobs], mobsWeaponH[mobs]):
-						if self.x < mobsX[mobs]: 
+						if self.x < mobsX[mobs]:
 							self.knockBack(self.knockBackLeft)
 						if self.x > mobsX[mobs]:
 							self.knockBack(self.knockBackRight)
@@ -280,7 +282,7 @@ class Player(object):
 						if self.y > mobsY[mobs]:
 							self.knockBack(self.knockBackDown)
 						return True
-			
+
 				""" -- Check if the mob is hitting the shield -- """
 				if self.collision.VarCollision(self.shieldX, self.shieldY, self.shieldW, self.shieldH, mobsX[mobs], mobsY[mobs],  mobsW, mobsH):
 					self.shieldHit = True
@@ -294,7 +296,7 @@ class Player(object):
 		if direction == self.knockBackUp:
 			self.velocity_y = -self.knockBackSpeed
 		if direction == self.knockBackDown:
-			self.velocity_y = self.knockBackSpeed		
+			self.velocity_y = self.knockBackSpeed
 
 		self.x += self.velocity_x
 		self.y += self.velocity_y
@@ -353,21 +355,24 @@ class Player(object):
 
 		self.frameCounter += self.frameSpeed
 		if self.frameCounter > self.frameSwitch:
+			# """ -- Attck animation -- """
 			if self.is_attacking :
 				if self.leftFrame:
 					self.frameHor = 8*self.width
 				elif self.rightFrame:
 					self.frameHor = 9*self.width
 				self.frameVert = self.height
+			# """ -- Block Animation -- """
 			elif self.is_blocking:
 				if self.rightFrame:
 					self.frameHor = 10*self.width
 				elif self.leftFrame:
 					self.frameHor = 7*self.width
 				self.frameVert = self.height
+			# """ -- Walking Animation -- """
 			elif self.RIGHT:
 				self.frameHor += self.frameAnimation
-				if self.frameHor > self.frameRightEnd:
+				if self.frameHor > self.frameRightEnd or self.frameHor < self.frameRightStartX :
 					self.frameHor = self.frameRightStartX
 				self.frameCounter = 0
 				self.leftFrame = False
@@ -375,12 +380,13 @@ class Player(object):
 				self.frameVert = self.frameIdelY
 			elif self.LEFT:
 				self.frameHor -= self.frameAnimation
-				if self.frameHor < self.frameLeftEnd:
+				if self.frameHor < self.frameLeftEnd or self.frameHor > self.frameLeftStartX:
 					self.frameHor = self.frameLeftStartX
 				self.frameCounter = 0
 				self.rightFrame = False
 				self.leftFrame = True
 				self.frameVert = self.frameIdelY
+			# """ -- Idle animation -- """
 			else:
 				if self.rightFrame:
 					self.frameHor = self.frameRightIdelX

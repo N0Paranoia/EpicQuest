@@ -1,7 +1,7 @@
 import pygame
 
 """ -- Window Settings -- """
-WINDOW_WIDTH = 1024	
+WINDOW_WIDTH = 1024
 WINDOW_HEIGHT = 576
 
 
