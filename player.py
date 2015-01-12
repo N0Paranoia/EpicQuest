@@ -326,13 +326,13 @@ class Player(object):
 			""" -- X Move (collision) function for sloped tiles "y1 = y + (x1 - x)"" -- """
 			if self.collision.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, SLOPE_LEFT, tileMap):
 				if not self.JUMP:
-					if self.y is not (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - ((self.x-1+TILESIZE) - (((self.x-1+TILESIZE)/TILESIZE)*TILESIZE)):
+					if self.y is not (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - ((self.x +TILESIZE) - (((self.x-1+TILESIZE)/TILESIZE)*TILESIZE)):
 						self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - ((self.x + TILESIZE) - (((self.x-1+TILESIZE)/TILESIZE)*TILESIZE)) - self.velocity_x
 
 			if self.collision.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, SLOPE_RIGHT, tileMap):
 				if not self.JUMP:
 					if self.y is not (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.x - ((self.x/TILESIZE)*TILESIZE))):
-						self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.x - ((self.x/TILESIZE)*TILESIZE))) + self.velocity_x
+						self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - (TILESIZE - (self.x - ((self.x/TILESIZE)*TILESIZE)))
 
 			self.y += self.velocity_y
 			if self.y < 0 or self.y + self.height > LEVEL_HEIGHT*TILESIZE or self.collision.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, WALL, tileMap) == True:
