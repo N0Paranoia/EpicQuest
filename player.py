@@ -327,7 +327,7 @@ class Player(object):
 			if self.collision.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, SLOPE_LEFT, tileMap):
 				if not self.JUMP:
 					if self.y is not (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - ((self.x +TILESIZE) - (((self.x-1+TILESIZE)/TILESIZE)*TILESIZE)):
-						self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - ((self.x + TILESIZE) - (((self.x-1+TILESIZE)/TILESIZE)*TILESIZE)) - self.velocity_x
+						self.y = (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - ((self.x + TILESIZE) - (((self.x-1+TILESIZE)/TILESIZE)*TILESIZE))- self.velocity_x
 
 			if self.collision.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, SLOPE_RIGHT, tileMap):
 				if not self.JUMP:
