@@ -31,10 +31,10 @@ class Mobs(object):
 
 
 	def movement(self, window, camX, camY, mobs, playerX, playerY, shieldHit, tileMap):
-		fall = ai.falling(GRAVITY, self.x[mobs], self.y[mobs], self.width, self.height, tileMap)
+		# fall = ai.falling(GRAVITY, self.x[mobs], self.y[mobs], self.width, self.height, tileMap)
 		move = ai.move(self.x[mobs], self.y[mobs], self.width, self.height, self.speed, mobs, playerX, playerY, shieldHit, tileMap)
 		self.x[mobs] = move
-		self.y[mobs] = fall
+		# self.y[mobs] = fall
 
 		if ai.velocity_x > 0:
 			self.render(window, camX, camY, mobs, self.right)
@@ -42,12 +42,12 @@ class Mobs(object):
 			self.render(window, camX, camY, mobs, self.left)
 
 	def hitDetect(self, mobs, swordX, swordY, swordW, swordH, damage):
-		if self.canGetHit[mobs]:			
+		if self.canGetHit[mobs]:
 			if ai.getHit(self.x[mobs], self.y[mobs], self.width, self.height, swordX, swordY, swordW, swordH):
 				self.health[mobs] -= damage*0.48
 			if self.health[mobs] <= 0:
 				self.alive[mobs] = False
-				
+
 	def attack(self, window, mobs, playerX, playerY, camX, camY):
 		if ai.attack(self.x[mobs], self.y[mobs], self.width, self.height, self.speed, mobs, playerX, playerY):
 			if self.attack_count[mobs] <= self.attack_duration[mobs]:
@@ -58,13 +58,13 @@ class Mobs(object):
 		else:
 			self.weapon(mobs, playerX, playerY, camX, camY)
 			self.attack_count[mobs] = 0
-			self.attacking[mobs] = False 
+			self.attacking[mobs] = False
 
 	def weapon(self, mobs, playerX, playerY, camX, camY):
 		weapon = ai.weapon(self.x[mobs], self.y[mobs], self.width, self.height, self.speed, mobs, playerX, playerY)
 		self.weaponX[mobs] = weapon
 		self.weaponY[mobs] = self.y[mobs] + self.height/4
-		
+
 	def healthBar(self, window, camX, camY, mobs):
 		pygame.draw.rect(window, RED, (self.x[mobs] - camX, self.y[mobs] - 10  - camY, self.health[mobs], 2))
 
@@ -77,10 +77,9 @@ class Mobs(object):
 	def update(self, window, camX, camY, playerX, playerY, swordX, swordY, swordW, swordH, damage, shieldHit, levelID, tileMap):
 		for mobs in range (MOB_NUMBER):
 			if self.z[mobs] == levelID:
-				if (self.x[mobs] > camX and self.y[mobs] > camY and self.x[mobs] < camX + WINDOW_WIDTH and self.y[mobs] < camY + WINDOW_HEIGHT):
+				if (self.x[mobs] > camX-(WINDOW_WIDTH/2) and self.y[mobs] > camY - (TILESIZE*2) and self.x[mobs] < camX + (WINDOW_WIDTH + (WINDOW_WIDTH/2)) and self.y[mobs] < camY + WINDOW_HEIGHT + (TILESIZE*2)):
 					if self.alive[mobs]:
 						self.movement(window, camX, camY, mobs, playerX, playerY, shieldHit, tileMap)
 						self.attack(window, mobs, playerX, playerY, camX, camY)
 						self.hitDetect(mobs, swordX, swordY, swordW, swordH, damage)
 						self.healthBar(window, camX, camY, mobs)
-						

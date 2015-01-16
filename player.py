@@ -102,7 +102,7 @@ class Player(object):
 
 		""" -- Gravity function for sloped tiles "y1 = y + (x1 - x)" -- """
 		if self.collision.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, SLOPE_LEFT, tileMap):
-			if self.y ==  (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - ((self.x-1+TILESIZE) - (((self.x-1+TILESIZE)/TILESIZE)*TILESIZE)) + self.speed:
+			if self.y ==  (((self.y-1+TILESIZE)/TILESIZE)*TILESIZE) - ((self.x+TILESIZE) - (((self.x-1+TILESIZE)/TILESIZE)*TILESIZE)) + self.speed:
 				self.y -= gravity
 				self.is_falling = False
 
@@ -246,17 +246,18 @@ class Player(object):
 		for mobs in range(MOB_NUMBER):
 			if mobAlive[mobs]:
 				""" -- Check if the Mob weapon hits the player shield -- """
-				if self.collision.VarCollision(self.shieldX, self.shieldY, self.shieldW, self.shieldH, mobsWeaponX[mobs], mobsWeaponY[mobs], mobsWeaponW[mobs], mobsWeaponH[mobs]):
-					if self.x < mobsX[mobs]:
-						self.knockBack(self.knockBackLeft)
-					if self.x > mobsX[mobs]:
-						self.knockBack(self.knockBackRight)
-					if self.y < mobsY[mobs]:
-						self.knockBack(self.knockBackUp)
-					if self.y > mobsY[mobs]:
-						self.knockBack(self.knockBackDown)
-					self.shieldHit = True
-					return False
+				if self.shieldX > 0 or self.shieldY > 0:
+					if self.collision.VarCollision(self.shieldX, self.shieldY, self.shieldW, self.shieldH, mobsWeaponX[mobs], mobsWeaponY[mobs], mobsWeaponW[mobs], mobsWeaponH[mobs]):
+						if self.x < mobsX[mobs]:
+							self.knockBack(self.knockBackLeft)
+						if self.x > mobsX[mobs]:
+							self.knockBack(self.knockBackRight)
+						if self.y < mobsY[mobs]:
+							self.knockBack(self.knockBackUp)
+						if self.y > mobsY[mobs]:
+							self.knockBack(self.knockBackDown)
+						self.shieldHit = True
+						return False
 
 				""" -- Check if the mob hits the player -- """
 				if self.collision.VarCollision(x, y, w, h, mobsX[mobs], mobsY[mobs],  mobsW, mobsH):
@@ -284,9 +285,10 @@ class Player(object):
 						return True
 
 				""" -- Check if the mob is hitting the shield -- """
-				if self.collision.VarCollision(self.shieldX, self.shieldY, self.shieldW, self.shieldH, mobsX[mobs], mobsY[mobs],  mobsW, mobsH):
-					self.shieldHit = True
-					return False
+				if self.shieldX > 0 or self.shieldY > 0:
+					if self.collision.VarCollision(self.shieldX, self.shieldY, self.shieldW, self.shieldH, mobsX[mobs], mobsY[mobs],  mobsW, mobsH):
+						self.shieldHit = True
+						return False
 
 	def knockBack(self, direction):
 		if direction == self.knockBackLeft:
@@ -320,7 +322,7 @@ class Player(object):
 				self.velocity_j = 0
 
 			self.x += self.velocity_x
-			if self.x < 0 or self.x + self.width > LEVEL_WIDTH*TILESIZE or self.collision.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, WALL, tileMap) == True:
+			if self.collision.TileCollision(self.x, self.y, self.width, self.height, self.x, self.y, WALL, tileMap) == True:
 				self.x -= self.velocity_x
 
 			""" -- X Move (collision) function for sloped tiles "y1 = y + (x1 - x)"" -- """
