@@ -41,9 +41,9 @@ class Mobs(object):
 		if ai.velocity_x < 0:
 			self.render(window, camX, camY, mobs, self.left)
 
-	def hitDetect(self, mobs, swordX, swordY, swordW, swordH, damage):
+	def hitDetect(self, mobs, swordX, swordY, swordW, swordH, playerAttack, damage):
 		if self.canGetHit[mobs]:
-			if ai.getHit(self.x[mobs], self.y[mobs], self.width, self.height, swordX, swordY, swordW, swordH):
+			if ai.getHit(self.x[mobs], self.y[mobs], self.width, self.height, swordX, swordY, swordW, swordH, playerAttack):
 				self.health[mobs] -= damage*0.48
 			if self.health[mobs] <= 0:
 				self.alive[mobs] = False
@@ -74,12 +74,12 @@ class Mobs(object):
 		if direction == self.right:
 			window.blit(self.mobSurface, (self.x[mobs] - camX, self.y[mobs] - camY), MOB_ONE_RIGHT)
 
-	def update(self, window, camX, camY, playerX, playerY, swordX, swordY, swordW, swordH, damage, shieldHit, levelID, tileMap):
+	def update(self, window, camX, camY, playerX, playerY, swordX, swordY, swordW, swordH, damage, shieldHit, playerAttack, playerBlock, levelID, tileMap):
 		for mobs in range (MOB_NUMBER):
 			if self.z[mobs] == levelID:
 				if (self.x[mobs] > camX-(WINDOW_WIDTH/2) and self.y[mobs] > camY - (TILESIZE*2) and self.x[mobs] < camX + (WINDOW_WIDTH + (WINDOW_WIDTH/2)) and self.y[mobs] < camY + WINDOW_HEIGHT + (TILESIZE*2)):
 					if self.alive[mobs]:
 						self.movement(window, camX, camY, mobs, playerX, playerY, shieldHit, tileMap)
 						self.attack(window, mobs, playerX, playerY, camX, camY)
-						self.hitDetect(mobs, swordX, swordY, swordW, swordH, damage)
+						self.hitDetect(mobs, swordX, swordY, swordW, swordH, playerAttack, damage)
 						self.healthBar(window, camX, camY, mobs)

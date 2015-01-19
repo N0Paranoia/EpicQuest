@@ -24,8 +24,8 @@ class Ai(object):
 			self.is_falling = False
 		return y
 
-	def getHit(self, x, y, width, height, swordX, swordY, swordW, swordH):
-		if swordY > 0 or swordX > 0:
+	def getHit(self, x, y, width, height, swordX, swordY, swordW, swordH, playerAttack):
+		if playerAttack == True:
 			if self.collision.VarCollision(x, y, width, height, swordX, swordY, swordW, swordH):
 				return True
 

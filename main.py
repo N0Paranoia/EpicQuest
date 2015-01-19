@@ -31,7 +31,7 @@ class Main(object):
 		gamestate = GameStates()
 		world = World()
 		levelStates = LevelStates()
-		
+
 		""" -- Variables to implement frame delays -- """
 		self.startFrame = 0
 		self.delayFrame = 1
@@ -69,7 +69,7 @@ class Main(object):
 				for x in range(0, WINDOW_WIDTH):
 					hud = Hud(0, None, None)
 					pygame.draw.rect(window, WHITE, (0, WINDOW_HEIGHT - 100, x, 32))
- 
+
 					hud.update(window, FPS, clock, INTRO)
 
 					""" -- Update Screen -- """
@@ -94,7 +94,7 @@ class Main(object):
 
 				if gamestate.pause == False:
 					window.fill ((SKY_BLUE))
-					
+
 					""" -- Set level -- """
 					levelID = levelStates.changeState(player.z)
 					level = Levels(levelID)
@@ -112,11 +112,11 @@ class Main(object):
 					items.update(window, camera.x, camera.y, player.x, player.y, levelID)
 
 					""" -- Handle AI events -- """
-					mobs.update(window, camera.x, camera.y, player.x, player.y, player.swordX, player.swordY, player.swordW, player.swordH, player.damage, player.shieldHit, levelID, level.level)
+					mobs.update(window, camera.x, camera.y, player.x, player.y, player.swordX, player.swordY, player.swordW, player.swordH, player.damage, player.shieldHit, player.ATTACK, player.BLOCK, levelID, level.level)
 
 					""" -- Camera -- """
 					centerCam.update(player.x, player.y, camera.x, camera.y, window)
-					camera = Camera(centerCam.x, centerCam.y) 
+					camera = Camera(centerCam.x, centerCam.y)
 					camera.update(centerCam.x, centerCam.y, window)
 
 					""" -- Set FPS -- """
@@ -139,9 +139,9 @@ class Main(object):
 				gamestate.running = False
 				pygame.draw.rect(window, BLACK, (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
 				hud.update(window, FPS, clock, GAME_OVER)
-			
+
 			""" -- Update Screen -- """
-	
+
 			pygame.display.flip()
 
 Main()
@@ -149,6 +149,6 @@ Main()
 # def main():
 #     for x in range(10000):
 #         pass
-        
+
 # import cProfile as profile
 # profile.run('Main()')
