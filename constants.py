@@ -34,7 +34,7 @@ TILE_PATH = './art/tileSheet48.png'
 ITEM_PATH   = './art/itemSheet48.png'
 
 """ -- Physics -- """
-FPS = 120
+FPS = 999
 GRAVITY = 4
 
 """ -- Colors -- """
