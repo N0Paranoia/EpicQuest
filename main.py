@@ -2,6 +2,7 @@ import pygame
 import constants
 from level import *
 from player import *
+import player as p
 from mobs import *
 from npc import *
 from items import *
@@ -36,18 +37,18 @@ class Main(object):
 		self.startFrame = 0
 		self.delayFrame = 1
 
-		Run = True
-		while Run:
+		self.run = True
+		while self.run:
 
 			gamestate.changestate(player.lives)
 
 			for event in pygame.event.get():
 				if event.type == QUIT:
-					Run = False
+					self.run = False
 
 				if event.type == KEYDOWN:
 					if event.key == K_q:
-						Run = False
+						self.run = False
 					if event.key == K_p:
 						gamestate.pause = not gamestate.pause
 
@@ -103,6 +104,7 @@ class Main(object):
 					world.update(window, camera.x, camera.y, level.level)
 
 					""" -- Handle player events -- """
+					self.input()
 					player.update(event, window, camera.x, camera.y, GRAVITY, mobs.x, mobs.y, mobs.width, mobs.height, mobs.alive, mobs.weaponX, mobs.weaponY, mobs.weaponW, mobs.weaponH, mobs.attacking, level.level, items.pickedUpSword, items.pickedUpShield)
 
 					""" -- Handle NPC Events -- """
@@ -143,6 +145,13 @@ class Main(object):
 			""" -- Update Screen -- """
 
 			pygame.display.flip()
+
+	def input(self):
+		pass
+	def update(self):
+		pass
+	def render(self):
+		pass
 
 Main()
 
