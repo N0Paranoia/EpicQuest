@@ -2,7 +2,6 @@ import pygame
 import constants
 from level import *
 from player import *
-import player as p
 from mobs import *
 from npc import *
 from items import *
@@ -18,20 +17,20 @@ class Main(object):
 
 	def __init__(self):
 		screenSize = (WINDOW_WIDTH, WINDOW_HEIGHT)
-		window = pygame.display.set_mode(screenSize)
+		self.window = pygame.display.set_mode(screenSize)
 		pygame.display.set_caption("EpicQuest")
 
-		clock = pygame.time.Clock()
+		self.clock = pygame.time.Clock()
 
-		player = Player(PLAYER_START_X, PLAYER_START_Y, 1)
-		npc = Npc()
-		items = Items()
-		mobs = Mobs()
-		camera = Camera(0,0)
-		centerCam = CenterCamera()
-		gamestate = GameStates()
-		world = World()
-		levelStates = LevelStates()
+		self.player = Player(PLAYER_START_X, PLAYER_START_Y, 1)
+		self.npc = Npc()
+		self.items = Items()
+		self.mobs = Mobs()
+		self.camera = Camera(0,0)
+		self.centerCam = CenterCamera()
+		self.gamestate = GameStates()
+		self.world = World()
+		self.levelStates = LevelStates()
 
 		""" -- Variables to implement frame delays -- """
 		self.startFrame = 0
@@ -40,33 +39,33 @@ class Main(object):
 		self.run = True
 		while self.run:
 
-			gamestate.changestate(player.lives)
+			self.gamestate.changestate(self.player.lives)
 
-			for event in pygame.event.get():
-				if event.type == QUIT:
+			for self.event in pygame.event.get():
+				if self.event.type == QUIT:
 					self.run = False
 
-				if event.type == KEYDOWN:
-					if event.key == K_q:
+				if self.event.type == KEYDOWN:
+					if self.event.key == K_q:
 						self.run = False
-					if event.key == K_p:
-						gamestate.pause = not gamestate.pause
+					if self.event.key == K_p:
+						self.gamestate.pause = not self.gamestate.pause
 
-					if event.key == K_RETURN:
-						if gamestate.mainMenu:
-							gamestate.running = True
-						elif gamestate.gameOver:
+					if self.event.key == K_RETURN:
+						if self.gamestate.mainMenu:
+							self.gamestate.running = True
+						elif self.gamestate.gameOver:
 							""" -- Reset Game values -- """
-							player = Player(PLAYER_START_X, PLAYER_START_Y, 1)
-							npc = Npc()
-							items = Items()
-							mobs = Mobs()
-							world = World()
-							levelStates = LevelStates()
-							gamestate.mainMenu = True
+							self.player = Player(PLAYER_START_X, PLAYER_START_Y, 1)
+							self.npc = Npc()
+							self.items = Items()
+							self.mobs = Mobs()
+							self.world = World()
+							self.levelStates = LevelStates()
+							self.gamestate.mainMenu = True
 
 			""" -- Intro game state -- """
-			if gamestate.intro:
+			if self.gamestate.intro:
 				for x in range(0, WINDOW_WIDTH):
 					hud = Hud(0, None, None)
 					pygame.draw.rect(window, WHITE, (0, WINDOW_HEIGHT - 100, x, 32))
@@ -80,78 +79,86 @@ class Main(object):
 						gamestate.mainMenu = True
 
 			""" -- Main menu game State -- """
-			if gamestate.mainMenu:
-				gamestate.intro = False
-				gamestate.gameOver = False
+			if self.gamestate.mainMenu:
+				self.gamestate.intro = False
+				self.gamestate.gameOver = False
 
-				hud = Hud(0, None, None)
-				pygame.draw.rect(window, WHITE, (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
-				hud.update(window, FPS, clock, MAIN_MENU)
+				self.hud = Hud(0, None, None)
+				pygame.draw.rect(self.window, WHITE, (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
+				self.hud.update(self.window, FPS, self.clock, MAIN_MENU)
 
 			""" -- Running game State -- """
-			if gamestate.running == True:
+			if self.gamestate.running == True:
 
-				gamestate.mainMenu = False
+				self.gamestate.mainMenu = False
 
-				if gamestate.pause == False:
-					window.fill ((SKY_BLUE))
-
-					""" -- Set level -- """
-					levelID = levelStates.changeState(player.z)
-					level = Levels(levelID)
-
-					""" -- Initialize world -- """
-					world.update(window, camera.x, camera.y, level.level)
-
-					""" -- Handle player events -- """
+				if self.gamestate.pause == False:
+					self.window.fill ((SKY_BLUE))
+					
 					self.input()
-					player.update(event, window, camera.x, camera.y, GRAVITY, mobs.x, mobs.y, mobs.width, mobs.height, mobs.alive, mobs.weaponX, mobs.weaponY, mobs.weaponW, mobs.weaponH, mobs.attacking, level.level, items.pickedUpSword, items.pickedUpShield)
+					self.update()
+					self.render() 
 
-					""" -- Handle NPC Events -- """
-					npc.update(window, camera.x, camera.y, player.x, player.y, levelID)
-
-					""" -- Handle Item Events -- """
-					items.update(window, camera.x, camera.y, player.x, player.y, levelID)
-
-					""" -- Handle AI events -- """
-					mobs.update(window, camera.x, camera.y, player.x, player.y, player.swordX, player.swordY, player.swordW, player.swordH, player.damage, player.shieldHit, player.ATTACK, player.BLOCK, levelID, level.level)
-
-					""" -- Camera -- """
-					centerCam.update(player.x, player.y, camera.x, camera.y, window)
-					camera = Camera(centerCam.x, centerCam.y)
-					camera.update(centerCam.x, centerCam.y, window)
-
-					""" -- Set FPS -- """
-					clock.tick(FPS)
-
-					""" -- HUD -- """
-					hud = Hud(player.health, player.stamina, player.lives)
-					hud.update(window, FPS, clock, RUNNING)
-
-					""" -- Debug info -- """
+					self.debug()
+				
 
 			""" -- Pause Game State -- """
-			if gamestate.pause:
-				hud = Hud(player.health, player.stamina, player.lives)
-				hud.update(window, FPS, clock, PAUSE)
+			if self.gamestate.pause:
+				self.hud = Hud(self.player.health, self.player.stamina, self.player.lives)
+				self.hud.update(self.window, FPS, self.clock, PAUSE)
 
 			""" -- GameOver Game State -- """
-			if gamestate.gameOver:
-				hud = Hud(0, None, None)
-				gamestate.running = False
-				pygame.draw.rect(window, BLACK, (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
-				hud.update(window, FPS, clock, GAME_OVER)
+			if self.gamestate.gameOver:
+				self.hud = Hud(0, None, None)
+				self.gamestate.running = False
+				pygame.draw.rect(self.window, BLACK, (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
+				self.hud.update(self.window, FPS, self.clock, GAME_OVER)
 
 			""" -- Update Screen -- """
 
 			pygame.display.flip()
 
 	def input(self):
-		pass
+		self.player.input(self.event)
+		
 	def update(self):
-		pass
+
+		""" -- Set FPS -- """
+		self.clock.tick(FPS)
+
+		""" -- Set level -- """
+		self.levelID = self.levelStates.changeState(self.player.z)
+		self.level = Levels(self.levelID)
+
+		""" -- Initialize world -- """
+		self.world.update(self.window, self.camera.x, self.camera.y, self.level.level)
+
+		""" -- Handle player events -- """
+		self.player.update(self.event, self.window, self.camera.x, self.camera.y, GRAVITY, self.mobs.x, self.mobs.y, self.mobs.width, self.mobs.height, self.mobs.alive, self.mobs.weaponX, self.mobs.weaponY, self.mobs.weaponW, self.mobs.weaponH,self. mobs.attacking, self.level.level, self.items.pickedUpSword, self.items.pickedUpShield)
+
+		""" -- Handle NPC Events -- """
+		self.npc.update(self.window, self.camera.x, self.camera.y, self.player.x, self.player.y, self.levelID)
+
+		""" -- Handle Item Events -- """
+		self.items.update(self.window, self.camera.x, self.camera.y, self.player.x, self.player.y, self.levelID)
+
+		""" -- Handle AI events -- """
+		self.mobs.update(self.window, self.camera.x, self.camera.y, self.player.x, self.player.y, self.player.swordX, self.player.swordY, self.player.swordW, self.player.swordH, self.player.damage, self.player.shieldHit, self.player.ATTACK, self.player.BLOCK, self.levelID, self.level.level)
+
+		""" -- Camera -- """
+		self.centerCam.update(self.player.x, self.player.y, self.camera.x, self.camera.y,self. window)
+		self.camera = Camera(self.centerCam.x, self.centerCam.y)
+		self.camera.update(self.centerCam.x, self.centerCam.y, self.window)
+
+		""" -- HUD -- """
+		self.hud = Hud(self.player.health, self.player.stamina, self.player.lives)
+		self.hud.update(self.window, FPS, self.clock, RUNNING)
+
 	def render(self):
-		pass
+		self.player.render(self.window, self.camera.x, self.camera.y)
+
+	def debug(self):
+		print self.player.JUMP
 
 Main()
 

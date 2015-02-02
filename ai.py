@@ -7,11 +7,11 @@ from collision import *
 class Ai(object):
 
 	def __init__(self, mobNumber):
-		self.velocity_x = 0
+		self.velocity_x = [0] * mobNumber
 		self.velocity_y = 0
 		self.LEFT = [False]*mobNumber
-		self.RIGHT = [True]*mobNumber
-		self.aggroRange = 3*TILESIZE
+		self.RIGHT = [False]*mobNumber
+		self.aggroRange = 4*TILESIZE
 
 		self.collision = Collision()
 
@@ -44,31 +44,36 @@ class Ai(object):
 	def move(self, x, y, width, height, speed, numberOfMobs, playerX, playerY, shieldHit, tileMap):
 
 		if self.LEFT[numberOfMobs]:
-			self.velocity_x = -speed
+			self.velocity_x[numberOfMobs] = -speed
 
 		elif self.RIGHT[numberOfMobs]:
-			self.velocity_x = speed
+			self.velocity_x[numberOfMobs] = speed
+		else:
+			x -= self.velocity_x[numberOfMobs]
 
-		x += self.velocity_x
+		x += self.velocity_x[numberOfMobs]
 
 		""" -- Ai collision -- """
 		if self.collision.TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, WALL, tileMap) or self.collision.TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_LEFT, tileMap) or self.collision.TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_RIGHT, tileMap):
-			x -= self.velocity_x
+			x -= self.velocity_x[numberOfMobs]
 
 			self.LEFT[numberOfMobs] = not self.LEFT[numberOfMobs]
 			self.RIGHT[numberOfMobs] = not self.RIGHT[numberOfMobs]
 
 		""" -- Shield Collision -- """
 		if shieldHit == True:
-			x -= self.velocity_x
+			x -= self.velocity_x[numberOfMobs]
 
 		""" -- Aggro -- """
 		if playerX > x - self.aggroRange and playerX < x and playerY > y - self.aggroRange and playerY	< y + self.aggroRange:
 			self.RIGHT[numberOfMobs] = False
 			self.LEFT[numberOfMobs] = True
-		if playerX < x + self.aggroRange and playerX > x and playerY > y - self.aggroRange and playerY	< y + self.aggroRange:
+		elif playerX < x + self.aggroRange and playerX > x and playerY > y - self.aggroRange and playerY	< y + self.aggroRange:
 			self.LEFT[numberOfMobs] = False
 			self.RIGHT[numberOfMobs] = True
+		else:
+			self.LEFT[numberOfMobs] = False
+			self.RIGHT[numberOfMobs] = False
 		return x
 
 		y += self.velocity_y

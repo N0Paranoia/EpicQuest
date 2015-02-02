@@ -61,11 +61,6 @@ class Player(object):
 
 		self.damage = 5
 
-		self.collision = Collision()
-
-	def input(self, event):
-		keys = pygame.key.get_pressed()
-
 		self.LEFT = False
 		self.RIGHT = False
 		self.UP = False
@@ -74,23 +69,44 @@ class Player(object):
 		self.ATTACK = False
 		self.BLOCK = False
 
+		self.collision = Collision()
+
+	def input(self, event):
+		keys = pygame.key.get_pressed()
+
 		if keys[K_a]:
 			self.LEFT = True
 			self.RIGHT = False
+		else:
+			self.LEFT = False
 		if keys[K_d]:
 			self.RIGHT = True
 			self.LEFT = False
+		else:
+			self.RIGHT = False
 		if keys[K_w]:
 			self.UP = True
+		else:
+			self.UP = False
 		if keys[K_s]:
 			self.DOWN = True
+		else:
+			self.DOWN = False
 		if keys[K_l]:
 			self.ATTACK = True
+		else:
+			self.ATTACK = False
 		if keys[K_k]:
 			self.BLOCK = True
+		else:
+			self.BLOCK = False
 		if keys[K_SPACE]:
 			if self.is_falling == False:
 				self.JUMP = True
+			else:
+				self.JUMP = False
+		else:
+			self.JUMP = False
 
 	def falling(self, gravity, tileMap):
 
@@ -407,7 +423,7 @@ class Player(object):
 		pygame.draw.rect(window, BLUE, (self.shieldX - camX, self.shieldY - camY, self.shieldW, self.shieldH), 1)
 
 	def update (self, event, window, camX, camY, gravity, mobsX, mobsY, mobsW, mobsH, mobAlive, mobsWeaponX, mobsWeaponY, mobsWeaponW, mobsWeaponH, mobsAttacking, tileMap, pickedUpSword, pickedUpShield):
-		self.input(event)
+		# self.input(event)
 		self.falling(gravity, tileMap)
 		self.jump()
 		self.climbing(tileMap)
@@ -418,4 +434,3 @@ class Player(object):
 		self.playerStamina()
 		self.playerHealth(mobsX, mobsY, mobsW, mobsH, mobAlive, mobsWeaponX, mobsWeaponY, mobsWeaponW, mobsWeaponH, mobsAttacking, tileMap)
 		self.animate()
-		self.render(window, camX, camY)

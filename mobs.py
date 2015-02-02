@@ -22,8 +22,9 @@ class Mobs(object):
 		self.attacking = [False]*MOB_NUMBER
 		self.attack_count = [0]*MOB_NUMBER
 		self.attack_duration = [8]*MOB_NUMBER
-		self.left = 0
-		self.right = 1
+		self.idle = 0
+		self.left = 1
+		self.right = 2
 
 		self.mobSheet = pygame.image.load(MOB_PATH).convert_alpha()
 		self.mobSurface = pygame.Surface((LEVEL_WIDTH*TILESIZE,LEVEL_HEIGHT*TILESIZE), pygame.SRCALPHA)
@@ -36,10 +37,13 @@ class Mobs(object):
 		self.x[mobs] = move
 		# self.y[mobs] = fall
 
-		if ai.velocity_x > 0:
-			self.render(window, camX, camY, mobs, self.right)
-		if ai.velocity_x < 0:
-			self.render(window, camX, camY, mobs, self.left)
+		# if ai.velocity_x[mobs] > 0:
+		# 	self.render(window, camX, camY, mobs, self.right)
+		# elif ai.velocity_x[mobs] < 0:
+		# 	self.render(window, camX, camY, mobs, self.left)
+		# else:
+		# 	self.render(window, camX, camY, mobs, self.idle)
+
 
 	def hitDetect(self, mobs, swordX, swordY, swordW, swordH, playerAttack, damage):
 		if self.canGetHit[mobs]:
@@ -68,11 +72,13 @@ class Mobs(object):
 	def healthBar(self, window, camX, camY, mobs):
 		pygame.draw.rect(window, RED, (self.x[mobs] - camX, self.y[mobs] - 10  - camY, self.health[mobs], 2))
 
-	def render(self, window, camX, camY, mobs, direction):
-		if direction == self.left:
+	def render(self, window, camX, camY, mobs):
+		if ai.velocity_x[mobs] < 0:
 			window.blit(self.mobSurface, (self.x[mobs] - camX, self.y[mobs] - camY), MOB_ONE_LEFT)
-		if direction == self.right:
+		elif ai.velocity_x[mobs] > 0:
 			window.blit(self.mobSurface, (self.x[mobs] - camX, self.y[mobs] - camY), MOB_ONE_RIGHT)
+		else:
+			window.blit(self.mobSurface, (self.x[mobs] - camX, self.y[mobs] - camY), MOB_ONE_LEFT)
 
 	def update(self, window, camX, camY, playerX, playerY, swordX, swordY, swordW, swordH, damage, shieldHit, playerAttack, playerBlock, levelID, tileMap):
 		for mobs in range (MOB_NUMBER):
@@ -83,3 +89,4 @@ class Mobs(object):
 						self.attack(window, mobs, playerX, playerY, camX, camY)
 						self.hitDetect(mobs, swordX, swordY, swordW, swordH, playerAttack, damage)
 						self.healthBar(window, camX, camY, mobs)
+						self.render(window, camX, camY, mobs)
