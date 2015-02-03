@@ -30,7 +30,7 @@ class World(object):
     """ -- Blit textures on the surface -- """
     window.blit(self.TileSurface, (self.x, self.y),(self.textures))
 
-  def update(self, window, rangeX, rangeY, tileMap):
+  def render(self, window, rangeX, rangeY, tileMap):
     self.generateTileMap(window, rangeX, rangeY, tileMap)
 
 """ -- Tile Position for the collision class -- """

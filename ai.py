@@ -35,13 +35,6 @@ class Ai(object):
 		else:
 			return False
 		
-
-	def weapon(self, x, y, width, height, numberOfMobs):
-		if self.LEFT[numberOfMobs]:
-			return x - width
-		elif self.RIGHT[numberOfMobs]:
-			return x + width
-
 	def move(self, x, y, width, height, speed, numberOfMobs, playerX, playerY, shieldHit, tileMap):
 
 		if self.LEFT[numberOfMobs]:

@@ -19,12 +19,8 @@ class Camera(object):
 		if self.y + self.height > LEVEL_HEIGHT*TILESIZE:
 			self.y = LEVEL_HEIGHT*TILESIZE - self.height
 
-	def render(self, window):
-		pygame.draw.rect(window, WHITE, (self.x/WINDOW_WIDTH, self.y/WINDOW_HEIGHT, self.width, self.height), 2)
-
 	def update(self, cCamX, cCamY, window):
 		self.follow(cCamX, cCamY)
-		self.render(window)
 
 class CenterCamera(object):
 

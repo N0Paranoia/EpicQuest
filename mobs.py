@@ -37,14 +37,6 @@ class Mobs(object):
 		self.x[mobs] = move
 		# self.y[mobs] = fall
 
-		# if ai.velocity_x[mobs] > 0:
-		# 	self.render(window, camX, camY, mobs, self.right)
-		# elif ai.velocity_x[mobs] < 0:
-		# 	self.render(window, camX, camY, mobs, self.left)
-		# else:
-		# 	self.render(window, camX, camY, mobs, self.idle)
-
-
 	def hitDetect(self, mobs, swordX, swordY, swordW, swordH, playerAttack, damage):
 		if self.canGetHit[mobs]:
 			if ai.getHit(self.x[mobs], self.y[mobs], self.width, self.height, swordX, swordY, swordW, swordH, playerAttack):
@@ -53,33 +45,23 @@ class Mobs(object):
 				self.alive[mobs] = False
 
 	def attack(self, window, mobs, playerX, playerY, camX, camY):
-		if ai.attack(self.x[mobs], self.y[mobs], self.width, self.height, self.speed, mobs, playerX, playerY):
-			if self.attack_count[mobs] <= self.attack_duration[mobs]:
-				self.attacking[mobs] = True
-				self.attack_count[mobs] += 1
-				self.weapon(mobs)
-		else:
-			self.weaponX,self.weaponY,self.weaponW,self.weaponH = [-10]*MOB_NUMBER,[-10]*MOB_NUMBER,[TILESIZE]*MOB_NUMBER,[TILESIZE/4]*MOB_NUMBER # resetting sword credentials
-			self.attack_count[mobs] = 0
-			self.attacking[mobs] = False
+		pass
 
-	def weapon(self, mobs):
-		weapon = ai.weapon(self.x[mobs], self.y[mobs], self.width, self.height, mobs)
-		self.weaponX[mobs] = weapon
-		self.weaponY[mobs] = self.y[mobs] + self.height/4
-
-	def healthBar(self, window, camX, camY, mobs):
-		pygame.draw.rect(window, RED, (self.x[mobs] - camX, self.y[mobs] - 10  - camY, self.health[mobs], 2))
-
-	def render(self, window, camX, camY, mobs):
-		if ai.velocity_x[mobs] < 0:
-			window.blit(self.mobSurface, (self.x[mobs] - camX, self.y[mobs] - camY), MOB_ONE_LEFT)
-		elif ai.velocity_x[mobs] > 0:
-			window.blit(self.mobSurface, (self.x[mobs] - camX, self.y[mobs] - camY), MOB_ONE_RIGHT)
-		else:
-			window.blit(self.mobSurface, (self.x[mobs] - camX, self.y[mobs] - camY), MOB_ONE_LEFT)
-		""" -- Draw sword -- """
-		pygame.draw.rect(window, RED, (self.weaponX[mobs] - camX, self.weaponY[mobs] - camY, self.weaponW[mobs], self.weaponH[mobs]), 1)
+	def render(self, window, camX, camY, levelID):
+		for mobs in range (MOB_NUMBER):
+			if self.z[mobs] == levelID:
+				if (self.x[mobs] > camX-(WINDOW_WIDTH/2) and self.y[mobs] > camY - (TILESIZE*2) and self.x[mobs] < camX + (WINDOW_WIDTH + (WINDOW_WIDTH/2)) and self.y[mobs] < camY + WINDOW_HEIGHT + (TILESIZE*2)):
+					if self.alive[mobs]:
+						if ai.velocity_x[mobs] < 0:
+							window.blit(self.mobSurface, (self.x[mobs] - camX, self.y[mobs] - camY), MOB_ONE_LEFT)
+						elif ai.velocity_x[mobs] > 0:
+							window.blit(self.mobSurface, (self.x[mobs] - camX, self.y[mobs] - camY), MOB_ONE_RIGHT)
+						else:
+							window.blit(self.mobSurface, (self.x[mobs] - camX, self.y[mobs] - camY), MOB_ONE_LEFT)
+						""" -- Draw sword -- """
+						pygame.draw.rect(window, RED, (self.weaponX[mobs] - camX, self.weaponY[mobs] - camY, self.weaponW[mobs], self.weaponH[mobs]), 1)
+						""" -- Draw healthBar -- """
+						pygame.draw.rect(window, RED, (self.x[mobs] - camX, self.y[mobs] - 10  - camY, self.health[mobs], 2))
 
 	def update(self, window, camX, camY, playerX, playerY, swordX, swordY, swordW, swordH, damage, shieldHit, playerAttack, playerBlock, levelID, tileMap):
 		for mobs in range (MOB_NUMBER):
@@ -89,5 +71,3 @@ class Mobs(object):
 						self.movement(window, camX, camY, mobs, playerX, playerY, shieldHit, tileMap)
 						self.attack(window, mobs, playerX, playerY, camX, camY)
 						self.hitDetect(mobs, swordX, swordY, swordW, swordH, playerAttack, damage)
-						self.healthBar(window, camX, camY, mobs)
-						self.render(window, camX, camY, mobs)

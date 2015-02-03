@@ -51,7 +51,7 @@ class Hud(object):
 			window.blit(textGameOver2, (WINDOW_WIDTH/2- TILESIZE*3, WINDOW_HEIGHT/2 + TILESIZE))
 
 
-	def render(self, window, state):
+	def render(self, window, FPS, clock, state):
 		if state == RUNNING or state == PAUSE:
 			""" -- Draw black background for the hub -- """
 			pygame.draw.rect(window, BLACK, (0, 0, WINDOW_WIDTH, 32))
@@ -60,8 +60,4 @@ class Hud(object):
 				pygame.draw.rect(window, RED, (self.lifeX, self.lifeY, self.healthWidth, self.height))
 			if self.staminaWidth > 0:
 				pygame.draw.rect(window, GREEN, (self.staminaX, self.staminaY, self.staminaWidth, self.height))
-
-
-	def update(self, window, FPS, clock, state):
-		self.render(window, state)
 		self.text(window, FPS, clock, state)

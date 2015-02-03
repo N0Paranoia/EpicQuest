@@ -36,11 +36,12 @@ class Npc(object):
 		else:
 			return ""
 
-	def render(self, npc, window, camX, camY):
-		window.blit(self.npcSurface, (self.x[npc] - camX, self.y[npc] - camY), OLD_MAN)
-		
-	def update(self, window, camX, camY, playerX, playerY, levelID):
+	def render(self, window, camX, camY, levelID):
 		for npc in range (NPC_NUMBER):
 			if self.z[npc] == levelID:
-				self.render(npc, window, camX, camY)
+				window.blit(self.npcSurface, (self.x[npc] - camX, self.y[npc] - camY), OLD_MAN)
+		
+	def update(self, window, playerX, playerY, levelID):
+		for npc in range (NPC_NUMBER):
+			if self.z[npc] == levelID:
 				self.interact(npc, window, playerX, playerY)

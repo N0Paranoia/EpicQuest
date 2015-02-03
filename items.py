@@ -31,14 +31,14 @@ class Items(object):
 		if self.collision.VarCollision(self.shieldX, self.shieldY, self.shieldW, self.shieldH, playerX, playerY, PLAYER_WIDTH, PLAYER_HEIGHT):
 			self.pickedUpShield = True
 
-	def render(self, window, camX, camY):
-		if not self.pickedUpSword:
-			window.blit(self.itemSurface, (self.swordX - camX, self.swordY - camY), SWORD)
-		if not self.pickedUpShield:
-			window.blit(self.itemSurface, (self.shieldX - camX, self.shieldY - camY), SHIELD)
+	def render(self, window, camX, camY, levelID):
+		if levelID == 2:
+			if not self.pickedUpSword:
+				window.blit(self.itemSurface, (self.swordX - camX, self.swordY - camY), SWORD)
+			if not self.pickedUpShield:
+				window.blit(self.itemSurface, (self.shieldX - camX, self.shieldY - camY), SHIELD)
 
-	def update(self, window, camX, camY, playerX, playerY, levelID):
+	def update(self, window, playerX, playerY, levelID):
 		if levelID == 2:
 			self.interact(playerX, playerY)
 			self.interact(playerX, playerY)
-			self.render(window, camX, camY)

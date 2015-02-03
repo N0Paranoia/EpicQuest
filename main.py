@@ -59,7 +59,7 @@ class Main(object):
 							self.player = Player(PLAYER_START_X, PLAYER_START_Y, 1)
 							self.npc = Npc()
 							self.items = Items()
-							selfdddddddd.mobs = Mobs()
+							self.mobs = Mobs()
 							self.world = World()
 							self.levelStates = LevelStates()
 							self.gamestate.mainMenu = True
@@ -126,36 +126,50 @@ class Main(object):
 		""" -- Set FPS -- """
 		self.clock.tick(FPS)
 
-		""" -- Set level -- """
+		""" -- Initialize And Change Level -- """
 		self.levelID = self.levelStates.changeState(self.player.z)
 		self.level = Levels(self.levelID)
 
-		""" -- Initialize world -- """
-		self.world.update(self.window, self.camera.x, self.camera.y, self.level.level)
-
-		""" -- Handle player events -- """
+		""" -- Update Player Class -- """
 		self.player.update(self.event, self.window, self.camera.x, self.camera.y, GRAVITY, self.mobs.x, self.mobs.y, self.mobs.width, self.mobs.height, self.mobs.alive, self.mobs.weaponX, self.mobs.weaponY, self.mobs.weaponW, self.mobs.weaponH,self. mobs.attacking, self.level.level, self.items.pickedUpSword, self.items.pickedUpShield)
 
-		""" -- Handle NPC Events -- """
-		self.npc.update(self.window, self.camera.x, self.camera.y, self.player.x, self.player.y, self.levelID)
-
-		""" -- Handle Item Events -- """
-		self.items.update(self.window, self.camera.x, self.camera.y, self.player.x, self.player.y, self.levelID)
-
-		""" -- Handle AI events -- """
+		""" -- Update Ai Class -- """
 		self.mobs.update(self.window, self.camera.x, self.camera.y, self.player.x, self.player.y, self.player.swordX, self.player.swordY, self.player.swordW, self.player.swordH, self.player.damage, self.player.shieldHit, self.player.ATTACK, self.player.BLOCK, self.levelID, self.level.level)
 
-		""" -- Camera -- """
+		""" -- Update Npc Class -- """
+		self.npc.update(self.window, self.player.x, self.player.y, self.levelID)
+
+		""" -- Update Item Class -- """
+		self.items.update(self.window, self.player.x, self.player.y, self.levelID)
+
+		""" -- Update Camera and Center Cam Class -- """
 		self.centerCam.update(self.player.x, self.player.y, self.camera.x, self.camera.y,self. window)
 		self.camera = Camera(self.centerCam.x, self.centerCam.y)
 		self.camera.update(self.centerCam.x, self.centerCam.y, self.window)
 
-		""" -- HUD -- """
+		""" -- Update HUD Class -- """
 		self.hud = Hud(self.player.health, self.player.stamina, self.player.lives)
-		self.hud.update(self.window, FPS, self.clock, RUNNING)
+
 
 	def render(self):
+
+		""" -- Render World -- """
+		self.world.render(self.window, self.camera.x, self.camera.y, self.level.level)
+
+		""" -- Render Mobs -- """
+		self.mobs.render(self.window, self.camera.x, self.camera.y, self.levelID)
+
+		""" -- Render NPC's -- """
+		self.npc.render(self.window, self.camera.x, self.camera.y, self.levelID)
+
+		""" -- Render Player -- """
 		self.player.render(self.window, self.camera.x, self.camera.y)
+
+		""" -- Render Items -- """
+		self.items.render(self.window, self.camera.x, self.camera.y, self.levelID)
+
+		""" -- Render HUD -- """
+		self.hud.render(self.window, FPS, self.clock, RUNNING)
 
 	def debug(self):
 		pass
