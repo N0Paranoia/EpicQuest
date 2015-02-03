@@ -34,8 +34,9 @@ class Ai(object):
 			return True
 		else:
 			return False
+		
 
-	def weapon(self, x, y, width, height, speed, numberOfMobs, playerX, playerY):
+	def weapon(self, x, y, width, height, numberOfMobs):
 		if self.LEFT[numberOfMobs]:
 			return x - width
 		elif self.RIGHT[numberOfMobs]:

@@ -59,7 +59,7 @@ class Main(object):
 							self.player = Player(PLAYER_START_X, PLAYER_START_Y, 1)
 							self.npc = Npc()
 							self.items = Items()
-							self.mobs = Mobs()
+							selfdddddddd.mobs = Mobs()
 							self.world = World()
 							self.levelStates = LevelStates()
 							self.gamestate.mainMenu = True
@@ -158,7 +158,7 @@ class Main(object):
 		self.player.render(self.window, self.camera.x, self.camera.y)
 
 	def debug(self):
-		print self.player.JUMP
+		pass
 
 Main()
 

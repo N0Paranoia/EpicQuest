@@ -100,6 +100,7 @@ class Player(object):
 			self.BLOCK = True
 		else:
 			self.BLOCK = False
+
 		if keys[K_SPACE]:
 			if self.is_falling == False:
 				self.JUMP = True

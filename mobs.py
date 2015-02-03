@@ -21,7 +21,7 @@ class Mobs(object):
 		self.weaponX,self.weaponY,self.weaponW,self.weaponH = [-10]*MOB_NUMBER,[-10]*MOB_NUMBER,[TILESIZE]*MOB_NUMBER,[TILESIZE/4]*MOB_NUMBER
 		self.attacking = [False]*MOB_NUMBER
 		self.attack_count = [0]*MOB_NUMBER
-		self.attack_duration = [8]*MOB_NUMBER
+		self.attack_duration = [20]*MOB_NUMBER
 		self.idle = 0
 		self.left = 1
 		self.right = 2
@@ -57,15 +57,14 @@ class Mobs(object):
 			if self.attack_count[mobs] <= self.attack_duration[mobs]:
 				self.attacking[mobs] = True
 				self.attack_count[mobs] += 1
-				self.weapon(mobs, playerX, playerY, camX, camY)
-				pygame.draw.rect(window, RED, (self.weaponX[mobs] - camX, self.weaponY[mobs] - camY, self.weaponW[mobs], self.weaponH[mobs]), 1)
+				self.weapon(mobs)
 		else:
-			self.weapon(mobs, playerX, playerY, camX, camY)
+			self.weaponX,self.weaponY,self.weaponW,self.weaponH = [-10]*MOB_NUMBER,[-10]*MOB_NUMBER,[TILESIZE]*MOB_NUMBER,[TILESIZE/4]*MOB_NUMBER # resetting sword credentials
 			self.attack_count[mobs] = 0
 			self.attacking[mobs] = False
 
-	def weapon(self, mobs, playerX, playerY, camX, camY):
-		weapon = ai.weapon(self.x[mobs], self.y[mobs], self.width, self.height, self.speed, mobs, playerX, playerY)
+	def weapon(self, mobs):
+		weapon = ai.weapon(self.x[mobs], self.y[mobs], self.width, self.height, mobs)
 		self.weaponX[mobs] = weapon
 		self.weaponY[mobs] = self.y[mobs] + self.height/4
 
@@ -79,6 +78,8 @@ class Mobs(object):
 			window.blit(self.mobSurface, (self.x[mobs] - camX, self.y[mobs] - camY), MOB_ONE_RIGHT)
 		else:
 			window.blit(self.mobSurface, (self.x[mobs] - camX, self.y[mobs] - camY), MOB_ONE_LEFT)
+		""" -- Draw sword -- """
+		pygame.draw.rect(window, RED, (self.weaponX[mobs] - camX, self.weaponY[mobs] - camY, self.weaponW[mobs], self.weaponH[mobs]), 1)
 
 	def update(self, window, camX, camY, playerX, playerY, swordX, swordY, swordW, swordH, damage, shieldHit, playerAttack, playerBlock, levelID, tileMap):
 		for mobs in range (MOB_NUMBER):
