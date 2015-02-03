@@ -424,7 +424,6 @@ class Player(object):
 		pygame.draw.rect(window, BLUE, (self.shieldX - camX, self.shieldY - camY, self.shieldW, self.shieldH), 1)
 
 	def update (self, event, window, camX, camY, gravity, mobsX, mobsY, mobsW, mobsH, mobAlive, mobsWeaponX, mobsWeaponY, mobsWeaponW, mobsWeaponH, mobsAttacking, tileMap, pickedUpSword, pickedUpShield):
-		# self.input(event)
 		self.falling(gravity, tileMap)
 		self.jump()
 		self.climbing(tileMap)

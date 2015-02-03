@@ -41,6 +41,13 @@ class Hud(object):
 		elif state == PAUSE:
 			textPause = font14.render("PAUSE", 1, (GRAY))
 
+			textLifes =  font.render(str(self.lives), 1, (WHITE))
+			textControl = font.render("use [ASWD] to move, [K] to block, [L] to attack and [P] to pause", 1, (WHITE))
+			textFPS = font.render("FPS = " + str(clock.get_fps()), 1, (WHITE))
+
+			window.blit(textControl, (WINDOW_WIDTH - (11*TILESIZE), 1))
+			window.blit(textFPS, (WINDOW_WIDTH - (4*TILESIZE), 14))
+			window.blit(textLifes, (16,6))
 			window.blit(textPause, (WINDOW_WIDTH/2- TILESIZE, WINDOW_HEIGHT/2))
 
 		elif state == GAME_OVER:
