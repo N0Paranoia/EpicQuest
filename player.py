@@ -61,6 +61,7 @@ class Player(object):
 
 		self.damage = 5
 
+
 		self.LEFT = False
 		self.RIGHT = False
 		self.UP = False
@@ -71,7 +72,7 @@ class Player(object):
 
 		self.collision = Collision()
 
-	def input(self, event):
+	def controls(self, tileMap):
 		keys = pygame.key.get_pressed()
 
 		if keys[K_a]:
@@ -109,6 +110,7 @@ class Player(object):
 		else:
 			self.JUMP = False
 
+		
 	def falling(self, gravity, tileMap):
 
 		self.is_falling = True
@@ -320,7 +322,7 @@ class Player(object):
 		self.x += self.velocity_x
 		self.y += self.velocity_y
 
-	def move(self, gravity, tileMap):
+	def move(self, tileMap):
 		if self.is_attacking == False:
 
 			if self.LEFT:
@@ -428,7 +430,7 @@ class Player(object):
 		self.jump()
 		self.climbing(tileMap)
 		self.gotroughdoor(tileMap)
-		self.move(gravity, tileMap)
+		self.move(tileMap)
 		self.attack(mobsX, mobsY, pickedUpSword)
 		self.block(mobsX, mobsY, pickedUpShield)
 		self.playerStamina()

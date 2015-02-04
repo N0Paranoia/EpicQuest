@@ -122,8 +122,11 @@ class Main(object):
 						self.gamestate.running = True
 					elif self.gamestate.gameOver:
 						self.initialize(self.gamestate.gameOver)
-
-		self.player.input(self.event)
+		
+		
+		self.levelID = self.levelStates.changeState(self.player.z)
+		self.level = Levels(self.levelID)				
+		self.player.controls(self.level.level)
 
 	def update(self, state):
 
@@ -131,7 +134,6 @@ class Main(object):
 		self.clock.tick(FPS)
 
 		if state == self.gamestate.running:
-
 			""" -- Initialize And Change Level -- """
 			self.levelID = self.levelStates.changeState(self.player.z)
 			self.level = Levels(self.levelID)
@@ -187,6 +189,7 @@ class Main(object):
 			self.hud.render(self.window, FPS, self.clock, PAUSE)
 
 	def debug(self):
+		# print " LEFT =",self.player.LEFT, " RIGHT =",self.player.RIGHT, " UP =",self.player.UP, " DOWN =",self.player.DOWN
 		pass
 
 Main()
