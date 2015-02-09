@@ -17,6 +17,8 @@ class Mobs(object):
 		self.speed = 1
 		self.canGetHit = [True]*MOB_NUMBER
 		self.health = [self.width]*MOB_NUMBER
+		self.staminaMax = self.width
+		self.stamina = [self.width]*MOB_NUMBER
 		self.alive = [True]*MOB_NUMBER
 		self.weaponX,self.weaponY,self.weaponW,self.weaponH = [-10]*MOB_NUMBER,[-10]*MOB_NUMBER,[TILESIZE]*MOB_NUMBER,[TILESIZE/4]*MOB_NUMBER
 		self.attacking = [False]*MOB_NUMBER
@@ -25,6 +27,7 @@ class Mobs(object):
 		self.idle = 0
 		self.left = 1
 		self.right = 2
+		self.blocking = [False]+MOB_NUMBER
 
 		self.mobSheet = pygame.image.load(MOB_PATH).convert_alpha()
 		self.mobSurface = pygame.Surface((LEVEL_WIDTH*TILESIZE,LEVEL_HEIGHT*TILESIZE), pygame.SRCALPHA)
@@ -39,13 +42,28 @@ class Mobs(object):
 
 	def hitDetect(self, mobs, swordX, swordY, swordW, swordH, playerAttack, damage):
 		if self.canGetHit[mobs]:
-			if ai.getHit(self.x[mobs], self.y[mobs], self.width, self.height, swordX, swordY, swordW, swordH, playerAttack):
-				self.health[mobs] -= damage*0.48
-			if self.health[mobs] <= 0:
-				self.alive[mobs] = False
+			if self.blocking == False:
+				if ai.getHit(self.x[mobs], self.y[mobs], self.width, self.height, swordX, swordY, swordW, swordH, playerAttack):
+					self.health[mobs] -= damage*0.48
+				if self.health[mobs] <= 0:
+					self.alive[mobs] = False
+	
+	def mobStamina(self, mobs):
+		if self.stamina[mobs] < self.staminaMax:
+			self.stamina[mobs] += 1
 
-	def attack(self, window, mobs, playerX, playerY, camX, camY):
-		pass
+	def attack(self, mobs, playerX, playerY):
+		if self.x[mobs] - TILESIZE < playerX + TILESIZE and self.x[mobs] + TILESIZE > playerX - TILESIZE and self.y[mobs] - TILESIZE < playerY + 2*TILESIZE and self.y[mobs] + 2*TILESIZE > playerY - TILESIZE:
+			print "attack"
+
+	def block(self, mobs, swordX, swordY):
+		if self.stamina[mobs] > 48*0.48:
+			if self.x[mobs] - TILESIZE < swordX + TILESIZE and self.x[mobs] + TILESIZE > swordX - TILESIZE and self.y[mobs] - TILESIZE < swordY + 2*TILESIZE and self.y[mobs] + 2*TILESIZE > swordY - TILESIZE:
+				self.stamina[mobs] -= 50*0.48
+				self.blocking[mobs] = True
+				print "block"
+			else:
+				self.blocking[mobs] = False
 
 	def render(self, window, camX, camY, levelID):
 		for mobs in range (MOB_NUMBER):
@@ -61,7 +79,9 @@ class Mobs(object):
 						""" -- Draw sword -- """
 						pygame.draw.rect(window, RED, (self.weaponX[mobs] - camX, self.weaponY[mobs] - camY, self.weaponW[mobs], self.weaponH[mobs]), 1)
 						""" -- Draw healthBar -- """
-						pygame.draw.rect(window, RED, (self.x[mobs] - camX, self.y[mobs] - 10  - camY, self.health[mobs], 2))
+						pygame.draw.rect(window, RED, (self.x[mobs] - camX, self.y[mobs] - 10  - camY, self.health[mobs], 4))
+						""" -- Draw staminaBar "-- """
+						pygame.draw.rect(window, GREEN, (self.x[mobs] - camX, self.y[mobs] - 6  - camY, self.stamina[mobs], 4))
 
 	def update(self, window, camX, camY, playerX, playerY, swordX, swordY, swordW, swordH, damage, shieldHit, playerAttack, playerBlock, levelID, tileMap):
 		for mobs in range (MOB_NUMBER):
@@ -69,5 +89,7 @@ class Mobs(object):
 				if (self.x[mobs] > camX-(WINDOW_WIDTH/2) and self.y[mobs] > camY - (TILESIZE*2) and self.x[mobs] < camX + (WINDOW_WIDTH + (WINDOW_WIDTH/2)) and self.y[mobs] < camY + WINDOW_HEIGHT + (TILESIZE*2)):
 					if self.alive[mobs]:
 						self.movement(window, camX, camY, mobs, playerX, playerY, shieldHit, tileMap)
-						self.attack(window, mobs, playerX, playerY, camX, camY)
 						self.hitDetect(mobs, swordX, swordY, swordW, swordH, playerAttack, damage)
+						self.mobStamina(mobs)
+						self.attack(mobs, playerX, playerY)
+						self.block(mobs, swordX, swordY)

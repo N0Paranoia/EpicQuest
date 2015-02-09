@@ -61,7 +61,6 @@ class Player(object):
 
 		self.damage = 5
 
-
 		self.LEFT = False
 		self.RIGHT = False
 		self.UP = False
