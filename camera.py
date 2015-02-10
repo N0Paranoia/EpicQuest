@@ -41,9 +41,5 @@ class CenterCamera(object):
 		if self.y + self.height < y + PLAYER_HEIGHT:
 			self.y = y + PLAYER_HEIGHT - self.height
 
-	def render(self, window, camX, camY):
-		pygame.draw.rect(window, BLACK, (self.x - camX, self.y - camY, self.width, self.height), 1)
-
 	def update(self, playerX, playerY, camX, camY, window):
 		self.follow(playerX, playerY)
-		self.render(window, camX, camY)

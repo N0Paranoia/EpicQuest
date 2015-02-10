@@ -173,13 +173,16 @@ class Main(object):
 			self.mobs.render(self.window, self.camera.x, self.camera.y, self.levelID)
 
 			""" -- Render NPC's -- """
-			self.npc.render(self.window, self.camera.x, self.camera.y, self.levelID)
+			self.npc.render(self.window, self.player.x, self.player.y, self.camera.x, self.camera.y, self.levelID)
 
 			""" -- Render Player -- """
 			self.player.render(self.window, self.camera.x, self.camera.y)
 
 			""" -- Render Items -- """
 			self.items.render(self.window, self.camera.x, self.camera.y, self.levelID)
+
+			""" -- Render Text -- """
+			self.npc.renderText(self.window)
 
 			""" -- Render HUD -- """
 			self.hud.render(self.window, FPS, self.clock, RUNNING)
@@ -189,8 +192,7 @@ class Main(object):
 			self.hud.render(self.window, FPS, self.clock, PAUSE)
 
 	def debug(self):
-		# print " LEFT =",self.player.LEFT, " RIGHT =",self.player.RIGHT, " UP =",self.player.UP, " DOWN =",self.player.DOWN
-		pass
+		print "attacking =",self.mobs.attacking, "blockking =",self.mobs.blocking
 
 Main()
 

@@ -18,7 +18,7 @@ class Npc(object):
 		self.npcSurface.blit(self.npcSheet,(0,0))
 
 		
-	def interact(self, npc, window,  playerX, playerY):
+	def triggerDialog(self, npc, window,  playerX, playerY):
 		font = pygame.font.Font(FONT_PATH, 16)
 		textControl = font.render(self.text, 1, (BLACK))
 		textRect = textControl.get_rect().height
@@ -36,12 +36,17 @@ class Npc(object):
 		else:
 			return ""
 
-	def render(self, window, camX, camY, levelID):
+	def render(self, window, playerX, playerY, camX, camY, levelID):
 		for npc in range (NPC_NUMBER):
 			if self.z[npc] == levelID:
 				window.blit(self.npcSurface, (self.x[npc] - camX, self.y[npc] - camY), OLD_MAN)
+				self.triggerDialog(npc, window, playerX, playerY)
+
+	def renderText(sel, window):
+		pass
+
 		
 	def update(self, window, playerX, playerY, levelID):
 		for npc in range (NPC_NUMBER):
 			if self.z[npc] == levelID:
-				self.interact(npc, window, playerX, playerY)
+				pass

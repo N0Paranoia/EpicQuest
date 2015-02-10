@@ -27,7 +27,12 @@ class Mobs(object):
 		self.idle = 0
 		self.left = 1
 		self.right = 2
-		self.blocking = [False]+MOB_NUMBER
+		self.blocking = [False]*MOB_NUMBER
+		
+		self.attack_count = [0]*MOB_NUMBER
+		self.attack_duration = [8]*MOB_NUMBER
+		self.block_count = [0]*MOB_NUMBER
+		self.block_duration = [8]*MOB_NUMBER
 
 		self.mobSheet = pygame.image.load(MOB_PATH).convert_alpha()
 		self.mobSurface = pygame.Surface((LEVEL_WIDTH*TILESIZE,LEVEL_HEIGHT*TILESIZE), pygame.SRCALPHA)
@@ -42,7 +47,7 @@ class Mobs(object):
 
 	def hitDetect(self, mobs, swordX, swordY, swordW, swordH, playerAttack, damage):
 		if self.canGetHit[mobs]:
-			if self.blocking == False:
+			if self.blocking[mobs] == False:
 				if ai.getHit(self.x[mobs], self.y[mobs], self.width, self.height, swordX, swordY, swordW, swordH, playerAttack):
 					self.health[mobs] -= damage*0.48
 				if self.health[mobs] <= 0:
@@ -50,20 +55,35 @@ class Mobs(object):
 	
 	def mobStamina(self, mobs):
 		if self.stamina[mobs] < self.staminaMax:
-			self.stamina[mobs] += 1
+			self.stamina[mobs] += 0.5
 
 	def attack(self, mobs, playerX, playerY):
 		if self.x[mobs] - TILESIZE < playerX + TILESIZE and self.x[mobs] + TILESIZE > playerX - TILESIZE and self.y[mobs] - TILESIZE < playerY + 2*TILESIZE and self.y[mobs] + 2*TILESIZE > playerY - TILESIZE:
-			print "attack"
+			if self.stamina[mobs] > self.staminaMax/2:
+				if self.attack_count[mobs] <= self.attack_duration[mobs]:
+					self.stamina[mobs] -= 10
+					self.attack_count[mobs] += 1
+					self.attacking[mobs] = True
+				else:
+					self.attack_count[mobs] = 0
+					self.attacking[mobs] = False;
 
 	def block(self, mobs, swordX, swordY):
 		if self.stamina[mobs] > 48*0.48:
 			if self.x[mobs] - TILESIZE < swordX + TILESIZE and self.x[mobs] + TILESIZE > swordX - TILESIZE and self.y[mobs] - TILESIZE < swordY + 2*TILESIZE and self.y[mobs] + 2*TILESIZE > swordY - TILESIZE:
-				self.stamina[mobs] -= 50*0.48
-				self.blocking[mobs] = True
-				print "block"
+				if self.block_count[mobs] <= self.block_duration[mobs]:
+					self.stamina[mobs] -= 10*0.48
+					self.blocking[mobs] = True
+					self.block_count[mobs] += 1
+				else:
+					self.block_count[mobs] = 0
+					self.blocking[mobs] = False
 			else:
+				self.block_count[mobs] = 0
 				self.blocking[mobs] = False
+		else:
+			self.block_count[mobs] = 0
+			self.blocking[mobs] = False
 
 	def render(self, window, camX, camY, levelID):
 		for mobs in range (MOB_NUMBER):
