@@ -192,7 +192,7 @@ class Main(object):
 			self.hud.render(self.window, FPS, self.clock, PAUSE)
 
 	def debug(self):
-		print "attacking =",self.mobs.attacking, "blockking =",self.mobs.blocking
+		print "attacking =",self.mobs.attacking, "blocking =",self.mobs.blocking
 
 Main()
 
