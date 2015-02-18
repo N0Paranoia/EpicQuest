@@ -58,15 +58,20 @@ class Mobs(object):
 			self.stamina[mobs] += 0.5
 
 	def attack(self, mobs, playerX, playerY):
-		if self.x[mobs] - TILESIZE < playerX + TILESIZE and self.x[mobs] + TILESIZE > playerX - TILESIZE and self.y[mobs] - TILESIZE < playerY + 2*TILESIZE and self.y[mobs] + 2*TILESIZE > playerY - TILESIZE:
-			if self.stamina[mobs] > self.staminaMax/2:
-				if self.attack_count[mobs] <= self.attack_duration[mobs]:
-					self.stamina[mobs] -= 10
-					self.attack_count[mobs] += 1
-					self.attacking[mobs] = True
-				else:
-					self.attack_count[mobs] = 0
-					self.attacking[mobs] = False;
+		if self.blocking[mobs] == False:
+			if self.x[mobs] - TILESIZE < playerX + TILESIZE and self.x[mobs] + TILESIZE > playerX - TILESIZE and self.y[mobs] - TILESIZE < playerY + 2*TILESIZE and self.y[mobs] + 2*TILESIZE > playerY - TILESIZE:
+				if self.stamina[mobs] > self.staminaMax/2:
+					if self.attack_count[mobs] <= self.attack_duration[mobs]:
+						self.stamina[mobs] -= 10
+						self.attack_count[mobs] += 1
+						self.attacking[mobs] = True
+					else:
+						self.attack_count[mobs] = 0
+						self.attacking[mobs] = False;
+			else:
+				self.attack_count[mobs] = 0
+				self.attacking[mobs] = False;
+
 
 	def block(self, mobs, swordX, swordY):
 		if self.stamina[mobs] > 48*0.48:

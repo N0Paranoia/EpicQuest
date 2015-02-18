@@ -13,20 +13,18 @@ class Ai(object):
 		self.RIGHT = [False]*mobNumber
 		self.aggroRange = 4*TILESIZE
 
-		self.collision = Collision()
-
 	def falling(self, gravity, x, y, width, height, tileMap):
 
 		self.is_falling = True
 		y += gravity
-		if y < 0 or y + height > LEVEL_HEIGHT*TILESIZE or self.collision.TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, WALL, tileMap) == True or self.collision.TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, LADDER_TOP, tileMap) == True or self.collision.CloudCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, PLATFORM, tileMap) == True:
+		if y < 0 or y + height > LEVEL_HEIGHT*TILESIZE or Collision.TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, WALL, tileMap) == True or Collision.TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, LADDER_TOP, tileMap) == True or Collision.CloudCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, PLATFORM, tileMap) == True:
 			y -= gravity
 			self.is_falling = False
 		return y
 
 	def getHit(self, x, y, width, height, swordX, swordY, swordW, swordH, playerAttack):
 		if playerAttack == True:
-			if self.collision.VarCollision(x, y, width, height, swordX, swordY, swordW, swordH):
+			if Collision.VarCollision(x, y, width, height, swordX, swordY, swordW, swordH):
 				return True
 
 	def attack(self, x, y, width, height, speed, numberOfMobs, playerX, playerY):
@@ -48,7 +46,7 @@ class Ai(object):
 		x += self.velocity_x[numberOfMobs]
 
 		""" -- Ai collision -- """
-		if self.collision.TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, WALL, tileMap) or self.collision.TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_LEFT, tileMap) or self.collision.TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_RIGHT, tileMap):
+		if Collision.TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, WALL, tileMap) or Collision.TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_LEFT, tileMap) or Collision.TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, SLOPE_RIGHT, tileMap):
 			x -= self.velocity_x[numberOfMobs]
 
 			self.LEFT[numberOfMobs] = not self.LEFT[numberOfMobs]
@@ -71,6 +69,6 @@ class Ai(object):
 		return x
 
 		y += self.velocity_y
-		if y < 0 or y > MAPHEIGHT*TILESIZE - TILESIZE or self.collision.TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, WALL) == True:
+		if y < 0 or y > MAPHEIGHT*TILESIZE - TILESIZE or Collision.TileCollision(x, y, width, height, x+TILESIZE, y+TILESIZE, WALL) == True:
 			y -= self.velocity_y
 		return y

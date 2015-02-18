@@ -16,7 +16,6 @@ class Npc(object):
 		self.npcSheet = pygame.image.load(NPC_PATH).convert_alpha()
 		self.npcSurface = pygame.Surface((LEVEL_WIDTH*TILESIZE,LEVEL_HEIGHT*TILESIZE), pygame.SRCALPHA)
 		self.npcSurface.blit(self.npcSheet,(0,0))
-
 		
 	def triggerDialog(self, npc, window,  playerX, playerY):
 		font = pygame.font.Font(FONT_PATH, 16)
