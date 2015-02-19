@@ -12,6 +12,11 @@ class Ai(object):
 		self.LEFT = [False]*mobNumber
 		self.RIGHT = [False]*mobNumber
 		self.aggroRange = 4*TILESIZE
+		self.attack_count = [0]*mobNumber
+		self.attack_duration = [60]*mobNumber
+		self.attack_delay = [0]*mobNumber
+		self.block_count = [0]*MOB_NUMBER
+		self.block_duration = [8]*MOB_NUMBER
 
 	def falling(self, gravity, x, y, width, height, tileMap):
 
@@ -27,11 +32,19 @@ class Ai(object):
 			if Collision.VarCollision(x, y, width, height, swordX, swordY, swordW, swordH):
 				return True
 
-	def attack(self, x, y, width, height, speed, numberOfMobs, playerX, playerY):
-		if playerX > x - self.aggroRange and playerX < x and playerY > y - self.aggroRange and playerY	< y + self.aggroRange or  playerX < x + self.aggroRange and playerX > x and playerY > y - self.aggroRange and playerY	< y + self.aggroRange:
-			return True
-		else:
-			return False
+	def attack(self, x, y, width, height, numberOfMobs, playerX, playerY, tileMap, attackFreq):
+		if playerX > x - self.aggroRange and playerX < x and playerY > y - self.aggroRange and playerY	< y + self.aggroRange or  playerX < x + self.aggroRange and playerX > x and playerY > y - self.aggroRange and playerY < y + self.aggroRange:
+			if self.attack_count[numberOfMobs] <= self.attack_duration[numberOfMobs]:
+ 				self.attack_count[numberOfMobs] += 1 
+ 				return True
+ 			else:
+ 				self.attack_count[numberOfMobs] = 0
+ 				return False
+
+ 	def block(self):
+ 		# print "Block"
+ 		pass
+		
 		
 	def move(self, x, y, width, height, speed, numberOfMobs, playerX, playerY, shieldHit, tileMap):
 
