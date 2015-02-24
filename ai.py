@@ -13,8 +13,8 @@ class Ai(object):
 		self.RIGHT = [False]*mobNumber
 		self.aggroRange = 4*TILESIZE
 		self.attack_count = [0]*mobNumber
-		self.attack_duration = [60]*mobNumber
-		self.attack_delay = [0]*mobNumber
+		self.attack_duration = [30]*mobNumber
+		self.attack_delay = [160]*mobNumber
 		self.block_count = [0]*MOB_NUMBER
 		self.block_duration = [8]*MOB_NUMBER
 
@@ -32,17 +32,19 @@ class Ai(object):
 			if Collision.VarCollision(x, y, width, height, swordX, swordY, swordW, swordH):
 				return True
 
-	def attack(self, x, y, width, height, numberOfMobs, playerX, playerY, tileMap, attackFreq):
+	def attack(self, x, y, width, height, isBlocking, numberOfMobs, playerX, playerY, tileMap, attackFreq):
 		if playerX > x - self.aggroRange and playerX < x and playerY > y - self.aggroRange and playerY	< y + self.aggroRange or  playerX < x + self.aggroRange and playerX > x and playerY > y - self.aggroRange and playerY < y + self.aggroRange:
-			if self.attack_count[numberOfMobs] <= self.attack_duration[numberOfMobs]:
+			if self.attack_count[numberOfMobs] <= self.attack_duration[numberOfMobs] and isBlocking == False:
  				self.attack_count[numberOfMobs] += 1 
  				return True
+ 			elif self.attack_count[numberOfMobs] >= self.attack_duration[numberOfMobs] and self.attack_count[numberOfMobs] <= self.attack_delay[numberOfMobs]:
+ 				self.attack_count[numberOfMobs] += 1 
  			else:
- 				self.attack_count[numberOfMobs] = 0
- 				return False
+ 			 	self.attack_count[numberOfMobs] = 0
+ 			 	return False
 
  	def block(self):
- 		# print "Block"
+ 		print "Block"
  		pass
 		
 		

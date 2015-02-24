@@ -17,8 +17,12 @@ class Mobs(object):
 		self.speed = 1
 		self.canGetHit = [True]*MOB_NUMBER
 		self.health = [self.width]*MOB_NUMBER
+
 		self.staminaMax = self.width
 		self.stamina = [self.width]*MOB_NUMBER
+		self.staminaAttack = 1
+		self.staminaBlock = 1
+
 		self.alive = [True]*MOB_NUMBER
 		self.weaponX,self.weaponY,self.weaponW,self.weaponH = [-10]*MOB_NUMBER,[-10]*MOB_NUMBER,[TILESIZE]*MOB_NUMBER,[TILESIZE/4]*MOB_NUMBER
 		self.attacking = [False]*MOB_NUMBER
@@ -35,7 +39,8 @@ class Mobs(object):
 	def movement(self, window, camX, camY, mobs, playerX, playerY, shieldHit, tileMap):
 		# fall = ai.falling(GRAVITY, self.x[mobs], self.y[mobs], self.width, self.height, tileMap)
 		move = ai.move(self.x[mobs], self.y[mobs], self.width, self.height, self.speed, mobs, playerX, playerY, shieldHit, tileMap)
-		self.x[mobs] = move
+		if self.attacking[mobs] == False:
+			self.x[mobs] = move
 		# self.y[mobs] = fall
 
 	def hitDetect(self, mobs, swordX, swordY, swordW, swordH, playerAttack, damage):
@@ -49,11 +54,14 @@ class Mobs(object):
 	def mobStamina(self, mobs):
 		if self.stamina[mobs] < self.staminaMax:
 			self.stamina[mobs] += 0.5
+		if self.stamina[mobs] < 0:
+			self.stamina[mobs] = 0
 
 	def attack(self, mobs, playerX, playerY, tileMap):
-		attack = ai.attack(self.x[mobs], self.y[mobs], self.width, self.height, mobs, playerX, playerY, tileMap, self.attackFreq)
+		attack = ai.attack(self.x[mobs], self.y[mobs], self.width, self.height, self.blocking[mobs], mobs, playerX, playerY, tileMap, self.attackFreq)
 		if attack:
-			# print "True"
+			self.attacking[mobs] = True
+			self.stamina[mobs] -= self.staminaAttack
 			if self.left[mobs]:
 				self.weaponX[mobs] = self.x[mobs]-self.width
 				self.weaponY[mobs] = self.y[mobs]+TILESIZE
@@ -61,7 +69,7 @@ class Mobs(object):
 				self.weaponX[mobs] = self.x[mobs]+self.width
 				self.weaponY[mobs] = self.y[mobs]+TILESIZE
 		else:
-			# print "False"
+			self.attacking[mobs] = False
 			self.weaponX[mobs] = -10
 			self.weaponY[mobs] = -10
 
