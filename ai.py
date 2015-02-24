@@ -47,7 +47,6 @@ class Ai(object):
  		print "Block"
  		pass
 		
-		
 	def move(self, x, y, width, height, speed, numberOfMobs, playerX, playerY, shieldHit, tileMap):
 
 		if self.LEFT[numberOfMobs]:
