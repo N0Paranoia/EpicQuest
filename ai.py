@@ -34,7 +34,7 @@ class Ai(object):
 
 	def attack(self, x, y, width, height, isBlocking, numberOfMobs, playerX, playerY, tileMap, attackFreq):
 		if playerX > x - self.aggroRange and playerX < x and playerY > y - self.aggroRange and playerY	< y + self.aggroRange or  playerX < x + self.aggroRange and playerX > x and playerY > y - self.aggroRange and playerY < y + self.aggroRange:
-			if self.attack_count[numberOfMobs] <= self.attack_duration[numberOfMobs] and isBlocking == False:
+			if self.attack_count[numberOfMobs] <= self.attack_duration[numberOfMobs]:# and isBlocking == False:
  				self.attack_count[numberOfMobs] += 1 
  				return True
  			elif self.attack_count[numberOfMobs] >= self.attack_duration[numberOfMobs] and self.attack_count[numberOfMobs] <= self.attack_delay[numberOfMobs]:
@@ -44,8 +44,8 @@ class Ai(object):
  			 	return False
 
  	def block(self):
- 		print "Block"
- 		pass
+ 		return True
+ 		
 		
 	def move(self, x, y, width, height, speed, numberOfMobs, playerX, playerY, shieldHit, tileMap):
 

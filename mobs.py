@@ -25,6 +25,7 @@ class Mobs(object):
 
 		self.alive = [True]*MOB_NUMBER
 		self.weaponX,self.weaponY,self.weaponW,self.weaponH = [-10]*MOB_NUMBER,[-10]*MOB_NUMBER,[TILESIZE]*MOB_NUMBER,[TILESIZE/4]*MOB_NUMBER
+		self.shieldX,self.shieldY,self.shieldW,self.shieldH = [-10]*MOB_NUMBER,[-10]*MOB_NUMBER,[TILESIZE/4]*MOB_NUMBER,[TILESIZE]*MOB_NUMBER
 		self.attacking = [False]*MOB_NUMBER
 		self.left = [False]*MOB_NUMBER
 		self.right = [False]*MOB_NUMBER
@@ -58,24 +59,38 @@ class Mobs(object):
 			self.stamina[mobs] = 0
 
 	def attack(self, mobs, playerX, playerY, tileMap):
-		attack = ai.attack(self.x[mobs], self.y[mobs], self.width, self.height, self.blocking[mobs], mobs, playerX, playerY, tileMap, self.attackFreq)
-		if attack:
-			self.attacking[mobs] = True
-			self.stamina[mobs] -= self.staminaAttack
-			if self.left[mobs]:
-				self.weaponX[mobs] = self.x[mobs]-self.width
-				self.weaponY[mobs] = self.y[mobs]+TILESIZE
-			if self.right[mobs]:
-				self.weaponX[mobs] = self.x[mobs]+self.width
-				self.weaponY[mobs] = self.y[mobs]+TILESIZE
-		else:
-			self.attacking[mobs] = False
-			self.weaponX[mobs] = -10
-			self.weaponY[mobs] = -10
+		if self.stamina[mobs] > self.staminaMax/2:
+			attack = ai.attack(self.x[mobs], self.y[mobs], self.width, self.height, self.blocking[mobs], mobs, playerX, playerY, tileMap, self.attackFreq)
+			if attack:
+				self.attacking[mobs] = True
+				self.stamina[mobs] -= self.staminaAttack
+				if self.left[mobs]:
+					self.weaponX[mobs] = self.x[mobs]-self.width
+					self.weaponY[mobs] = self.y[mobs]+TILESIZE
+				if self.right[mobs]:
+					self.weaponX[mobs] = self.x[mobs]+self.width
+					self.weaponY[mobs] = self.y[mobs]+TILESIZE
+			else:
+				self.attacking[mobs] = False
+				self.weaponX[mobs] = -10
+				self.weaponY[mobs] = -10
 
 	def block(self, mobs, swordX, swordY):
 		if self.stamina[mobs] > self.staminaMax/2:
 			block = ai.block()
+			if block:
+				self.blocking[mobs] = True
+				if self.left[mobs]:
+					self.shieldX[mobs] = self.x[mobs]
+					self.shieldY[mobs] = self.y[mobs] + self.height/4
+				if self.right[mobs]:
+					self.shieldX[mobs] = self.x[mobs] + (self.width - self.shieldW[mobs])
+					self.shieldY[mobs] = self.y[mobs] + self.height/4
+			else:
+				self.blocking[mobs] = False
+				self.shieldX[mobs] = -10
+				self.shieldY[mobs] = -10
+
 
 	def render(self, window, camX, camY, levelID):
 		for mobs in range (MOB_NUMBER):
@@ -94,6 +109,8 @@ class Mobs(object):
 							window.blit(self.mobSurface, (self.x[mobs] - camX, self.y[mobs] - camY), MOB_ONE_LEFT)
 						""" -- Draw sword -- """
 						pygame.draw.rect(window, RED, (self.weaponX[mobs] - camX, self.weaponY[mobs] - camY, self.weaponW[mobs], self.weaponH[mobs]), 1)
+						""" -- Draw shield -- """
+						pygame.draw.rect(window, BLUE, (self.shieldX[mobs] - camX, self.shieldY[mobs] - camY, self.shieldW[mobs], self.shieldH[mobs]), 1)
 						""" -- Draw healthBar -- """
 						pygame.draw.rect(window, RED, (self.x[mobs] - camX, self.y[mobs] - 10  - camY, self.health[mobs], 4))
 						""" -- Draw staminaBar "-- """
